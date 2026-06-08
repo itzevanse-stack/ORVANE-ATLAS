@@ -1,0 +1,1049 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Orvane Atlas — Admin</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
+:root{
+  --black:#000;--white:#fff;--gold:#C4973A;--gold2:#E8C97A;
+  --bg:#0A0A0A;--panel:#111;--panel2:#161616;
+  --border:#222;--text:#E8E4DF;--text2:#666;--text3:#333;
+  --green2:#52B788;--red2:#F87171;
+  --serif:'Cormorant Garamond',Georgia,serif;
+  --sans:'Inter',system-ui,sans-serif;
+}
+html,body{height:100%;overflow:hidden;}
+body{background:var(--bg);color:var(--text);font-family:var(--sans);font-weight:300;font-size:14px;-webkit-font-smoothing:antialiased;display:flex;flex-direction:column;}
+
+/* LOGIN */
+.login-screen{
+  position:fixed;inset:0;
+  background:var(--black);
+  display:flex;align-items:center;justify-content:center;
+  z-index:9999;
+}
+.login-box{
+  width:400px;padding:3rem;
+  border:1px solid var(--border);
+  background:var(--panel);
+}
+.login-logo{
+  font-family:var(--serif);
+  font-size:1.4rem;font-weight:300;
+  letter-spacing:0.2em;color:var(--text);
+  margin-bottom:0.3rem;
+}
+.login-sub{font-size:0.6rem;color:var(--gold);letter-spacing:0.3em;text-transform:uppercase;margin-bottom:2.5rem;}
+.login-label{font-size:0.55rem;font-weight:500;letter-spacing:0.2em;text-transform:uppercase;color:var(--text3);margin-bottom:0.4rem;display:block;}
+.login-input{
+  width:100%;background:var(--panel2);border:1px solid var(--border);
+  color:var(--text);font-family:var(--sans);font-size:0.85rem;
+  padding:0.8rem 1rem;outline:none;margin-bottom:1rem;
+  transition:border-color 0.2s;
+}
+.login-input:focus{border-color:rgba(196,151,58,0.4);}
+.login-btn{
+  width:100%;font-size:0.68rem;font-weight:500;
+  letter-spacing:0.2em;text-transform:uppercase;
+  color:var(--black);background:var(--gold);
+  border:none;padding:1rem;cursor:pointer;
+  transition:background 0.2s;margin-top:0.5rem;
+}
+.login-btn:hover{background:var(--gold2);}
+.login-err{font-size:0.72rem;color:var(--red2);margin-top:0.5rem;display:none;}
+
+/* TOPBAR */
+.topbar{
+  display:flex;align-items:center;justify-content:space-between;
+  padding:0 2rem;height:56px;
+  background:var(--black);border-bottom:1px solid var(--border);flex-shrink:0;
+}
+.topbar-logo{font-family:var(--serif);font-size:1rem;font-weight:400;letter-spacing:0.25em;text-transform:uppercase;color:var(--white);}
+.topbar-right{display:flex;align-items:center;gap:1.5rem;}
+.topbar-stat-n{font-family:var(--serif);font-size:1.2rem;font-weight:300;color:var(--white);line-height:1;}
+.topbar-stat-l{font-size:0.5rem;font-weight:400;letter-spacing:0.2em;text-transform:uppercase;color:var(--text3);}
+.topbar-div{width:1px;height:24px;background:var(--border);}
+.btn-new{font-size:0.6rem;font-weight:500;letter-spacing:0.2em;text-transform:uppercase;color:var(--black);background:var(--gold);padding:0.6rem 1.5rem;border:none;cursor:pointer;transition:background 0.2s;}
+.btn-new:hover{background:var(--gold2);}
+.btn-logout{font-size:0.6rem;font-weight:400;letter-spacing:0.15em;text-transform:uppercase;color:var(--text3);background:none;border:1px solid var(--border);padding:0.5rem 1rem;cursor:pointer;transition:all 0.2s;}
+.btn-logout:hover{color:var(--red2);border-color:var(--red2);}
+
+/* LAYOUT */
+.app{display:grid;grid-template-columns:220px 1fr;flex:1;overflow:hidden;}
+
+/* SIDEBAR */
+.sidebar{background:var(--black);border-right:1px solid var(--border);display:flex;flex-direction:column;overflow-y:auto;}
+.sb-section{padding:1.5rem 1rem 0.5rem;}
+.sb-label{font-size:0.48rem;font-weight:500;letter-spacing:0.35em;text-transform:uppercase;color:var(--text3);padding:0 0.5rem;margin-bottom:0.5rem;}
+.nav-item{display:flex;align-items:center;gap:0.75rem;padding:0.6rem 0.75rem;cursor:pointer;color:var(--text2);font-size:0.75rem;font-weight:400;transition:all 0.15s;border:none;background:none;width:100%;text-align:left;}
+.nav-item:hover{color:var(--text);background:var(--panel);}
+.nav-item.active{color:var(--gold);background:rgba(196,151,58,0.08);}
+.nav-item svg{width:14px;height:14px;flex-shrink:0;fill:none;stroke:currentColor;stroke-width:1.5;}
+.nav-badge{margin-left:auto;font-size:0.48rem;font-weight:600;background:var(--gold);color:var(--black);padding:0.15rem 0.45rem;}
+
+/* MAIN */
+.main{display:flex;flex-direction:column;overflow:hidden;background:var(--bg);}
+.view{display:none;flex-direction:column;flex:1;overflow:hidden;}
+.view.active{display:flex;}
+
+/* DASHBOARD */
+.dash-header{padding:2rem 2rem 1.5rem;border-bottom:1px solid var(--border);flex-shrink:0;}
+.dash-title{font-family:var(--serif);font-size:1.8rem;font-weight:300;color:var(--white);margin-bottom:0.3rem;}
+.dash-sub{font-size:0.75rem;color:var(--text2);}
+.kpi-row{display:grid;grid-template-columns:repeat(5,1fr);border-bottom:1px solid var(--border);flex-shrink:0;}
+.kpi{padding:1.2rem 1.5rem;border-right:1px solid var(--border);}
+.kpi:last-child{border-right:none;}
+.kpi-n{font-family:var(--serif);font-size:1.8rem;font-weight:300;color:var(--white);line-height:1;letter-spacing:-0.02em;}
+.kpi-n em{color:var(--gold);font-style:italic;font-size:1rem;}
+.kpi-l{font-size:0.55rem;font-weight:400;letter-spacing:0.18em;text-transform:uppercase;color:var(--text3);margin-top:0.4rem;}
+.dash-body{flex:1;overflow-y:auto;padding:1.5rem 2rem;}
+.section-label{font-size:0.6rem;font-weight:500;letter-spacing:0.25em;text-transform:uppercase;color:var(--text3);margin-bottom:1rem;}
+.table{width:100%;border-collapse:collapse;}
+.table th{font-size:0.55rem;font-weight:500;letter-spacing:0.2em;text-transform:uppercase;color:var(--text3);padding:0.6rem 1rem;text-align:left;border-bottom:1px solid var(--border);}
+.table td{padding:0.85rem 1rem;border-bottom:1px solid rgba(34,34,34,0.6);font-size:0.75rem;color:var(--text2);vertical-align:middle;}
+.table tr:hover td{background:var(--panel);}
+.td-name{color:var(--text);font-weight:400;}
+.td-city{font-size:0.6rem;font-weight:400;letter-spacing:0.15em;text-transform:uppercase;color:var(--gold);}
+.pill{font-size:0.5rem;font-weight:600;letter-spacing:0.2em;text-transform:uppercase;padding:0.25rem 0.65rem;display:inline-block;}
+.pill-pub{color:var(--green2);background:rgba(82,183,136,0.1);border:1px solid rgba(82,183,136,0.25);}
+.pill-draft{color:var(--text2);background:rgba(102,102,102,0.1);border:1px solid var(--border);}
+.actions{display:flex;gap:0.5rem;}
+.abtn{font-size:0.55rem;font-weight:500;letter-spacing:0.15em;text-transform:uppercase;padding:0.3rem 0.7rem;border:1px solid var(--border);background:none;color:var(--text2);cursor:pointer;transition:all 0.2s;}
+.abtn:hover{border-color:var(--gold);color:var(--gold);}
+.abtn.red:hover{border-color:var(--red2);color:var(--red2);}
+
+/* LISTINGS VIEW */
+.lv-header{padding:1.5rem 2rem;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;flex-shrink:0;}
+.lv-title{font-family:var(--serif);font-size:1.5rem;font-weight:300;color:var(--white);}
+.lv-body{flex:1;overflow-y:auto;padding:1.5rem 2rem;}
+.cards-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2px;}
+.l-card{background:var(--panel);border:1px solid var(--border);transition:border-color 0.2s;}
+.l-card:hover{border-color:rgba(196,151,58,0.3);}
+.l-card-top{height:140px;background:var(--panel2);position:relative;overflow:hidden;display:flex;align-items:center;justify-content:center;}
+.l-card-top img{width:100%;height:100%;object-fit:cover;filter:brightness(0.8);}
+.l-card-top-placeholder{font-size:0.55rem;font-weight:400;letter-spacing:0.2em;text-transform:uppercase;color:var(--text3);}
+.l-card-status-wrap{position:absolute;top:0.7rem;right:0.7rem;}
+.l-card-body{padding:1rem;}
+.l-card-city{font-size:0.52rem;font-weight:400;letter-spacing:0.22em;text-transform:uppercase;color:var(--gold);margin-bottom:0.4rem;}
+.l-card-title{font-family:var(--serif);font-size:1rem;font-weight:400;color:var(--white);margin-bottom:0.5rem;line-height:1.2;}
+.l-card-price{font-family:var(--serif);font-size:1.1rem;font-weight:300;color:var(--text);}
+.l-card-price em{color:var(--gold);font-style:italic;font-size:0.8rem;}
+.l-card-footer{padding:0.7rem 1rem;border-top:1px solid var(--border);display:flex;gap:0.5rem;}
+
+/* FORM VIEW */
+.fv-header{padding:1.5rem 2rem;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;flex-shrink:0;}
+.fv-title{font-family:var(--serif);font-size:1.5rem;font-weight:300;color:var(--white);}
+.fv-body{flex:1;overflow-y:auto;padding:2rem;}
+.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:1.5rem;max-width:900px;}
+.form-full{grid-column:span 2;}
+.fg{display:flex;flex-direction:column;gap:0.4rem;}
+.flbl{font-size:0.55rem;font-weight:500;letter-spacing:0.25em;text-transform:uppercase;color:var(--text3);}
+.fi,.fsel,.ftxt{background:var(--panel);border:1px solid var(--border);color:var(--text);font-family:var(--sans);font-size:0.8rem;font-weight:300;padding:0.7rem 0.9rem;outline:none;width:100%;appearance:none;border-radius:0;transition:border-color 0.2s;}
+.fi:focus,.fsel:focus,.ftxt:focus{border-color:rgba(196,151,58,0.4);}
+.fi::placeholder,.ftxt::placeholder{color:var(--text3);}
+.ftxt{resize:vertical;min-height:80px;}
+.fsel option{background:var(--panel);}
+.form-section{font-size:0.55rem;font-weight:500;letter-spacing:0.3em;text-transform:uppercase;color:var(--gold);padding:1.5rem 0 1rem;border-top:1px solid var(--border);grid-column:span 2;margin-top:0.5rem;}
+
+/* PHOTO UPLOAD */
+.photo-upload{grid-column:span 2;border:1px dashed var(--border);padding:2rem;text-align:center;cursor:pointer;transition:border-color 0.2s;position:relative;background:var(--panel2);}
+.photo-upload:hover{border-color:rgba(196,151,58,0.4);}
+.photo-upload input{position:absolute;inset:0;opacity:0;cursor:pointer;width:100%;height:100%;}
+.photo-upload-label{font-size:0.65rem;font-weight:400;letter-spacing:0.2em;text-transform:uppercase;color:var(--text3);display:flex;flex-direction:column;align-items:center;gap:0.5rem;pointer-events:none;}
+.photo-upload-label span{color:var(--gold);font-size:0.6rem;}
+.photo-previews{grid-column:span 2;display:grid;grid-template-columns:repeat(4,1fr);gap:1rem;}
+.photo-prev{position:relative;aspect-ratio:16/9;overflow:hidden;background:var(--panel2);}
+.photo-prev img{width:100%;height:100%;object-fit:cover;display:block;filter:brightness(0.85);}
+.photo-del{position:absolute;top:0.4rem;right:0.4rem;background:rgba(0,0,0,0.7);border:1px solid var(--border);color:var(--red2);font-size:0.55rem;font-weight:600;padding:0.2rem 0.5rem;cursor:pointer;}
+.photo-del:hover{background:var(--red2);color:var(--black);}
+.photo-cover-badge{position:absolute;bottom:0.4rem;left:0.4rem;background:rgba(196,151,58,0.9);color:var(--black);font-size:0.45rem;font-weight:600;letter-spacing:0.15em;text-transform:uppercase;padding:0.2rem 0.5rem;}
+
+/* VERIFY GRID */
+.verify-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:0.75rem;grid-column:span 2;}
+.vcheck{display:flex;align-items:center;gap:0.6rem;padding:0.6rem 0.8rem;background:var(--panel2);border:1px solid var(--border);cursor:pointer;}
+.vcheck input{accent-color:var(--gold);width:14px;height:14px;cursor:pointer;}
+.vcheck span{font-size:0.7rem;color:var(--text2);}
+
+/* FORM ACTIONS */
+.fv-actions{display:flex;align-items:center;gap:1rem;padding:1.5rem 2rem;border-top:1px solid var(--border);flex-shrink:0;}
+.btn-pub{font-size:0.62rem;font-weight:500;letter-spacing:0.2em;text-transform:uppercase;color:var(--black);background:var(--gold);padding:0.85rem 2.5rem;border:none;cursor:pointer;transition:background 0.2s;}
+.btn-pub:hover{background:var(--gold2);}
+.btn-draft-save{font-size:0.62rem;font-weight:500;letter-spacing:0.2em;text-transform:uppercase;color:var(--text2);background:var(--panel);border:1px solid var(--border);padding:0.85rem 2rem;cursor:pointer;transition:all 0.2s;}
+.btn-draft-save:hover{color:var(--white);}
+.btn-cancel{font-size:0.62rem;font-weight:400;letter-spacing:0.15em;text-transform:uppercase;color:var(--text3);background:none;border:none;padding:0.85rem 1rem;cursor:pointer;margin-left:auto;transition:color 0.2s;}
+.btn-cancel:hover{color:var(--red2);}
+
+/* LEADS VIEW */
+.leads-header{padding:1.5rem 2rem;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;flex-shrink:0;}
+.leads-title{font-family:var(--serif);font-size:1.5rem;font-weight:300;color:var(--white);}
+.leads-body{flex:1;overflow-y:auto;padding:1.5rem 2rem;}
+.leads-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2px;}
+.lead-card{background:var(--panel);border:1px solid var(--border);padding:1.5rem;}
+.lead-name{font-family:var(--serif);font-size:1.1rem;font-weight:400;color:var(--white);margin-bottom:0.3rem;}
+.lead-contact{font-size:0.72rem;color:var(--text2);margin-bottom:0.2rem;}
+.lead-location{font-size:0.6rem;font-weight:400;letter-spacing:0.15em;text-transform:uppercase;color:var(--gold);margin:0.5rem 0;}
+.lead-status-row{display:flex;align-items:center;justify-content:space-between;margin-top:1rem;padding-top:1rem;border-top:1px solid var(--border);}
+.lead-sel{background:var(--panel2);border:1px solid var(--border);color:var(--text2);font-family:var(--sans);font-size:0.62rem;padding:0.3rem 0.6rem;outline:none;cursor:pointer;appearance:none;}
+
+/* LEAD MODAL */
+.modal-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.85);z-index:999;align-items:center;justify-content:center;}
+.modal-overlay.show{display:flex;}
+.modal-box{background:var(--panel);border:1px solid var(--border);width:520px;max-height:90vh;overflow-y:auto;}
+.modal-header{padding:1.5rem 2rem;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;}
+.modal-title{font-family:var(--serif);font-size:1.3rem;font-weight:300;color:var(--white);}
+.modal-close{background:none;border:none;color:var(--text2);cursor:pointer;font-size:1.2rem;}
+.modal-body{padding:1.5rem 2rem;}
+.modal-footer{padding:1rem 2rem;border-top:1px solid var(--border);display:flex;gap:1rem;}
+
+/* EMPTY */
+.empty-state{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1rem;color:var(--text3);padding:4rem;text-align:center;}
+.empty-state h3{font-family:var(--serif);font-size:1.5rem;font-weight:300;color:var(--text2);}
+.empty-state p{font-size:0.78rem;max-width:300px;line-height:1.8;}
+
+/* LOADING */
+.loading{display:flex;align-items:center;justify-content:center;padding:3rem;color:var(--text3);font-size:0.75rem;letter-spacing:0.1em;}
+
+/* TOAST */
+.toast{position:fixed;bottom:2rem;right:2rem;background:var(--panel);border:1px solid var(--border);border-left:3px solid var(--gold);padding:1rem 1.5rem;font-size:0.75rem;color:var(--text);z-index:9999;transform:translateY(100px);opacity:0;transition:all 0.3s ease;pointer-events:none;}
+.toast.show{transform:translateY(0);opacity:1;}
+.toast.success{border-left-color:var(--green2);}
+.toast.error{border-left-color:var(--red2);}
+</style>
+</head>
+<body>
+
+<!-- LOGIN -->
+<div class="login-screen" id="loginScreen">
+  <div class="login-box">
+    <div class="login-logo">ORVANE ATLAS</div>
+    <div class="login-sub">Admin Dashboard</div>
+    <label class="login-label">Email</label>
+    <input type="email" class="login-input" id="loginEmail" placeholder="admin@orvaneatlas.com">
+    <label class="login-label">Password</label>
+    <input type="password" class="login-input" id="loginPass" placeholder="Password" onkeydown="if(event.key==='Enter')doLogin()">
+    <button class="login-btn" onclick="doLogin()">Sign In</button>
+    <div class="login-err" id="loginErr">Invalid email or password.</div>
+  </div>
+</div>
+
+<!-- TOPBAR -->
+<div class="topbar" id="topbar" style="display:none">
+  <div class="topbar-logo">ORVANE ATLAS</div>
+  <div class="topbar-right">
+    <div>
+      <div class="topbar-stat-n" id="tTotal">0</div>
+      <div class="topbar-stat-l">Listings</div>
+    </div>
+    <div class="topbar-div"></div>
+    <div>
+      <div class="topbar-stat-n" id="tPub">0</div>
+      <div class="topbar-stat-l">Published</div>
+    </div>
+    <div class="topbar-div"></div>
+    <button class="btn-new" onclick="openAdd()">+ New Listing</button>
+    <button class="btn-logout" onclick="doLogout()">Sign Out</button>
+  </div>
+</div>
+
+<!-- APP -->
+<div class="app" id="appShell" style="display:none">
+  <div class="sidebar">
+    <div class="sb-section">
+      <div class="sb-label">Main</div>
+      <button class="nav-item active" onclick="nav(this,'dash')">
+        <svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>
+        Dashboard
+      </button>
+      <button class="nav-item" onclick="nav(this,'listings')">
+        <svg viewBox="0 0 24 24"><path d="M3 6h18M3 12h18M3 18h18"/></svg>
+        All Listings
+        <span class="nav-badge" id="navBadge">0</span>
+      </button>
+      <button class="nav-item" onclick="nav(this,'leads')">
+        <svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75"/></svg>
+        Leads
+        <span class="nav-badge" id="leadsNavBadge">0</span>
+      </button>
+    </div>
+    <div class="sb-section">
+      <div class="sb-label">Filter by Country</div>
+      <button class="nav-item" onclick="filterCountry(this,'all')">
+        <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15 15 0 010 20"/></svg>All Markets
+      </button>
+      <button class="nav-item" onclick="filterCountry(this,'Nigeria')">
+        <svg viewBox="0 0 24 24"><path d="M12 22s-8-4.5-8-11.8A8 8 0 0112 2a8 8 0 018 8.2c0 7.3-8 11.8-8 11.8z"/></svg>Nigeria
+      </button>
+      <button class="nav-item" onclick="filterCountry(this,'UAE')">
+        <svg viewBox="0 0 24 24"><path d="M12 22s-8-4.5-8-11.8A8 8 0 0112 2a8 8 0 018 8.2c0 7.3-8 11.8-8 11.8z"/></svg>UAE
+      </button>
+      <button class="nav-item" onclick="filterCountry(this,'UK')">
+        <svg viewBox="0 0 24 24"><path d="M12 22s-8-4.5-8-11.8A8 8 0 0112 2a8 8 0 018 8.2c0 7.3-8 11.8-8 11.8z"/></svg>United Kingdom
+      </button>
+      <button class="nav-item" onclick="filterCountry(this,'Qatar')">
+        <svg viewBox="0 0 24 24"><path d="M12 22s-8-4.5-8-11.8A8 8 0 0112 2a8 8 0 018 8.2c0 7.3-8 11.8-8 11.8z"/></svg>Qatar
+      </button>
+      <button class="nav-item" onclick="filterCountry(this,'South Africa')">
+        <svg viewBox="0 0 24 24"><path d="M12 22s-8-4.5-8-11.8A8 8 0 0112 2a8 8 0 018 8.2c0 7.3-8 11.8-8 11.8z"/></svg>South Africa
+      </button>
+    </div>
+  </div>
+
+  <div class="main">
+
+    <!-- DASHBOARD -->
+    <div class="view active" id="view-dash">
+      <div class="dash-header">
+        <div class="dash-title">Dashboard</div>
+        <div class="dash-sub">Orvane Atlas property listings — live on orvaneatlas.com</div>
+      </div>
+      <div class="kpi-row">
+        <div class="kpi"><div class="kpi-n" id="k-total">0</div><div class="kpi-l">Total Listings</div></div>
+        <div class="kpi"><div class="kpi-n" id="k-pub">0</div><div class="kpi-l">Published</div></div>
+        <div class="kpi"><div class="kpi-n" id="k-draft">0</div><div class="kpi-l">Drafts</div></div>
+        <div class="kpi"><div class="kpi-n" id="k-countries">0</div><div class="kpi-l">Countries</div></div>
+        <div class="kpi"><div class="kpi-n" id="k-leads">0</div><div class="kpi-l">Leads</div></div>
+      </div>
+      <div class="dash-body">
+        <div class="section-label">Recent Listings</div>
+        <div class="loading" id="dashLoading">Loading listings from Firebase...</div>
+        <table class="table" id="dashTable" style="display:none">
+          <thead>
+            <tr>
+              <th>Property</th><th>City</th><th>Country</th><th>Type</th><th>Price</th><th>Status</th><th>Actions</th>
+            </tr>
+          </thead>
+          <tbody id="dashBody"></tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- LISTINGS -->
+    <div class="view" id="view-listings">
+      <div class="lv-header">
+        <div class="lv-title">All Listings</div>
+      </div>
+      <div class="lv-body">
+        <div class="loading" id="listingsLoading">Loading...</div>
+        <div class="cards-grid" id="cardsGrid"></div>
+      </div>
+    </div>
+
+    <!-- FORM -->
+    <div class="view" id="view-form">
+      <div class="fv-header">
+        <div class="fv-title" id="fvTitle">New Listing</div>
+      </div>
+      <div class="fv-body">
+        <div class="form-grid">
+          <div class="fg form-full">
+            <label class="flbl">Property Title *</label>
+            <input class="fi" id="fTitle" placeholder="e.g. Premium 4-Bedroom Waterfront Residence">
+          </div>
+          <div class="fg">
+            <label class="flbl">Country *</label>
+            <select class="fsel" id="fCountry" onchange="updateCities()">
+              <option value="">Select Country</option>
+              <option>Nigeria</option><option>UAE</option><option>UK</option><option>Qatar</option><option>South Africa</option>
+            </select>
+          </div>
+          <div class="fg">
+            <label class="flbl">City *</label>
+            <select class="fsel" id="fCity"><option value="">Select City</option></select>
+          </div>
+          <div class="fg">
+            <label class="flbl">Specific Location / Area</label>
+            <input class="fi" id="fLocation" placeholder="e.g. Lagos Island, Victoria Island">
+          </div>
+          <div class="fg">
+            <label class="flbl">Property Type *</label>
+            <select class="fsel" id="fType">
+              <option value="">Select Type</option>
+              <option>Residential</option><option>Commercial</option><option>Land</option><option>Mixed Use</option>
+            </select>
+          </div>
+          <div class="fg">
+            <label class="flbl">Listing Status</label>
+            <select class="fsel" id="fListingStatus">
+              <option value="new">New Development</option>
+              <option value="ready">Ready to Move</option>
+              <option value="offplan">Off Plan</option>
+              <option value="resale">Resale</option>
+            </select>
+          </div>
+          <div class="fg">
+            <label class="flbl">Developer / Seller Name</label>
+            <input class="fi" id="fDeveloper" placeholder="e.g. Eko Atlantic Corp or Private Seller">
+          </div>
+          <div class="fg form-full">
+            <label class="flbl">Description *</label>
+            <textarea class="ftxt" id="fDesc" placeholder="Describe the property — location, features, highlights..."></textarea>
+          </div>
+
+          <div class="form-section">Photos</div>
+          <div class="photo-upload form-full" id="uploadArea">
+            <input type="file" id="photoInput" accept="image/*" multiple onchange="handlePhotos(this)">
+            <div class="photo-upload-label">
+              <svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" stroke-width="1"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>
+              Click to upload property photos
+              <span>First photo becomes the cover image</span>
+            </div>
+          </div>
+          <div class="photo-previews" id="photoPreviews"></div>
+
+          <div class="form-section">Pricing</div>
+          <div class="fg">
+            <label class="flbl">Currency</label>
+            <select class="fsel" id="fCurrency">
+              <option value="₦">₦ Nigerian Naira</option>
+              <option value="AED">AED UAE Dirham</option>
+              <option value="£">£ British Pound</option>
+              <option value="QAR">QAR Qatari Riyal</option>
+              <option value="ZAR">ZAR South African Rand</option>
+            </select>
+          </div>
+          <div class="fg">
+            <label class="flbl">Price *</label>
+            <input class="fi" id="fPrice" placeholder="e.g. 450,000,000">
+          </div>
+          <div class="fg">
+            <label class="flbl">Bedrooms</label>
+            <input class="fi" id="fBeds" placeholder="e.g. 4 or N/A for commercial">
+          </div>
+          <div class="fg">
+            <label class="flbl">Size (sqm)</label>
+            <input class="fi" id="fSize" placeholder="e.g. 420">
+          </div>
+          <div class="fg">
+            <label class="flbl">Key Feature</label>
+            <input class="fi" id="fFeature" placeholder="e.g. Waterfront, City View, 8.5% Yield">
+          </div>
+          <div class="fg">
+            <label class="flbl">Reference Number</label>
+            <input class="fi" id="fRef" placeholder="e.g. OA-LG-001">
+          </div>
+
+          <div class="form-section">Location & Map</div>
+          <div class="fg form-full">
+            <label class="flbl">Full Address (for Google Maps)</label>
+            <input class="fi" id="fAddress" placeholder="e.g. 1 Ozumba Mbadiwe Avenue, Victoria Island, Lagos">
+          </div>
+          <div class="fg">
+            <label class="flbl">Latitude</label>
+            <input class="fi" id="fLat" placeholder="e.g. 6.4281">
+          </div>
+          <div class="fg">
+            <label class="flbl">Longitude</label>
+            <input class="fi" id="fLng" placeholder="e.g. 3.4219">
+          </div>
+
+          <div class="form-section">Assigned Agent Contact</div>
+          <div class="fg">
+            <label class="flbl">Agent Name</label>
+            <input class="fi" id="fAgentName" placeholder="e.g. Shedrack Eneje">
+          </div>
+          <div class="fg">
+            <label class="flbl">Agent Phone</label>
+            <input class="fi" id="fAgentPhone" placeholder="e.g. +234 800 000 0000">
+          </div>
+          <div class="fg">
+            <label class="flbl">Agent WhatsApp</label>
+            <input class="fi" id="fAgentWhatsApp" placeholder="e.g. +234 800 000 0000">
+          </div>
+          <div class="fg">
+            <label class="flbl">Agent Email</label>
+            <input class="fi" id="fAgentEmail" placeholder="e.g. shedrack@orvaneatlas.com">
+          </div>
+
+          <div class="form-section">Verification & Due Diligence</div>
+          <div class="verify-grid">
+            <label class="vcheck"><input type="checkbox" id="vTitle"><span>Title / Title Deed Verified</span></label>
+            <label class="vcheck"><input type="checkbox" id="vSurvey"><span>Survey Complete</span></label>
+            <label class="vcheck"><input type="checkbox" id="vLegal"><span>Legal Clean</span></label>
+            <label class="vcheck"><input type="checkbox" id="vOwner"><span>Ownership Confirmed</span></label>
+            <label class="vcheck"><input type="checkbox" id="vReg"><span>Regulatory Registration</span></label>
+            <label class="vcheck"><input type="checkbox" id="vTenancy"><span>Tenancy / Rental History</span></label>
+          </div>
+
+          <div class="form-section">Internal Notes</div>
+          <div class="fg form-full">
+            <label class="flbl">Notes (not shown publicly)</label>
+            <input class="fi" id="fNotes" placeholder="Internal notes about this listing">
+          </div>
+        </div>
+      </div>
+      <div class="fv-actions">
+        <button class="btn-pub" onclick="saveListing('published')">Publish to Website</button>
+        <button class="btn-draft-save" onclick="saveListing('draft')">Save as Draft</button>
+        <button class="btn-cancel" onclick="nav(document.querySelector('.nav-item'),'dash')">Cancel</button>
+      </div>
+    </div>
+
+    <!-- LEADS -->
+    <div class="view" id="view-leads">
+      <div class="leads-header">
+        <div class="leads-title">Leads</div>
+        <button class="btn-new" onclick="document.getElementById('leadModal').classList.add('show')">+ New Lead</button>
+      </div>
+      <div class="leads-body">
+        <div class="loading" id="leadsLoading">Loading leads...</div>
+        <div class="leads-grid" id="leadsGrid"></div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- LEAD MODAL -->
+<div class="modal-overlay" id="leadModal">
+  <div class="modal-box">
+    <div class="modal-header">
+      <div class="modal-title">New Lead</div>
+      <button class="modal-close" onclick="document.getElementById('leadModal').classList.remove('show')">✕</button>
+    </div>
+    <div class="modal-body">
+      <div class="form-grid" style="max-width:100%">
+        <div class="fg form-full"><label class="flbl">Full Name *</label><input class="fi" id="lName" placeholder="Full name"></div>
+        <div class="fg"><label class="flbl">Email *</label><input class="fi" id="lEmail" type="email" placeholder="email@example.com"></div>
+        <div class="fg"><label class="flbl">Phone *</label><input class="fi" id="lPhone" placeholder="+234 or international"></div>
+        <div class="fg">
+          <label class="flbl">Country</label>
+          <select class="fsel" id="lCountry" onchange="updateLeadStates()">
+            <option value="">Select Country</option>
+            <option>Nigeria</option><option>UAE</option><option>UK</option><option>Qatar</option><option>South Africa</option><option>USA</option><option>Canada</option><option>Other</option>
+          </select>
+        </div>
+        <div class="fg"><label class="flbl">State / Region</label><select class="fsel" id="lState"><option value="">Select State</option></select></div>
+        <div class="fg form-full">
+          <label class="flbl">Interested In</label>
+          <select class="fsel" id="lListing"><option value="">General Enquiry</option></select>
+        </div>
+        <div class="fg form-full"><label class="flbl">Notes</label><textarea class="ftxt" id="lNotes" placeholder="Notes about this lead..." style="min-height:60px"></textarea></div>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn-pub" onclick="saveLead()">Save Lead</button>
+      <button class="btn-draft-save" onclick="document.getElementById('leadModal').classList.remove('show')">Cancel</button>
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<!-- FIREBASE -->
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+import { getFirestore, collection, addDoc, getDocs, doc, updateDoc, deleteDoc, query, orderBy, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+import { getAuth, signInWithEmailAndPassword, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
+import { getStorage, ref, uploadBytes, getDownloadURL, deleteObject } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-storage.js";
+
+const firebaseConfig = {
+  apiKey: "AIzaSyBabiC-cCurh-l39EREVGdkRWp15YiwHd4",
+  authDomain: "orvane-atlas.firebaseapp.com",
+  projectId: "orvane-atlas",
+  storageBucket: "orvane-atlas.firebasestorage.app",
+  messagingSenderId: "780736586362",
+  appId: "1:780736586362:web:87b2c9ce5d3bac47f2d1c3"
+};
+
+const app = initializeApp(firebaseConfig);
+const db = getFirestore(app);
+const auth = getAuth(app);
+const storage = getStorage(app);
+
+// ── STATE ──
+let listings = [];
+let leads = [];
+let editId = null;
+let countryFilter = 'all';
+let photoFiles = []; // new photos to upload
+let existingPhotos = []; // existing photo URLs when editing
+
+// ── AUTH ──
+onAuthStateChanged(auth, user => {
+  if(user){
+    document.getElementById('loginScreen').style.display='none';
+    document.getElementById('topbar').style.display='flex';
+    document.getElementById('appShell').style.display='grid';
+    loadAll();
+  } else {
+    document.getElementById('loginScreen').style.display='flex';
+    document.getElementById('topbar').style.display='none';
+    document.getElementById('appShell').style.display='none';
+  }
+});
+
+window.doLogin = async function(){
+  const email = document.getElementById('loginEmail').value;
+  const pass = document.getElementById('loginPass').value;
+  const err = document.getElementById('loginErr');
+  err.style.display='none';
+  try {
+    await signInWithEmailAndPassword(auth, email, pass);
+  } catch(e) {
+    err.style.display='block';
+    err.textContent = 'Invalid email or password.';
+  }
+};
+
+window.doLogout = async function(){
+  await signOut(auth);
+};
+
+// ── LOAD ──
+async function loadAll(){
+  await loadListings();
+  await loadLeads();
+  render();
+}
+
+async function loadListings(){
+  try {
+    const q = query(collection(db,'listings'), orderBy('createdAt','desc'));
+    const snap = await getDocs(q);
+    listings = snap.docs.map(d => ({id:d.id,...d.data()}));
+  } catch(e){
+    listings = [];
+    toast('Could not load listings: '+e.message,'error');
+  }
+}
+
+async function loadLeads(){
+  try {
+    const q = query(collection(db,'leads'), orderBy('createdAt','desc'));
+    const snap = await getDocs(q);
+    leads = snap.docs.map(d => ({id:d.id,...d.data()}));
+  } catch(e){
+    leads = [];
+  }
+}
+
+// ── CITIES ──
+const CITIES = {
+  Nigeria:['Lagos','Abuja','Port Harcourt','Enugu','Kano','Ibadan'],
+  UAE:['Dubai','Abu Dhabi','Sharjah'],
+  UK:['London','Manchester','Birmingham'],
+  Qatar:['Doha'],
+  'South Africa':['Johannesburg','Cape Town','Pretoria','Durban']
+};
+
+window.updateCities = function(){
+  const c = document.getElementById('fCountry').value;
+  const el = document.getElementById('fCity');
+  el.innerHTML='<option value="">Select City</option>';
+  (CITIES[c]||[]).forEach(city=>{
+    const o=document.createElement('option');o.value=city;o.textContent=city;el.appendChild(o);
+  });
+};
+
+const STATES = {
+  Nigeria:['FCT Abuja','Lagos','Rivers','Enugu','Kano','Ogun','Oyo','Delta','Other'],
+  UAE:['Dubai','Abu Dhabi','Sharjah','Other'],
+  UK:['London','Manchester','Birmingham','Edinburgh','Other'],
+  Qatar:['Doha','Other'],
+  'South Africa':['Gauteng','Western Cape','KwaZulu-Natal','Other'],
+  USA:['New York','California','Texas','Florida','Other'],
+  Canada:['Ontario','British Columbia','Other'],
+  Other:['Other']
+};
+
+window.updateLeadStates = function(){
+  const c=document.getElementById('lCountry').value;
+  const el=document.getElementById('lState');
+  el.innerHTML='<option value="">Select State</option>';
+  (STATES[c]||['Other']).forEach(s=>{
+    const o=document.createElement('option');o.value=s;o.textContent=s;el.appendChild(o);
+  });
+};
+
+// ── PHOTOS ──
+window.handlePhotos = function(input){
+  const files = Array.from(input.files);
+  files.forEach(file => {
+    photoFiles.push(file);
+    const reader = new FileReader();
+    reader.onload = e => renderPhotoPreview();
+    reader.readAsDataURL(file);
+  });
+  input.value='';
+  renderPhotoPreview();
+};
+
+function renderPhotoPreview(){
+  const container = document.getElementById('photoPreviews');
+  const allPreviews = [
+    ...existingPhotos.map((url,i)=>({url,isExisting:true,idx:i})),
+    ...photoFiles.map((file,i)=>({file,isExisting:false,idx:i}))
+  ];
+  if(!allPreviews.length){container.innerHTML='';return;}
+  container.innerHTML='';
+  allPreviews.forEach((item,i)=>{
+    const div=document.createElement('div');div.className='photo-prev';
+    const img=document.createElement('img');
+    if(item.isExisting){img.src=item.url;}
+    else{img.src=URL.createObjectURL(item.file);}
+    div.appendChild(img);
+    if(i===0){
+      const badge=document.createElement('div');badge.className='photo-cover-badge';badge.textContent='Cover';
+      div.appendChild(badge);
+    }
+    const del=document.createElement('button');del.className='photo-del';del.textContent='✕';
+    del.onclick=()=>{
+      if(item.isExisting)existingPhotos.splice(item.idx,1);
+      else photoFiles.splice(item.idx,1);
+      renderPhotoPreview();
+    };
+    div.appendChild(del);
+    container.appendChild(div);
+  });
+}
+
+async function uploadPhotos(){
+  const urls = [...existingPhotos];
+  for(const file of photoFiles){
+    const storageRef = ref(storage,`listings/${Date.now()}_${file.name}`);
+    const snap = await uploadBytes(storageRef, file);
+    const url = await getDownloadURL(snap.ref);
+    urls.push(url);
+  }
+  return urls;
+}
+
+// ── FORM ──
+window.openAdd = function(){
+  editId=null;photoFiles=[];existingPhotos=[];
+  resetForm();
+  document.getElementById('fvTitle').textContent='New Listing';
+  nav(null,'form',true);
+};
+
+function resetForm(){
+  ['fTitle','fLocation','fDesc','fPrice','fBeds','fSize','fFeature','fRef',
+   'fAddress','fLat','fLng','fDeveloper','fNotes',
+   'fAgentName','fAgentPhone','fAgentWhatsApp','fAgentEmail'
+  ].forEach(id=>{const el=document.getElementById(id);if(el)el.value='';});
+  ['fCountry','fCity','fType','fCurrency','fListingStatus'].forEach(id=>{
+    const el=document.getElementById(id);if(el)el.selectedIndex=0;
+  });
+  ['vTitle','vSurvey','vLegal','vOwner','vReg','vTenancy'].forEach(id=>{
+    const el=document.getElementById(id);if(el)el.checked=false;
+  });
+  document.getElementById('photoPreviews').innerHTML='';
+}
+
+function populate(l){
+  document.getElementById('fTitle').value=l.title||'';
+  document.getElementById('fCountry').value=l.country||'';
+  window.updateCities();
+  document.getElementById('fCity').value=l.city||'';
+  document.getElementById('fLocation').value=l.location||'';
+  document.getElementById('fType').value=l.type||'';
+  document.getElementById('fListingStatus').value=l.listingStatus||'ready';
+  document.getElementById('fDeveloper').value=l.developer||'';
+  document.getElementById('fCurrency').value=l.currency||'₦';
+  document.getElementById('fDesc').value=l.desc||'';
+  document.getElementById('fPrice').value=l.price||'';
+  document.getElementById('fBeds').value=l.beds||'';
+  document.getElementById('fSize').value=l.size||'';
+  document.getElementById('fFeature').value=l.feature||'';
+  document.getElementById('fRef').value=l.ref||'';
+  document.getElementById('fAddress').value=l.address||'';
+  document.getElementById('fLat').value=l.lat||'';
+  document.getElementById('fLng').value=l.lng||'';
+  document.getElementById('fAgentName').value=l.agentName||'';
+  document.getElementById('fAgentPhone').value=l.agentPhone||'';
+  document.getElementById('fAgentWhatsApp').value=l.agentWhatsApp||'';
+  document.getElementById('fAgentEmail').value=l.agentEmail||'';
+  document.getElementById('fNotes').value=l.notes||'';
+  document.getElementById('vTitle').checked=l.vTitle||false;
+  document.getElementById('vSurvey').checked=l.vSurvey||false;
+  document.getElementById('vLegal').checked=l.vLegal||false;
+  document.getElementById('vOwner').checked=l.vOwner||false;
+  document.getElementById('vReg').checked=l.vReg||false;
+  document.getElementById('vTenancy').checked=l.vTenancy||false;
+  existingPhotos=l.photos||[];
+  photoFiles=[];
+  renderPhotoPreview();
+}
+
+window.editListing = function(id){
+  const l=listings.find(x=>x.id===id);
+  if(!l)return;
+  editId=id;
+  populate(l);
+  document.getElementById('fvTitle').textContent='Edit Listing';
+  nav(null,'form',true);
+};
+
+window.saveListing = async function(status){
+  const title=document.getElementById('fTitle').value.trim();
+  const country=document.getElementById('fCountry').value;
+  const city=document.getElementById('fCity').value;
+  const type=document.getElementById('fType').value;
+  const price=document.getElementById('fPrice').value.trim();
+  if(!title||!country||!city||!type||!price){
+    toast('Please fill in all required fields (*)','error');return;
+  }
+  const btn=status==='published'?document.querySelector('.btn-pub'):document.querySelector('.btn-draft-save');
+  const origText=btn.textContent;
+  btn.textContent='Saving...';btn.disabled=true;
+  try {
+    const photos=await uploadPhotos();
+    const data={
+      title,country,city,type,status,
+      listingStatus:document.getElementById('fListingStatus').value,
+      location:document.getElementById('fLocation').value,
+      developer:document.getElementById('fDeveloper').value,
+      currency:document.getElementById('fCurrency').value,
+      desc:document.getElementById('fDesc').value,
+      price,
+      beds:document.getElementById('fBeds').value,
+      size:document.getElementById('fSize').value,
+      feature:document.getElementById('fFeature').value,
+      ref:document.getElementById('fRef').value,
+      address:document.getElementById('fAddress').value,
+      lat:document.getElementById('fLat').value,
+      lng:document.getElementById('fLng').value,
+      agentName:document.getElementById('fAgentName').value,
+      agentPhone:document.getElementById('fAgentPhone').value,
+      agentWhatsApp:document.getElementById('fAgentWhatsApp').value,
+      agentEmail:document.getElementById('fAgentEmail').value,
+      notes:document.getElementById('fNotes').value,
+      vTitle:document.getElementById('vTitle').checked,
+      vSurvey:document.getElementById('vSurvey').checked,
+      vLegal:document.getElementById('vLegal').checked,
+      vOwner:document.getElementById('vOwner').checked,
+      vReg:document.getElementById('vReg').checked,
+      vTenancy:document.getElementById('vTenancy').checked,
+      photos,
+      updatedAt:serverTimestamp()
+    };
+    if(editId){
+      await updateDoc(doc(db,'listings',editId),data);
+      listings=listings.map(x=>x.id===editId?{...data,id:editId}:x);
+    } else {
+      data.createdAt=serverTimestamp();
+      const ref=await addDoc(collection(db,'listings'),data);
+      listings.unshift({...data,id:ref.id});
+    }
+    render();
+    nav(document.querySelector('.nav-item'),'dash');
+    toast(status==='published'?'Listing published to website':'Saved as draft','success');
+  } catch(e){
+    toast('Error saving: '+e.message,'error');
+  }
+  btn.textContent=origText;btn.disabled=false;
+};
+
+window.deleteListing = async function(id){
+  if(!confirm('Delete this listing permanently?'))return;
+  try {
+    await deleteDoc(doc(db,'listings',id));
+    listings=listings.filter(x=>x.id!==id);
+    render();
+    toast('Listing deleted','');
+  } catch(e){toast('Error: '+e.message,'error');}
+};
+
+window.toggleStatus = async function(id){
+  const l=listings.find(x=>x.id===id);
+  if(!l)return;
+  const newStatus=l.status==='published'?'draft':'published';
+  try {
+    await updateDoc(doc(db,'listings',id),{status:newStatus,updatedAt:serverTimestamp()});
+    listings=listings.map(x=>x.id===id?{...x,status:newStatus}:x);
+    render();
+    toast(newStatus==='published'?'Published to website':'Moved to draft',newStatus==='published'?'success':'');
+  } catch(e){toast('Error: '+e.message,'error');}
+};
+
+// ── LEADS ──
+window.saveLead = async function(){
+  const name=document.getElementById('lName').value.trim();
+  const email=document.getElementById('lEmail').value.trim();
+  const phone=document.getElementById('lPhone').value.trim();
+  if(!name||!email||!phone){toast('Name, email and phone required','error');return;}
+  try {
+    const data={
+      name,email,phone,
+      country:document.getElementById('lCountry').value,
+      state:document.getElementById('lState').value,
+      listingId:document.getElementById('lListing').value,
+      notes:document.getElementById('lNotes').value,
+      status:'new',
+      createdAt:serverTimestamp()
+    };
+    const ref=await addDoc(collection(db,'leads'),data);
+    leads.unshift({...data,id:ref.id});
+    document.getElementById('leadModal').classList.remove('show');
+    render();renderLeads();
+    toast('Lead saved','success');
+  } catch(e){toast('Error: '+e.message,'error');}
+};
+
+window.updateLeadStatus = async function(id,status){
+  try {
+    await updateDoc(doc(db,'leads',id),{status});
+    leads=leads.map(x=>x.id===id?{...x,status}:x);
+    renderLeads();
+  } catch(e){}
+};
+
+window.deleteLead = async function(id){
+  if(!confirm('Delete this lead?'))return;
+  try {
+    await deleteDoc(doc(db,'leads',id));
+    leads=leads.filter(x=>x.id!==id);
+    render();renderLeads();
+    toast('Lead deleted','');
+  } catch(e){}
+};
+
+// ── FILTER ──
+window.filterCountry = function(btn,c){
+  document.querySelectorAll('.nav-item').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+  countryFilter=c;
+  nav(null,'listings',true);
+  renderCards();
+};
+
+// ── RENDER ──
+function render(){
+  const total=listings.length;
+  const pub=listings.filter(l=>l.status==='published').length;
+  const draft=listings.filter(l=>l.status==='draft').length;
+  const countries=[...new Set(listings.map(l=>l.country))].filter(Boolean).length;
+
+  ['tTotal','k-total'].forEach(id=>{const el=document.getElementById(id);if(el)el.textContent=total;});
+  ['tPub','k-pub'].forEach(id=>{const el=document.getElementById(id);if(el)el.textContent=pub;});
+  const kd=document.getElementById('k-draft');if(kd)kd.textContent=draft;
+  const kc=document.getElementById('k-countries');if(kc)kc.textContent=countries;
+  const kl=document.getElementById('k-leads');if(kl)kl.textContent=leads.length;
+  const nb=document.getElementById('navBadge');if(nb)nb.textContent=total;
+  const lnb=document.getElementById('leadsNavBadge');if(lnb)lnb.textContent=leads.length;
+  renderDash();renderCards();
+}
+
+function renderDash(){
+  const loading=document.getElementById('dashLoading');
+  const table=document.getElementById('dashTable');
+  const tbody=document.getElementById('dashBody');
+  loading.style.display='none';
+  if(!listings.length){
+    table.style.display='none';
+    loading.style.display='flex';loading.textContent='No listings yet. Click "+ New Listing" to begin.';
+    return;
+  }
+  table.style.display='table';
+  tbody.innerHTML=listings.slice(0,20).map(l=>`
+    <tr>
+      <td class="td-name">${l.title}</td>
+      <td class="td-city">${l.city||''}</td>
+      <td>${l.country||''}</td>
+      <td>${l.type||''}</td>
+      <td style="font-family:var(--serif)">${l.currency||''}${l.price||''}</td>
+      <td><span class="pill ${l.status==='published'?'pill-pub':'pill-draft'}">${l.status}</span></td>
+      <td><div class="actions">
+        <button class="abtn" onclick="editListing('${l.id}')">Edit</button>
+        <button class="abtn" onclick="toggleStatus('${l.id}')">${l.status==='published'?'Unpublish':'Publish'}</button>
+        <button class="abtn red" onclick="deleteListing('${l.id}')">Delete</button>
+      </div></td>
+    </tr>
+  `).join('');
+}
+
+function renderCards(){
+  const grid=document.getElementById('cardsGrid');
+  const loading=document.getElementById('listingsLoading');
+  let list=listings;
+  if(countryFilter!=='all') list=list.filter(l=>l.country===countryFilter);
+  loading.style.display='none';
+  if(!list.length){
+    grid.innerHTML='<div style="grid-column:1/-1;padding:3rem;text-align:center;color:var(--text3);font-size:0.78rem;">No listings found.</div>';
+    return;
+  }
+  grid.innerHTML=list.map(l=>`
+    <div class="l-card">
+      <div class="l-card-top">
+        ${l.photos&&l.photos[0]?`<img src="${l.photos[0]}" alt="${l.title}">`:`<span class="l-card-top-placeholder">${l.city||''} · ${l.type||''}</span>`}
+        <div class="l-card-status-wrap"><span class="pill ${l.status==='published'?'pill-pub':'pill-draft'}">${l.status}</span></div>
+      </div>
+      <div class="l-card-body">
+        <div class="l-card-city">${l.city||''}, ${l.country||''}</div>
+        <div class="l-card-title">${l.title}</div>
+        <div class="l-card-price"><em>${l.currency||''}</em> ${l.price||''}</div>
+      </div>
+      <div class="l-card-footer">
+        <button class="abtn" onclick="editListing('${l.id}')">Edit</button>
+        <button class="abtn" onclick="toggleStatus('${l.id}')">${l.status==='published'?'Unpublish':'Publish'}</button>
+        <button class="abtn red" onclick="deleteListing('${l.id}')">Delete</button>
+      </div>
+    </div>
+  `).join('');
+}
+
+function renderLeads(){
+  const grid=document.getElementById('leadsGrid');
+  const loading=document.getElementById('leadsLoading');
+  loading.style.display='none';
+  if(!leads.length){
+    grid.innerHTML='<div style="grid-column:1/-1;padding:3rem;text-align:center;color:var(--text3);font-size:0.78rem;">No leads yet.</div>';
+    return;
+  }
+  const colors={new:'var(--gold)',contacted:'#60A5FA',qualified:'var(--green2)',closed:'#A78BFA'};
+  grid.innerHTML=leads.map(l=>{
+    const listing=l.listingId?listings.find(x=>x.id===l.listingId):null;
+    return `<div class="lead-card">
+      <div class="lead-name">${l.name}</div>
+      <div class="lead-contact">✉ ${l.email}</div>
+      <div class="lead-contact">📞 ${l.phone}</div>
+      <div class="lead-location">${[l.state,l.country].filter(Boolean).join(', ')||'Location not set'}</div>
+      ${listing?`<div style="font-size:0.62rem;color:var(--text3);margin-bottom:0.4rem;">Interested in: <span style="color:var(--text2)">${listing.title}</span></div>`:''}
+      ${l.notes?`<div style="font-size:0.72rem;color:var(--text3);line-height:1.6;margin-bottom:0.4rem;">${l.notes}</div>`:''}
+      <div class="lead-status-row">
+        <select class="lead-sel" onchange="updateLeadStatus('${l.id}',this.value)" style="color:${colors[l.status]||'var(--text2)'}">
+          <option value="new" ${l.status==='new'?'selected':''}>New</option>
+          <option value="contacted" ${l.status==='contacted'?'selected':''}>Contacted</option>
+          <option value="qualified" ${l.status==='qualified'?'selected':''}>Qualified</option>
+          <option value="closed" ${l.status==='closed'?'selected':''}>Closed</option>
+        </select>
+        <button class="abtn red" onclick="deleteLead('${l.id}')">Delete</button>
+      </div>
+    </div>`;
+  }).join('');
+}
+
+// ── NAV ──
+window.nav = function(btn,view,skipActive){
+  if(!skipActive){
+    document.querySelectorAll('.nav-item').forEach(b=>b.classList.remove('active'));
+    if(btn) btn.classList.add('active');
+  }
+  document.querySelectorAll('.view').forEach(el=>el.classList.remove('active'));
+  document.getElementById('view-'+view).classList.add('active');
+  if(view==='listings'){renderCards();}
+  if(view==='leads'){
+    // Populate listing dropdown in lead modal
+    const lsel=document.getElementById('lListing');
+    lsel.innerHTML='<option value="">General Enquiry</option>';
+    listings.forEach(l=>{
+      const o=document.createElement('option');o.value=l.id;o.textContent=l.title+' ('+l.city+')';lsel.appendChild(o);
+    });
+    renderLeads();
+  }
+};
+
+// ── TOAST ──
+window.toast = function(msg,type){
+  const t=document.getElementById('toast');
+  t.textContent=msg;
+  t.className='toast show'+(type?' '+type:'');
+  setTimeout(()=>t.className='toast',3500);
+};
+
+</script>
+</body>
+</html>
