@@ -1,14 +1,12 @@
-// Orvane Atlas — News Proxy
-// Vercel serverless function
-// Fetches real estate news from GDELT and returns filtered results
+// Orvane Atlas — News API Proxy
+// Vercel serverless function — fetches real estate news from GDELT
 
-export default async function handler(req, res) {
-  // CORS headers
+module.exports = async function handler(req, res) {
   res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader('Access-Control-Allow-Methods', 'GET');
-  res.setHeader('Cache-Control', 's-maxage=900, stale-while-revalidate'); // Cache 15 mins
+  res.setHeader('Cache-Control', 's-maxage=900, stale-while-revalidate');
 
-  const { query, limit = 12 } = req.query;
+  const limit = req.query.limit || 12;
 
   const QUERIES = [
     '"real estate" investment returns capital',
@@ -16,20 +14,18 @@ export default async function handler(req, res) {
     '"commercial property" investment yield returns',
     '"real estate" Nigeria OR Dubai OR London OR Qatar',
     '"property investment" profit capital growth',
-    '"real estate market" 2025 OR 2026 growth',
+    '"real estate market" 2026 growth',
     '"land acquisition" investment development Africa',
     '"REIT" investment returns property fund',
   ];
 
-  const selectedQuery = query || QUERIES[Math.floor(Math.random() * QUERIES.length)];
+  const selectedQuery = QUERIES[Math.floor(Math.random() * QUERIES.length)];
 
   const KEYWORDS = [
     'real estate','property','housing','realty','mortgage',
     'investment','investor','capital','yield','returns',
     'profit','wealth','asset','portfolio','fund','market',
     'development','land','commercial','residential','reit',
-    'property market','housing market','real estate market',
-    'property value','rental yield','capital growth',
   ];
 
   function isRelevant(title) {
@@ -82,7 +78,6 @@ export default async function handler(req, res) {
 
   try {
     const gdeltUrl = `https://api.gdeltproject.org/api/v2/doc/doc?query=${encodeURIComponent(selectedQuery)}&mode=artlist&maxrecords=25&format=json&sourcelang=english&timespan=7d`;
-
     const gdeltRes = await fetch(gdeltUrl);
     const gdeltData = await gdeltRes.json();
 
@@ -99,18 +94,9 @@ export default async function handler(req, res) {
         imageQuery: getImageQuery(a.title),
       }));
 
-    res.status(200).json({
-      success: true,
-      count: articles.length,
-      query: selectedQuery,
-      articles,
-    });
+    res.status(200).json({ success: true, count: articles.length, articles });
 
   } catch (error) {
-    res.status(500).json({
-      success: false,
-      error: error.message,
-      articles: [],
-    });
+    res.status(500).json({ success: false, error: error.message, articles: [] });
   }
-}
+};
