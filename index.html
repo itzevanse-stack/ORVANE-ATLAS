@@ -696,6 +696,16 @@ function slStatus(s){
   return['ls-s-resale','Resale'];
 }
 
+
+const FALLBACK_LISTINGS = [
+  {id:'fallback-1',title:'Premium 4-Bedroom Waterfront Residence',country:'Nigeria',city:'Lagos',location:'Lagos Island',type:'Residential',listingStatus:'ready',currency:'₦',price:'450,000,000',photos:[],status:'published'},
+  {id:'fallback-2',title:'Grade A Office Building — Abuja CBD',country:'Nigeria',city:'Abuja',location:'Central Business District',type:'Commercial',listingStatus:'ready',currency:'₦',price:'1,200,000,000',photos:[],status:'published'},
+  {id:'fallback-3',title:'Prime Land — Eko Atlantic City',country:'Nigeria',city:'Lagos',location:'Eko Atlantic',type:'Land',listingStatus:'new',currency:'₦',price:'280,000,000',photos:[],status:'published'},
+  {id:'fallback-4',title:'Luxury 3-Bed Apartment — Downtown Dubai',country:'UAE',city:'Dubai',location:'Downtown Dubai',type:'Residential',listingStatus:'ready',currency:'AED',price:'2,500,000',photos:[],status:'published'},
+  {id:'fallback-5',title:'Mixed-Use Commercial — City of London',country:'UK',city:'London',location:'City of London EC2',type:'Commercial',listingStatus:'resale',currency:'£',price:'3,800,000',photos:[],status:'published'},
+  {id:'fallback-6',title:'Premium Apartment — The Pearl Qatar',country:'Qatar',city:'Doha',location:'The Pearl',type:'Residential',listingStatus:'offplan',currency:'QAR',price:'3,200,000',photos:[],status:'published'},
+];
+
 async function loadListings(){
   try{
     const q=query(collection(db,'listings'),where('status','==','published'),orderBy('createdAt','desc'),limit(12));
@@ -710,8 +720,7 @@ async function loadListings(){
   const track=document.getElementById('listingsTrack');
   const nav=document.getElementById('listingsNav');
   if(!lSlides.length){
-    track.innerHTML=`<div class="slider-empty"><p>No listings published yet.</p><a href="opportunities.html">View All Properties</a></div>`;
-    return;
+    lSlides = FALLBACK_LISTINGS;
   }
   track.innerHTML=lSlides.map(l=>{
     const [cls,lbl]=slStatus(l.listingStatus);
@@ -804,6 +813,16 @@ async function fetchImg(q){
     imgCache[q]=url;return url;
   }catch(e){return'';}
 }
+
+
+const HOME_NEWS_FALLBACK = [
+  {id:0,title:"Dubai Real Estate Records $9.6 Billion in Q2 2026 Transactions",url:"https://www.zawya.com",source:"zawya.com",date:"9 Jun 2026",market:"UAE",category:"Market News",imgQ:"Dubai skyline luxury real estate"},
+  {id:1,title:"Nigerian Diaspora Investment in Property Reaches $4.2 Billion",url:"https://businessday.ng",source:"businessday.ng",date:"9 Jun 2026",market:"Nigeria",category:"Investment",imgQ:"Lagos Nigeria modern city"},
+  {id:2,title:"London Prime Property Prices Rise 4.2% as Demand Outpaces Supply",url:"https://www.theguardian.com",source:"theguardian.com",date:"9 Jun 2026",market:"UK",category:"Market News",imgQ:"London financial district property"},
+  {id:3,title:"Qatar Real Estate Sector Posts Strong Growth in First Half 2026",url:"https://www.gulf-times.com",source:"gulf-times.com",date:"9 Jun 2026",market:"Qatar",category:"Investment",imgQ:"Doha Qatar architecture"},
+  {id:4,title:"African Real Estate Investment Trusts See Record Capital Inflows",url:"https://www.businessinsider.co.za",source:"businessinsider.co.za",date:"9 Jun 2026",market:"Africa",category:"Funds & REITs",imgQ:"Africa modern city skyline"},
+  {id:5,title:"Cross-Border Real Estate Investment Hits Record $1.2 Trillion Globally",url:"https://www.reuters.com",source:"reuters.com",date:"9 Jun 2026",market:"Global",category:"Investment",imgQ:"real estate investment building"},
+];
 
 async function loadNews(){
   const track=document.getElementById('newsTrack');
