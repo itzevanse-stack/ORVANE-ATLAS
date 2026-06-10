@@ -1,5 +1,11 @@
 {
+  "cleanUrls": true,
   "rewrites": [
-    { "source": "/api/(.*)", "destination": "/api/$1" }
+    { "source": "/api/(.*)", "destination": "/api/$1" },
+    { "source": "/opportunities", "destination": "/opportunities.html" },
+    { "source": "/property", "destination": "/property.html" },
+    { "source": "/admin", "destination": "/admin.html" },
+    { "source": "/market-insights", "destination": "/market-insights.html" },
+    { "source": "/", "destination": "/index.html" }
   ]
 }
