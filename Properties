@@ -29,7 +29,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:999;display:flex;align-items:cen
 .nav-links{position:absolute;left:50%;transform:translateX(-50%);display:flex;gap:3rem;list-style:none;}
 .nav-links a{font-size:0.7rem;font-weight:400;letter-spacing:0.15em;text-transform:uppercase;color:rgba(255,255,255,0.55);text-decoration:none;transition:color 0.2s;}
 .nav-links a:hover{color:var(--gold3);}
-.nav-cta{font-size:0.65rem;font-weight:500;letter-spacing:0.18em;text-transform:uppercase;color:var(--black);background:var(--gold2);padding:0.75rem 2rem;text-decoration:none;transition:background 0.25s;}
+.nav-cta{font-size:0.65rem;font-weight:500;letter-spacing:0.15em;text-transform:uppercase;color:var(--black);background:var(--gold2);padding:0.65rem 1.4rem;text-decoration:none;transition:background 0.25s;}
 .nav-cta:hover{background:var(--white);color:var(--black);}
 
 /* GALLERY */
@@ -780,36 +780,36 @@ function renderProperty(l){
   } else {
 
     // Build all URL variants
-    const coordQ   = hasCoords  ? \`\${l.lat},\${l.lng}\`          : '';
+    const coordQ   = hasCoords  ? `${l.lat},${l.lng}`          : '';
     const addressQ = hasAddress ? encodeURIComponent(l.address) : '';
     const q        = coordQ || addressQ;
     const zoom     = hasCoords ? 17 : 15;
 
     // Google Maps embed URLs
-    const mapUrl       = \`https://maps.google.com/maps?q=\${q}&t=m&z=\${zoom}&output=embed\`;
-    const satelliteUrl = \`https://maps.google.com/maps?q=\${q}&t=k&z=\${zoom}&output=embed\`;
+    const mapUrl       = `https://maps.google.com/maps?q=${q}&t=m&z=${zoom}&output=embed`;
+    const satelliteUrl = `https://maps.google.com/maps?q=${q}&t=k&z=${zoom}&output=embed`;
 
     // Street view — only works reliably with coordinates
     const streetUrl = hasCoords
-      ? \`https://www.google.com/maps/embed/v1/streetview?key=AIzaSyBabiC-cCurh-l39EREVGdkRWp15YiwHd4&location=\${l.lat},\${l.lng}&heading=0&pitch=0&fov=90\`
-      : \`https://maps.google.com/maps?q=\${q}&t=m&z=\${zoom}&layer=c&output=embed\`;
+      ? `https://www.google.com/maps/embed/v1/streetview?key=AIzaSyBabiC-cCurh-l39EREVGdkRWp15YiwHd4&location=${l.lat},${l.lng}&heading=0&pitch=0&fov=90`
+      : `https://maps.google.com/maps?q=${q}&t=m&z=${zoom}&layer=c&output=embed`;
 
     // External links
     const directionsUrl = hasCoords
-      ? \`https://www.google.com/maps/dir/?api=1&destination=\${coordQ}&travelmode=driving\`
-      : \`https://www.google.com/maps/dir/?api=1&destination=\${addressQ}&travelmode=driving\`;
+      ? `https://www.google.com/maps/dir/?api=1&destination=${coordQ}&travelmode=driving`
+      : `https://www.google.com/maps/dir/?api=1&destination=${addressQ}&travelmode=driving`;
 
     const earthUrl = hasCoords
-      ? \`https://earth.google.com/web/@\${l.lat},\${l.lng},0a,500d,35y,0h,45t,0r/\`
-      : \`https://earth.google.com/web/search/\${addressQ}\`;
+      ? `https://earth.google.com/web/@${l.lat},${l.lng},0a,500d,35y,0h,45t,0r/`
+      : `https://earth.google.com/web/search/${addressQ}`;
 
     const mapsSearchUrl = hasCoords
-      ? \`https://www.google.com/maps/search/?api=1&query=\${coordQ}\`
-      : \`https://www.google.com/maps/search/?api=1&query=\${addressQ}\`;
+      ? `https://www.google.com/maps/search/?api=1&query=${coordQ}`
+      : `https://www.google.com/maps/search/?api=1&query=${addressQ}`;
 
-    const addressDisplay = l.address || \`\${l.location||l.city||''}, \${l.country||''}\`;
+    const addressDisplay = l.address || `${l.location||l.city||''}, ${l.country||''}`;
 
-    locSection.innerHTML=\`
+    locSection.innerHTML=`
       <div class="map-view-tabs">
         <button class="mvt active" onclick="switchMapView('map',this)">
           <svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/></svg>
@@ -831,7 +831,7 @@ function renderProperty(l){
         </div>
         <iframe
           id="mapIframe"
-          src="\${mapUrl}"
+          src="${mapUrl}"
           allowfullscreen
           loading="lazy"
           onload="document.getElementById('mapLoading').classList.add('hidden')"
@@ -839,23 +839,23 @@ function renderProperty(l){
       </div>
       <div class="map-address-bar">
         <svg class="map-address-icon" viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
-        <span class="map-address-text">\${addressDisplay}</span>
+        <span class="map-address-text">${addressDisplay}</span>
       </div>
       <div class="map-actions-row">
-        <a href="\${directionsUrl}" target="_blank" class="map-btn map-btn-primary">
+        <a href="${directionsUrl}" target="_blank" class="map-btn map-btn-primary">
           <svg viewBox="0 0 24 24"><polygon points="3 11 22 2 13 21 11 13 3 11"/></svg>
           Get Directions
         </a>
-        <a href="\${earthUrl}" target="_blank" class="map-btn map-btn-earth">
+        <a href="${earthUrl}" target="_blank" class="map-btn map-btn-earth">
           <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 010 20M12 2a15.3 15.3 0 000 20"/></svg>
           Open in Google Earth
         </a>
-        <a href="\${mapsSearchUrl}" target="_blank" class="map-btn map-btn-ghost">
+        <a href="${mapsSearchUrl}" target="_blank" class="map-btn map-btn-ghost">
           <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
           View on Google Maps
         </a>
       </div>
-    \`;
+    `;
 
     // Store URLs for tab switching
     window._mapUrls = { map: mapUrl, satellite: satelliteUrl, street: streetUrl };
