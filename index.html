@@ -720,9 +720,8 @@ async function loadListings(){
   }
   const track=document.getElementById('listingsTrack');
   const nav=document.getElementById('listingsNav');
-  if(!lSlides.length){
-    lSlides = FALLBACK_LISTINGS;
-  }
+  // Only use fallback when Firebase has zero real published listings
+  if(!lSlides.length) lSlides = FALLBACK_LISTINGS;
   track.innerHTML=lSlides.map(l=>{
     const [cls,lbl]=slStatus(l.listingStatus);
     const photo=l.photos&&l.photos[0]?`<img src="${l.photos[0]}" alt="${l.title}">`:`<div class="ls-photo-placeholder">${l.city||''} · ${l.type||''}</div>`;
