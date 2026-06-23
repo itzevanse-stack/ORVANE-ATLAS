@@ -355,7 +355,7 @@ async function loadPortal(user){
               <div class="pc-photo">${photo}<span class="pc-badge ${bm[l.listingStatus]||'b-ready'}">${bl[l.listingStatus]||''}</span>
               <button class="pc-remove" onclick="unsave('${l.id}','${user.uid}')" title="Remove"><svg viewBox="0 0 24 24"><path d="M18 6L6 18M6 6l12 12"/></svg></button></div>
               <div class="pc-body"><div class="pc-loc">${l.location||l.city||''}, ${l.country||''}</div><div class="pc-name">${l.title||''}</div><div class="pc-price"><span class="pc-curr">${l.currency||''} </span>${l.price||''}</div></div>
-              <div class="pc-footer"><a href="property.html?id=${l.id}" class="pc-btn primary">View Property</a><a href="index.html#contact" class="pc-btn">Enquire</a></div>
+              <div class="pc-footer"><a href="/property.html?id=${l.id}" class="pc-btn primary">View Property</a><a href="index.html#contact" class="pc-btn">Enquire</a></div>
             </div>`;
           }
         }catch(e){}
@@ -397,7 +397,7 @@ async function loadPortal(user){
             <div class="alert-item">
               <div class="alert-dot"></div>
               <div class="alert-body"><div class="alert-title">${l.title}</div><div class="alert-sub">${l.location||l.city||''}, ${l.country||''} &middot; ${l.currency||''}${l.price||''}</div></div>
-              <a href="property.html?id=${l.id}" class="act-btn" style="font-size:0.55rem;padding:0.5rem 1rem;">View</a>
+              <a href="/property.html?id=${l.id}" class="act-btn" style="font-size:0.55rem;padding:0.5rem 1rem;">View</a>
             </div>`).join('');
         }
         // Load criteria into form
