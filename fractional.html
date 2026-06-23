@@ -4,19 +4,19 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Fractional Investment — Orvane Atlas</title>
-<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
 *,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
-:root{--black:#000;--white:#fff;--off-white:#F8F6F2;--warm:#F2EDE6;--gold:#B8860B;--gold2:#D4A017;--gold3:#E8C97A;--text:#1A1A1A;--text2:#666;--text3:#999;--border:#E5DDD4;--green2:#52B788;--red2:#EF4444;--serif:'Plus Jakarta Sans',system-ui,sans-serif;--sans:'Plus Jakarta Sans',system-ui,sans-serif;}
+:root{--black:#000;--white:#fff;--off-white:#F8F6F2;--warm:#F2EDE6;--gold:#B8860B;--gold2:#D4A017;--gold3:#E8C97A;--text:#1A1A1A;--text2:#666;--text3:#999;--border:#E5DDD4;--green2:#52B788;--red2:#EF4444;--serif:'Cormorant Garamond',Georgia,serif;--sans:'Inter',system-ui,sans-serif;}
 html{scroll-behavior:smooth;}
 body{background:var(--white);color:var(--text);font-weight:300;line-height:1.7;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;}
 ::-webkit-scrollbar{width:2px;}::-webkit-scrollbar-thumb{background:var(--gold);}
-nav{position:fixed;top:0;left:0;right:0;z-index:999;display:flex;align-items:center;justify-content:space-between;padding:1.2rem 5vw;background:#000;border-bottom:1px solid rgba(255,255,255,0.06);backdrop-filter:blur(20px);}
+nav{position:fixed;top:0;left:0;right:0;z-index:999;display:flex;align-items:center;justify-content:space-between;padding:1rem 3vw;background:#000000;border-bottom:1px solid rgba(255,255,255,0.06);backdrop-filter:blur(20px);transition:padding 0.4s;}
 .nav-logo img{height:44px;width:auto;display:block;}
-.nav-links{position:absolute;left:50%;transform:translateX(-50%);display:flex;gap:1rem;list-style:none;white-space:nowrap;}
-.nav-links a{font-size:0.58rem;font-weight:400;letter-spacing:0.06em;text-transform:uppercase;color:rgba(255,255,255,0.55);text-decoration:none;transition:color 0.2s;white-space:nowrap;}
+.nav-links{position:absolute;left:50%;transform:translateX(-50%);display:flex;gap:0.2rem;list-style:none;white-space:nowrap;}
+.nav-links a{font-size:0.68rem;font-weight:400;letter-spacing:0.06em;text-transform:uppercase;color:rgba(255,255,255,0.7);text-decoration:none;transition:color 0.2s;padding:0.3rem 0.6rem;}
 .nav-links a:hover,.nav-links a.active{color:var(--gold3);}
-.nav-cta{font-size:0.65rem;font-weight:500;letter-spacing:0.15em;text-transform:uppercase;color:var(--black);background:var(--gold2);padding:0.65rem 1.4rem;text-decoration:none;transition:background 0.25s;}
+.nav-cta{font-size:0.58rem;font-weight:500;letter-spacing:0.08em;text-transform:uppercase;color:var(--black);background:var(--gold2);padding:0.6rem 1rem;text-decoration:none;transition:background 0.25s;white-space:nowrap;flex-shrink:0;}
 .nav-cta:hover{background:var(--white);color:var(--black);}
 .hero{position:relative;height:60vh;min-height:480px;display:flex;align-items:center;overflow:hidden;background:var(--black);}
 .hero-bg{position:absolute;inset:0;background-size:cover;background-position:center;filter:brightness(0.3);}
@@ -24,7 +24,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:999;display:flex;align-items:cen
 .hero-content{position:relative;z-index:2;padding:0 5vw;max-width:700px;}
 .hero-tag{font-size:0.6rem;font-weight:400;letter-spacing:0.4em;text-transform:uppercase;color:var(--gold3);display:flex;align-items:center;gap:1rem;margin-bottom:2rem;}
 .hero-tag::before{content:'';width:2.5rem;height:1px;background:var(--gold3);}
-.hero-h1{font-size:clamp(3rem,6vw,5.5rem);font-weight:700;line-height:0.95;letter-spacing:-0.02em;color:var(--white);margin-bottom:1.5rem;}
+.hero-h1{font-family:var(--serif);font-size:clamp(3rem,6vw,5.5rem);font-weight:700;line-height:0.95;letter-spacing:-0.02em;color:var(--white);margin-bottom:1.5rem;}
 .hero-h1 em{color:inherit;font-style:normal;font-weight:inherit;}
 .hero-sub{font-size:0.9rem;color:rgba(255,255,255,0.55);line-height:1.9;max-width:500px;margin-bottom:2.5rem;}
 .hero-btns{display:flex;gap:1rem;flex-wrap:wrap;}
@@ -35,7 +35,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:999;display:flex;align-items:cen
 .how-section{padding:7rem 5vw;background:var(--white);}
 .section-tag{font-size:0.6rem;font-weight:400;letter-spacing:0.4em;text-transform:uppercase;color:var(--text3);display:flex;align-items:center;gap:1rem;margin-bottom:1.5rem;}
 .section-tag::before{content:'';width:2rem;height:1px;background:var(--text3);}
-.section-title{font-size:clamp(2.5rem,4vw,3.5rem);font-weight:700;line-height:1;letter-spacing:-0.02em;color:var(--text);margin-bottom:1rem;}
+.section-title{font-family:var(--serif);font-size:clamp(2.5rem,4vw,3.5rem);font-weight:700;line-height:1;letter-spacing:-0.02em;color:var(--text);margin-bottom:1rem;}
 .section-title em{color:inherit;font-style:normal;font-weight:inherit;}
 .section-sub{font-size:0.9rem;color:var(--text2);line-height:2;max-width:600px;margin-bottom:4rem;}
 .steps{display:grid;grid-template-columns:repeat(4,1fr);gap:2px;background:var(--border);}
@@ -69,14 +69,14 @@ nav{position:fixed;top:0;left:0;right:0;z-index:999;display:flex;align-items:cen
 .benefit-title{font-size:1.2rem;font-weight:400;color:var(--text);margin-bottom:0.8rem;}
 .benefit-desc{font-size:0.8rem;color:var(--text2);line-height:1.85;}
 .cta-section{background:var(--black);padding:7rem 5vw;text-align:center;}
-.cta-title{font-size:clamp(2.5rem,4vw,4rem);font-weight:700;color:var(--white);margin-bottom:1rem;}
+.cta-title{font-family:var(--serif);font-size:clamp(2.5rem,4vw,4rem);font-weight:700;color:var(--white);margin-bottom:1rem;}
 .cta-title em{color:inherit;font-style:normal;font-weight:inherit;}
 .cta-sub{font-size:0.9rem;color:rgba(255,255,255,0.4);margin-bottom:3rem;max-width:500px;margin-left:auto;margin-right:auto;line-height:1.9;}
 footer{background:var(--black);border-top:1px solid rgba(255,255,255,0.06);padding:3rem 5vw 2rem;}
 .ft-bottom{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1rem;}
 .ft-copy{font-size:0.65rem;color:rgba(255,255,255,0.2);}
 .ft-logo img{height:40px;width:auto;}
-@media(max-width:1024px){nav{padding:1rem 5vw;}.nav-links{display:none;}.steps{grid-template-columns:1fr 1fr;}.shares-grid{grid-template-columns:1fr 1fr;}.benefits-grid{grid-template-columns:1fr;}}
+@media(max-width:1024px){nav{padding:1rem 5vw;}.nav-links{position:absolute;left:50%;transform:translateX(-50%);display:flex;gap:0.2rem;list-style:none;white-space:nowrap;}.steps{grid-template-columns:1fr 1fr;}.shares-grid{grid-template-columns:1fr 1fr;}.benefits-grid{grid-template-columns:1fr;}}
 @media(max-width:640px){.steps{grid-template-columns:1fr;}}
 </style>
 </head>
@@ -87,8 +87,12 @@ footer{background:var(--black);border-top:1px solid rgba(255,255,255,0.06);paddi
     <li><a href="opportunities.html">Properties</a></li>
     <li><a href="fractional.html" class="active">Fractional</a></li>
     <li><a href="sell.html">Sell</a></li>
-    <li><a href="investor-portal.html">My Portal</a></li>
-    <li><a href="market-insights.html">Market Insights</a></li>
+    <li><a href="developers.html">Developers</a></li>
+    <li><a href="investor-portal.html">Portal</a></li>
+    <li><a href="market-insights.html">Insights</a></li>
+    <li><a href="index.html#services">Services</a></li>
+    <li><a href="index.html#markets">Markets</a></li>
+    <li><a href="index.html#about">About</a></li>
   </ul>
   <a href="index.html#contact" class="nav-cta">Private Enquiry</a>
 </nav>
