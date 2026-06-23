@@ -454,18 +454,23 @@ const FALLBACK_LISTINGS = [
 
 async function loadListings(){
   try {
+    // Try ordered query (requires Firestore composite index)
     const q = query(collection(db,'listings'), where('status','==','published'), orderBy('createdAt','desc'));
     const snap = await getDocs(q);
     allListings = snap.docs.map(d => ({id:d.id,...d.data()}));
   } catch(e){
     try {
+      // Fallback: fetch all and filter client-side (works without index)
       const snap = await getDocs(collection(db,'listings'));
-      allListings = snap.docs.map(d => ({id:d.id,...d.data()})).filter(l=>l.status==='published');
+      allListings = snap.docs
+        .map(d => ({id:d.id,...d.data()}))
+        .filter(l => l.status === 'published')
+        .sort((a,b) => (b.createdAt?.seconds||0) - (a.createdAt?.seconds||0));
     } catch(e2){
       allListings = [];
     }
   }
-  // Show fallback listings when Firebase is empty
+  // Show fallback placeholder listings only when Firebase has zero real listings
   if(!allListings.length) allListings = FALLBACK_LISTINGS;
   document.getElementById('loadingState').style.display='none';
   renderListings();
