@@ -8,7 +8,7 @@
 <meta name="theme-color" content="#000000">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Property Details — Orvane Atlas</title>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <style>
 *,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
 :root{
@@ -16,11 +16,11 @@
   --gold:#B8860B;--gold2:#D4A017;--gold3:#E8C97A;
   --text:#1A1A1A;--text2:#666;--text3:#999;--border:#E5DDD4;
   --green2:#52B788;
-  --serif:'Cormorant Garamond',Georgia,serif;
-  --sans:'Inter',system-ui,sans-serif;
+  --serif:'Plus Jakarta Sans',system-ui,sans-serif;
+  --sans:'Plus Jakarta Sans',system-ui,sans-serif;
 }
 html{scroll-behavior:smooth;}
-body{background:var(--white);color:var(--text);font-family:var(--sans);font-weight:300;line-height:1.6;-webkit-font-smoothing:antialiased;}
+body{background:var(--white);color:var(--text);font-weight:300;line-height:1.7;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;}
 ::-webkit-scrollbar{width:2px;}
 ::-webkit-scrollbar-thumb{background:var(--gold);}
 
@@ -34,7 +34,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:999;display:flex;align-items:cen
 
 /* GALLERY */
 .gallery{margin-top:62px;position:relative;height:75vh;min-height:520px;background:#1a1a1a;overflow:hidden;}
-.gallery-main{width:100%;height:100%;object-fit:contain;object-position:center center;display:block;background:#1a1a1a;}
+.gallery-main{width:100%;height:100%;object-fit:cover;object-position:center 30%;display:block;}
 .gallery-placeholder{width:100%;height:100%;display:flex;align-items:center;justify-content:center;font-size:0.8rem;color:var(--text3);letter-spacing:0.2em;text-transform:uppercase;}
 .gallery-thumbs{position:absolute;bottom:1.5rem;left:50%;transform:translateX(-50%);display:flex;gap:0.5rem;}
 .gallery-thumb{width:60px;height:40px;object-fit:cover;cursor:pointer;opacity:0.6;border:2px solid transparent;transition:all 0.2s;}
@@ -65,19 +65,19 @@ nav{position:fixed;top:0;left:0;right:0;z-index:999;display:flex;align-items:cen
 .p-ref{font-size:0.6rem;color:var(--text3);letter-spacing:0.15em;}
 .p-location{font-size:0.7rem;font-weight:400;letter-spacing:0.2em;text-transform:uppercase;color:var(--gold);margin-bottom:0.8rem;display:flex;align-items:center;gap:0.5rem;}
 .p-location::before{content:'';width:4px;height:4px;background:var(--gold);border-radius:50%;}
-.p-title{font-family:var(--serif);font-size:clamp(2rem,4vw,3.5rem);font-weight:300;line-height:1;letter-spacing:-0.02em;color:var(--text);margin-bottom:1.5rem;}
+.p-title{font-size:clamp(2rem,4vw,3.5rem);font-weight:300;line-height:1;letter-spacing:-0.02em;color:var(--text);margin-bottom:1.5rem;}
 .p-developer{font-size:0.72rem;color:var(--text3);margin-bottom:2rem;}
 .p-developer span{color:var(--text2);}
 .p-price-wrap{background:var(--off-white);border:1px solid var(--border);padding:1.5rem 2rem;margin-bottom:2.5rem;display:flex;align-items:center;justify-content:space-between;}
 .p-price-label{font-size:0.55rem;font-weight:500;letter-spacing:0.2em;text-transform:uppercase;color:var(--text3);margin-bottom:0.3rem;}
-.p-price{font-family:var(--serif);font-size:2.5rem;font-weight:300;color:var(--text);letter-spacing:-0.02em;line-height:1;}
+.p-price{font-size:2.5rem;font-weight:300;color:var(--text);letter-spacing:-0.02em;line-height:1;}
 .p-currency{color:var(--gold);font-style:italic;font-size:1.5rem;}
 .p-type-tag{font-size:0.6rem;font-weight:500;letter-spacing:0.18em;text-transform:uppercase;color:var(--text3);background:var(--white);border:1px solid var(--border);padding:0.4rem 1rem;}
 
 .p-specs-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--border);margin-bottom:3rem;}
 .p-spec{background:var(--white);padding:1.2rem 1.5rem;}
 .p-spec-label{font-size:0.52rem;font-weight:500;letter-spacing:0.22em;text-transform:uppercase;color:var(--text3);margin-bottom:0.3rem;}
-.p-spec-value{font-family:var(--serif);font-size:1.2rem;font-weight:300;color:var(--text);}
+.p-spec-value{font-size:1.2rem;font-weight:300;color:var(--text);}
 
 .p-section-title{font-size:0.6rem;font-weight:500;letter-spacing:0.3em;text-transform:uppercase;color:var(--gold);margin-bottom:1.2rem;display:flex;align-items:center;gap:1rem;}
 .p-section-title::after{content:'';flex:1;height:1px;background:var(--border);}
@@ -103,13 +103,13 @@ nav{position:fixed;top:0;left:0;right:0;z-index:999;display:flex;align-items:cen
 .property-sidebar{padding:3rem 2.5rem;background:var(--off-white);position:sticky;top:62px;align-self:start;height:calc(100vh - 62px);overflow-y:auto;}
 .sidebar-price-wrap{background:var(--white);border:1px solid var(--border);padding:1.5rem;margin-bottom:2rem;}
 .sidebar-price-label{font-size:0.52rem;font-weight:500;letter-spacing:0.2em;text-transform:uppercase;color:var(--text3);margin-bottom:0.3rem;}
-.sidebar-price{font-family:var(--serif);font-size:1.8rem;font-weight:300;color:var(--text);line-height:1;}
+.sidebar-price{font-size:1.8rem;font-weight:300;color:var(--text);line-height:1;}
 .sidebar-currency{color:var(--gold);font-style:italic;font-size:1.1rem;}
 
 /* AGENT CARD */
 .agent-card{background:var(--white);border:1px solid var(--border);padding:1.5rem;margin-bottom:1.5rem;}
 .agent-label{font-size:0.52rem;font-weight:500;letter-spacing:0.22em;text-transform:uppercase;color:var(--text3);margin-bottom:1rem;}
-.agent-name{font-family:var(--serif);font-size:1.2rem;font-weight:400;color:var(--text);margin-bottom:0.3rem;}
+.agent-name{font-size:1.2rem;font-weight:400;color:var(--text);margin-bottom:0.3rem;}
 .agent-title{font-size:0.65rem;color:var(--text3);margin-bottom:1.5rem;letter-spacing:0.05em;}
 .agent-rule{height:1px;background:var(--border);margin-bottom:1.5rem;}
 .contact-btn{width:100%;font-size:0.62rem;font-weight:500;letter-spacing:0.18em;text-transform:uppercase;padding:0.85rem 1.5rem;border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:0.75rem;text-decoration:none;margin-bottom:0.75rem;transition:all 0.2s;}
@@ -123,9 +123,9 @@ nav{position:fixed;top:0;left:0;right:0;z-index:999;display:flex;align-items:cen
 
 /* ENQUIRY FORM */
 .enquiry-form{background:var(--white);border:1px solid var(--border);padding:1.5rem;margin-bottom:1.5rem;}
-.eq-title{font-family:var(--serif);font-size:1.1rem;font-weight:300;color:var(--text);margin-bottom:0.3rem;}
+.eq-title{font-size:1.1rem;font-weight:300;color:var(--text);margin-bottom:0.3rem;}
 .eq-sub{font-size:0.7rem;color:var(--text3);margin-bottom:1.2rem;}
-.eq-input{width:100%;background:var(--off-white);border:1px solid var(--border);color:var(--text);font-family:var(--sans);font-size:0.78rem;font-weight:300;padding:0.65rem 0.9rem;outline:none;margin-bottom:0.75rem;transition:border-color 0.2s;border-radius:0;}
+.eq-input{width:100%;background:var(--off-white);border:1px solid var(--border);color:var(--text);font-size:0.78rem;font-weight:300;padding:0.65rem 0.9rem;outline:none;margin-bottom:0.75rem;transition:border-color 0.2s;border-radius:0;}
 .eq-input:focus{border-color:rgba(184,134,11,0.5);}
 .eq-input::placeholder{color:var(--text3);}
 .eq-textarea{resize:vertical;min-height:80px;}
@@ -166,7 +166,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:999;display:flex;align-items:cen
   color:var(--text2);
 }
 .proj-val{
-  font-family:var(--serif);
+  
   font-size:1.1rem;font-weight:300;
   color:var(--text);
 }
@@ -275,7 +275,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:999;display:flex;align-items:cen
   align-items:center;justify-content:center;
   gap:1rem;color:var(--text3);padding:2rem;text-align:center;
 }
-.map-no-loc h4{font-family:var(--serif);font-size:1.3rem;font-weight:300;color:var(--text2);}
+.map-no-loc h4{font-size:1.3rem;font-weight:300;color:var(--text2);}
 .map-no-loc p{font-size:0.78rem;line-height:1.7;max-width:280px;}
 
 
@@ -317,7 +317,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:999;display:flex;align-items:cen
   color:var(--gold);margin-bottom:0.4rem;
 }
 .agent-name{
-  font-family:var(--serif);font-size:1.3rem;
+  font-size:1.3rem;
   font-weight:400;color:var(--text);line-height:1.1;
   margin-bottom:0.2rem;
 }
@@ -355,6 +355,128 @@ nav{position:fixed;top:0;left:0;right:0;z-index:999;display:flex;align-items:cen
   background:var(--off-white);
 }
 
+
+/* FLOATING CURRENCY CONVERTER */
+.currency-float{
+  position:fixed;
+  bottom:2rem;
+  right:2rem;
+  z-index:888;
+  display:flex;
+  flex-direction:column;
+  align-items:flex-end;
+  gap:0.5rem;
+}
+.currency-float-btn{
+  display:flex;
+  align-items:center;
+  gap:0.6rem;
+  background:var(--black);
+  color:var(--white);
+  border:1px solid rgba(255,255,255,0.15);
+  padding:0.7rem 1.2rem;
+  font-size:0.65rem;
+  font-weight:600;
+  letter-spacing:0.12em;
+  text-transform:uppercase;
+  cursor:pointer;
+  transition:background 0.2s;
+  box-shadow:0 4px 20px rgba(0,0,0,0.25);
+}
+.currency-float-btn:hover{background:#111;}
+.currency-float-btn svg{width:14px;height:14px;fill:none;stroke:currentColor;stroke-width:1.5;}
+.currency-float-panel{
+  display:none;
+  background:var(--white);
+  border:1px solid var(--border);
+  box-shadow:0 8px 40px rgba(0,0,0,0.15);
+  width:280px;
+  overflow:hidden;
+}
+.currency-float-panel.open{display:block;}
+.cfp-header{
+  background:var(--black);
+  padding:1rem 1.2rem;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+}
+.cfp-header-title{
+  font-size:0.62rem;
+  font-weight:600;
+  letter-spacing:0.15em;
+  text-transform:uppercase;
+  color:var(--white);
+}
+.cfp-close{
+  background:none;border:none;
+  color:rgba(255,255,255,0.5);
+  cursor:pointer;font-size:1.1rem;
+  line-height:1;padding:0;
+}
+.cfp-selector{
+  padding:1rem 1.2rem;
+  border-bottom:1px solid var(--border);
+  display:flex;
+  flex-direction:column;
+  gap:0.4rem;
+}
+.cfp-label{
+  font-size:0.52rem;
+  font-weight:500;
+  letter-spacing:0.2em;
+  text-transform:uppercase;
+  color:var(--text3);
+}
+.cfp-select{
+  background:var(--off-white);
+  border:1px solid var(--border);
+  color:var(--text);
+  
+  font-size:0.82rem;
+  font-weight:500;
+  padding:0.6rem 0.8rem;
+  outline:none;
+  width:100%;
+  appearance:none;
+  cursor:pointer;
+}
+.cfp-result{
+  padding:1rem 1.2rem;
+}
+.cfp-result-label{
+  font-size:0.52rem;
+  font-weight:500;
+  letter-spacing:0.2em;
+  text-transform:uppercase;
+  color:var(--text3);
+  margin-bottom:0.4rem;
+}
+.cfp-result-price{
+  font-size:1.5rem;
+  font-weight:700;
+  color:var(--text);
+  letter-spacing:-0.02em;
+  line-height:1;
+  margin-bottom:0.3rem;
+}
+.cfp-result-note{
+  font-size:0.6rem;
+  color:var(--text3);
+  line-height:1.6;
+}
+.cfp-rates{
+  padding:0.8rem 1.2rem;
+  background:var(--off-white);
+  border-top:1px solid var(--border);
+  display:grid;
+  grid-template-columns:1fr 1fr 1fr;
+  gap:0.5rem;
+}
+.cfp-rate-cell{text-align:center;}
+.cfp-rate-code{font-size:0.48rem;font-weight:600;letter-spacing:0.15em;text-transform:uppercase;color:var(--text3);}
+.cfp-rate-val{font-size:0.72rem;font-weight:600;color:var(--text);}
+
 /* SAVE BUTTON */
 .save-prop-btn{
   display:inline-flex;align-items:center;gap:0.6rem;
@@ -390,8 +512,8 @@ nav{position:fixed;top:0;left:0;right:0;z-index:999;display:flex;align-items:cen
 .currency-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--border);}
 .currency-cell{background:var(--white);padding:1rem 1.2rem;text-align:center;}
 .currency-code{font-size:0.55rem;font-weight:500;letter-spacing:0.2em;text-transform:uppercase;color:var(--text3);margin-bottom:0.3rem;}
-.currency-val{font-family:var(--serif);font-size:1.1rem;font-weight:300;color:var(--text);}
-.currency-cell.loading .currency-val{color:var(--text3);font-size:0.75rem;font-family:var(--sans);}
+.currency-val{font-size:1.1rem;font-weight:300;color:var(--text);}
+.currency-cell.loading .currency-val{color:var(--text3);font-size:0.75rem;}
 .currency-note{font-size:0.6rem;color:var(--text3);margin-top:0.8rem;line-height:1.6;}
 
 /* ROI CALCULATOR */
@@ -400,7 +522,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:999;display:flex;align-items:cen
   padding:1.8rem;margin-bottom:2rem;
 }
 .roi-title{
-  font-family:var(--serif);font-size:1.3rem;font-weight:300;color:var(--text);
+  font-size:1.3rem;font-weight:300;color:var(--text);
   margin-bottom:0.3rem;
 }
 .roi-title em{font-style:italic;color:var(--gold);}
@@ -408,14 +530,14 @@ nav{position:fixed;top:0;left:0;right:0;z-index:999;display:flex;align-items:cen
 .roi-inputs{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-bottom:1.5rem;}
 .roi-inp-group{display:flex;flex-direction:column;gap:0.4rem;}
 .roi-lbl{font-size:0.52rem;font-weight:500;letter-spacing:0.22em;text-transform:uppercase;color:var(--text3);}
-.roi-inp{background:var(--white);border:1px solid var(--border);color:var(--text);font-family:var(--sans);font-size:0.85rem;font-weight:300;padding:0.65rem 0.9rem;outline:none;width:100%;transition:border-color 0.2s;}
+.roi-inp{background:var(--white);border:1px solid var(--border);color:var(--text);font-size:0.85rem;font-weight:300;padding:0.65rem 0.9rem;outline:none;width:100%;transition:border-color 0.2s;}
 .roi-inp:focus{border-color:rgba(184,134,11,0.4);}
 .roi-btn{font-size:0.62rem;font-weight:500;letter-spacing:0.18em;text-transform:uppercase;color:var(--black);background:var(--gold2);border:none;padding:0.75rem 2rem;cursor:pointer;transition:background 0.2s;}
 .roi-btn:hover{background:var(--gold3);}
 .roi-results{display:none;margin-top:1.5rem;display:grid;grid-template-columns:repeat(2,1fr);gap:1px;background:var(--border);}
 .roi-result-cell{background:var(--white);padding:1.2rem;text-align:center;}
 .roi-result-label{font-size:0.52rem;font-weight:500;letter-spacing:0.18em;text-transform:uppercase;color:var(--text3);margin-bottom:0.4rem;}
-.roi-result-val{font-family:var(--serif);font-size:1.2rem;font-weight:300;color:var(--text);}
+.roi-result-val{font-size:1.2rem;font-weight:300;color:var(--text);}
 .roi-result-val.positive{color:#2D6A4F;}
 .roi-disclaimer{font-size:0.62rem;color:var(--text3);margin-top:1rem;line-height:1.6;font-style:italic;}
 
@@ -491,19 +613,7 @@ footer{background:var(--black);border-top:1px solid rgba(255,255,255,0.06);paddi
     <div class="p-section-title">About This Property</div>
     <p class="p-desc" id="pDesc"></p>
 
-    <!-- CURRENCY CONVERTER -->
-    <div id="pCurrency" class="currency-section" style="display:none">
-      <div class="currency-title">Price in Other Currencies</div>
-      <div class="currency-grid">
-        <div class="currency-cell"><div class="currency-code">USD</div><div class="currency-val" id="cUSD">—</div></div>
-        <div class="currency-cell"><div class="currency-code">GBP</div><div class="currency-val" id="cGBP">—</div></div>
-        <div class="currency-cell"><div class="currency-code">AED</div><div class="currency-val" id="cAED">—</div></div>
-        <div class="currency-cell"><div class="currency-code">NGN</div><div class="currency-val" id="cNGN">—</div></div>
-        <div class="currency-cell"><div class="currency-code">QAR</div><div class="currency-val" id="cQAR">—</div></div>
-        <div class="currency-cell"><div class="currency-code">ZAR</div><div class="currency-val" id="cZAR">—</div></div>
-      </div>
-      <div class="currency-note">Indicative exchange rates. For exact figures at time of transaction contact our team.</div>
-    </div>
+<!-- Currency converter moved to floating widget -->
 
     <!-- ROI CALCULATOR -->
     <div id="pROI" class="roi-section" style="display:none">
@@ -676,7 +786,10 @@ function renderProperty(l){
 
   // LOCATION & TITLE
   document.getElementById('pLocation').textContent=(l.location||l.city||'')+', '+(l.country||'');
-  document.getElementById('pTitle').textContent=l.title||'';
+  // Display title in proper case (not all caps)
+  const toTitleCase = str => str ? str.replace(/\w\S*/g, t => t.charAt(0).toUpperCase()+t.substr(1).toLowerCase()) : '';
+  const displayTitle = l.title && l.title === l.title.toUpperCase() ? toTitleCase(l.title) : (l.title||'');
+  document.getElementById('pTitle').textContent = displayTitle;
   document.getElementById('pDeveloper').innerHTML=l.developer?`Developer / Seller: <span>${l.developer}</span>`:'';
 
   // PRICE
@@ -903,6 +1016,9 @@ function renderProperty(l){
   }
 
   // CURRENCY CONVERTER — always show if price exists
+  // Init floating currency converter
+  window.initCurrencyFloat(l);
+
   const currencyEl = document.getElementById('pCurrency');
   if(currencyEl && l.price){
     const rawPrice = parseFloat((l.price||'').toString().replace(/[^0-9.]/g,''));
@@ -992,6 +1108,41 @@ window.calcROI = function(){
   document.getElementById('roiResults').style.display='block';
 };
 
+
+// ── FLOATING CURRENCY CONVERTER ──
+window._rawPriceUSD = 0;
+
+window.initCurrencyFloat = function(listing){
+  const raw = parseFloat((listing.price||'').toString().replace(/[^0-9.]/g,''));
+  if(!raw) return;
+  const sym = (listing.currency||'NGN').toUpperCase();
+  const toUSD = {NGN:0.00062, N:0.00062, USD:1, GBP:1.27, AED:0.272, QAR:0.274, ZAR:0.054, EUR:1.08};
+  const rate = toUSD[sym] || toUSD['NGN'];
+  window._rawPriceUSD = raw * rate;
+
+  // Show all rates immediately
+  const fmt = (n,pre) => pre + new Intl.NumberFormat('en-US',{maximumFractionDigits:0}).format(n);
+  document.getElementById('cfpUSD').textContent = fmt(window._rawPriceUSD,'$');
+  document.getElementById('cfpGBP').textContent = fmt(window._rawPriceUSD*0.79,'£');
+  document.getElementById('cfpAED').textContent = fmt(window._rawPriceUSD*3.67,'');
+
+  // Set default selection to match listing currency
+  const sel = document.getElementById('cfpCurrency');
+  const match = {NGN:'NGN',N:'NGN','₦':'NGN',USD:'USD','$':'USD',GBP:'GBP','£':'GBP',AED:'AED',QAR:'QAR',ZAR:'ZAR'};
+  if(match[sym]) sel.value = match[sym];
+  convertCurrency();
+  document.getElementById('currencyFloat').style.display='flex';
+};
+
+window.convertCurrency = function(){
+  const sel = document.getElementById('cfpCurrency').value;
+  const rates = {NGN:1610,USD:1,GBP:0.79,AED:3.67,QAR:3.64,ZAR:18.5,EUR:0.92};
+  const prefixes = {NGN:'₦',USD:'$',GBP:'£',AED:'AED ',QAR:'QAR ',ZAR:'R',EUR:'€'};
+  const converted = window._rawPriceUSD * (rates[sel]||1);
+  const result = (prefixes[sel]||'') + new Intl.NumberFormat('en-US',{maximumFractionDigits:0}).format(converted);
+  document.getElementById('cfpResult').textContent = result;
+};
+
 window.saveProperty = async function(listingId){
   try{
     const { getAuth } = await import("https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js");
@@ -1017,5 +1168,41 @@ window.saveProperty = async function(listingId){
   }
 };
 </script>
+
+<!-- FLOATING CURRENCY CONVERTER -->
+<div class="currency-float" id="currencyFloat" style="display:none">
+  <div class="currency-float-panel" id="cfpPanel">
+    <div class="cfp-header">
+      <span class="cfp-header-title">Convert Price</span>
+      <button class="cfp-close" onclick="document.getElementById('cfpPanel').classList.remove('open')">×</button>
+    </div>
+    <div class="cfp-selector">
+      <div class="cfp-label">Display price in</div>
+      <select class="cfp-select" id="cfpCurrency" onchange="convertCurrency()">
+        <option value="NGN">₦ Nigerian Naira</option>
+        <option value="USD">$ US Dollar</option>
+        <option value="GBP">£ British Pound</option>
+        <option value="AED">AED UAE Dirham</option>
+        <option value="QAR">QAR Qatari Riyal</option>
+        <option value="ZAR">R South African Rand</option>
+        <option value="EUR">€ Euro</option>
+      </select>
+    </div>
+    <div class="cfp-result">
+      <div class="cfp-result-label">Converted Price</div>
+      <div class="cfp-result-price" id="cfpResult">—</div>
+      <div class="cfp-result-note">Indicative rate. Actual rate at time of transaction may differ.</div>
+    </div>
+    <div class="cfp-rates">
+      <div class="cfp-rate-cell"><div class="cfp-rate-code">USD</div><div class="cfp-rate-val" id="cfpUSD">—</div></div>
+      <div class="cfp-rate-cell"><div class="cfp-rate-code">GBP</div><div class="cfp-rate-val" id="cfpGBP">—</div></div>
+      <div class="cfp-rate-cell"><div class="cfp-rate-code">AED</div><div class="cfp-rate-val" id="cfpAED">—</div></div>
+    </div>
+  </div>
+  <button class="currency-float-btn" onclick="document.getElementById('cfpPanel').classList.toggle('open')">
+    <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 8v8M8 12h8"/><path d="M12 2a10 10 0 100 20A10 10 0 0012 2z"/><path d="M8.5 8.5c0-1.93 1.57-3.5 3.5-3.5s3.5 1.57 3.5 3.5c0 3.5-7 3.5-7 7 0 1.93 1.57 3.5 3.5 3.5s3.5-1.57 3.5-3.5"/></svg>
+    Convert Currency
+  </button>
+</div>
 </body>
 </html>
