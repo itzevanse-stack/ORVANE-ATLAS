@@ -1,15 +1,13 @@
 {
-  "cleanUrls": true,
   "rewrites": [
-    { "source": "/api/(.*)", "destination": "/api/$1" },
-    { "source": "/opportunities", "destination": "/opportunities.html" },
+    { "source": "/api/:path*", "destination": "/api/:path*" },
     { "source": "/property", "destination": "/property.html" },
+    { "source": "/opportunities", "destination": "/opportunities.html" },
     { "source": "/admin", "destination": "/admin.html" },
     { "source": "/market-insights", "destination": "/market-insights.html" },
     { "source": "/investor-portal", "destination": "/investor-portal.html" },
     { "source": "/fractional", "destination": "/fractional.html" },
     { "source": "/sell", "destination": "/sell.html" },
-    { "source": "/developers", "destination": "/developers.html" },
-    { "source": "/(.*)", "destination": "/index.html" }
+    { "source": "/developers", "destination": "/developers.html" }
   ]
 }
