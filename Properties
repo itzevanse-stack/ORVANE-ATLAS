@@ -135,6 +135,290 @@ nav{position:fixed;top:0;left:0;right:0;z-index:999;display:flex;align-items:cen
 .back-link{display:inline-flex;align-items:center;gap:0.6rem;font-size:0.65rem;color:var(--text3);text-decoration:none;letter-spacing:0.1em;margin-bottom:2rem;transition:color 0.2s;}
 .back-link:hover{color:var(--gold);}
 
+
+/* PROJECTIONS */
+.proj-section{margin-bottom:3rem;}
+.proj-disclaimer{
+  font-size:0.68rem;color:var(--text3);
+  line-height:1.8;padding:1rem 1.2rem;
+  background:var(--off-white);border:1px solid var(--border);
+  border-left:3px solid var(--gold);margin-bottom:1.5rem;
+}
+.proj-disclaimer strong{color:var(--text2);font-weight:400;}
+.proj-table{width:100%;border-collapse:collapse;margin-bottom:1rem;}
+.proj-table th{
+  font-size:0.55rem;font-weight:500;
+  letter-spacing:0.2em;text-transform:uppercase;
+  color:var(--text3);padding:0.7rem 1rem;
+  text-align:left;border-bottom:2px solid var(--border);
+  background:var(--off-white);
+}
+.proj-table td{
+  padding:0.9rem 1rem;
+  border-bottom:1px solid var(--border);
+  font-size:0.82rem;vertical-align:middle;
+}
+.proj-table tr:last-child td{border-bottom:none;}
+.proj-table tr:hover td{background:var(--off-white);}
+.proj-dur{
+  font-size:0.65rem;font-weight:500;
+  letter-spacing:0.15em;text-transform:uppercase;
+  color:var(--text2);
+}
+.proj-val{
+  font-family:var(--serif);
+  font-size:1.1rem;font-weight:300;
+  color:var(--text);
+}
+.proj-pct{
+  display:inline-block;
+  font-size:0.72rem;font-weight:500;
+  color:#2D6A4F;
+  background:rgba(82,183,136,0.1);
+  border:1px solid rgba(82,183,136,0.25);
+  padding:0.25rem 0.7rem;
+}
+.proj-basis{
+  font-size:0.72rem;color:var(--text3);
+  line-height:1.8;font-style:italic;
+  margin-top:0.5rem;
+}
+
+/* LOCATION & GOOGLE EARTH */
+.location-section{margin-bottom:3rem;}
+.map-view-tabs{
+  display:flex;gap:0;
+  border:1px solid var(--border);
+  border-bottom:none;width:fit-content;
+}
+.mvt{
+  font-size:0.58rem;font-weight:500;
+  letter-spacing:0.12em;text-transform:uppercase;
+  padding:0.65rem 1.4rem;
+  border:none;background:var(--off-white);
+  color:var(--text3);cursor:pointer;
+  border-right:1px solid var(--border);
+  transition:all 0.2s;display:flex;align-items:center;gap:0.5rem;
+}
+.mvt:last-child{border-right:none;}
+.mvt.active{background:var(--black);color:var(--white);}
+.mvt:hover:not(.active){background:var(--warm);color:var(--text);}
+.mvt svg{width:13px;height:13px;fill:none;stroke:currentColor;stroke-width:1.5;}
+.map-frame{
+  width:100%;height:480px;
+  border:1px solid var(--border);
+  position:relative;overflow:hidden;
+  background:var(--off-white);
+}
+.map-frame iframe{
+  width:100%;height:100%;border:none;display:block;
+}
+.map-frame-loading{
+  position:absolute;inset:0;
+  display:flex;align-items:center;justify-content:center;
+  flex-direction:column;gap:1rem;
+  background:var(--off-white);
+  z-index:2;transition:opacity 0.3s;
+}
+.map-frame-loading p{font-size:0.75rem;color:var(--text3);letter-spacing:0.05em;}
+.map-frame-loading.hidden{opacity:0;pointer-events:none;}
+.map-spinner{
+  width:32px;height:32px;
+  border:2px solid var(--border);
+  border-top-color:var(--gold);
+  border-radius:50%;
+  animation:spin 0.8s linear infinite;
+}
+@keyframes spin{to{transform:rotate(360deg);}}
+.map-address-bar{
+  padding:0.8rem 1rem;
+  background:var(--off-white);
+  border:1px solid var(--border);
+  border-top:none;
+  display:flex;align-items:center;gap:0.8rem;
+}
+.map-address-icon{
+  width:16px;height:16px;flex-shrink:0;
+  fill:none;stroke:var(--gold);stroke-width:1.5;
+}
+.map-address-text{
+  font-size:0.75rem;color:var(--text2);flex:1;
+  line-height:1.4;
+}
+.map-actions-row{
+  display:flex;gap:0.75rem;flex-wrap:wrap;
+  margin-top:1rem;
+}
+.map-btn{
+  font-size:0.6rem;font-weight:500;
+  letter-spacing:0.15em;text-transform:uppercase;
+  padding:0.75rem 1.5rem;
+  border:none;cursor:pointer;
+  display:inline-flex;align-items:center;gap:0.6rem;
+  text-decoration:none;transition:all 0.2s;
+}
+.map-btn svg{width:14px;height:14px;fill:none;stroke:currentColor;stroke-width:1.5;flex-shrink:0;}
+.map-btn-primary{color:var(--white);background:var(--black);}
+.map-btn-primary:hover{background:var(--gold);}
+.map-btn-earth{color:var(--white);background:#1A73E8;}
+.map-btn-earth:hover{background:#1557B0;}
+.map-btn-street{color:var(--white);background:#34A853;}
+.map-btn-street:hover{background:#2D8F47;}
+.map-btn-ghost{
+  color:var(--text2);background:var(--off-white);
+  border:1px solid var(--border);
+}
+.map-btn-ghost:hover{background:var(--black);color:var(--white);border-color:var(--black);}
+.map-no-loc{
+  width:100%;height:100%;
+  display:flex;flex-direction:column;
+  align-items:center;justify-content:center;
+  gap:1rem;color:var(--text3);padding:2rem;text-align:center;
+}
+.map-no-loc h4{font-family:var(--serif);font-size:1.3rem;font-weight:300;color:var(--text2);}
+.map-no-loc p{font-size:0.78rem;line-height:1.7;max-width:280px;}
+
+
+
+/* AGENT CARD */
+.agent-card{
+  border:1px solid var(--border);
+  background:var(--white);
+  overflow:hidden;
+  margin-bottom:2rem;
+}
+.agent-card-header{
+  display:flex;gap:1.5rem;align-items:center;
+  padding:1.8rem 2rem;
+  border-bottom:1px solid var(--border);
+  background:var(--off-white);
+}
+.agent-photo-wrap{flex-shrink:0;}
+.agent-photo{
+  width:72px;height:72px;
+  border-radius:50%;
+  object-fit:cover;
+  object-position:top center;
+  display:block;
+  border:2px solid var(--gold);
+}
+.agent-photo-ph{
+  width:72px;height:72px;
+  border-radius:50%;
+  background:var(--warm);
+  border:2px solid var(--gold);
+  display:flex;align-items:center;justify-content:center;
+}
+.agent-photo-ph svg{width:28px;height:28px;color:var(--text3);}
+.agent-info{flex:1;}
+.agent-badge{
+  font-size:0.5rem;font-weight:600;
+  letter-spacing:0.25em;text-transform:uppercase;
+  color:var(--gold);margin-bottom:0.4rem;
+}
+.agent-name{
+  font-family:var(--serif);font-size:1.3rem;
+  font-weight:400;color:var(--text);line-height:1.1;
+  margin-bottom:0.2rem;
+}
+.agent-role{font-size:0.68rem;color:var(--text3);margin-bottom:0.3rem;}
+.agent-phone{font-size:0.75rem;color:var(--text2);}
+.agent-intro{
+  padding:1.2rem 2rem;
+  font-size:0.8rem;color:var(--text2);
+  line-height:1.85;border-bottom:1px solid var(--border);
+  font-style:italic;
+}
+.agent-actions{
+  padding:1.2rem 2rem;
+  display:flex;flex-wrap:wrap;gap:0.75rem;
+  border-bottom:1px solid var(--border);
+}
+.agent-btn{
+  display:inline-flex;align-items:center;gap:0.5rem;
+  font-size:0.62rem;font-weight:500;
+  letter-spacing:0.12em;text-transform:uppercase;
+  padding:0.7rem 1.4rem;text-decoration:none;
+  border:none;cursor:pointer;transition:all 0.2s;
+}
+.agent-btn svg{width:14px;height:14px;flex-shrink:0;}
+.agent-btn-wa{background:#25D366;color:var(--white);}
+.agent-btn-wa:hover{background:#1DAF53;}
+.agent-btn-call{background:var(--black);color:var(--white);}
+.agent-btn-call:hover{background:var(--gold);}
+.agent-btn-email{background:var(--off-white);color:var(--text2);border:1px solid var(--border);}
+.agent-btn-email:hover{background:var(--black);color:var(--white);border-color:var(--black);}
+.agent-footer{
+  padding:0.8rem 2rem;
+  font-size:0.6rem;color:var(--text3);
+  display:flex;align-items:center;gap:0.6rem;
+  background:var(--off-white);
+}
+
+/* SAVE BUTTON */
+.save-prop-btn{
+  display:inline-flex;align-items:center;gap:0.6rem;
+  font-size:0.62rem;font-weight:500;letter-spacing:0.15em;text-transform:uppercase;
+  padding:0.65rem 1.5rem;border:1px solid var(--border);
+  background:var(--white);color:var(--text2);cursor:pointer;transition:all 0.2s;
+}
+.save-prop-btn:hover,.save-prop-btn.saved{background:var(--black);color:var(--white);border-color:var(--black);}
+.save-prop-btn svg{width:14px;height:14px;fill:none;stroke:currentColor;stroke-width:1.5;transition:fill 0.2s;}
+.save-prop-btn.saved svg{fill:currentColor;}
+
+/* WHATSAPP BTN */
+.whatsapp-btn{
+  display:inline-flex;align-items:center;gap:0.6rem;
+  font-size:0.62rem;font-weight:500;letter-spacing:0.15em;text-transform:uppercase;
+  padding:0.65rem 1.5rem;border:none;
+  background:#25D366;color:var(--white);cursor:pointer;transition:background 0.2s;
+  text-decoration:none;
+}
+.whatsapp-btn:hover{background:#1DAF53;}
+.whatsapp-btn svg{width:16px;height:16px;fill:currentColor;}
+
+/* CURRENCY CONVERTER */
+.currency-section{
+  background:var(--off-white);border:1px solid var(--border);
+  padding:1.8rem;margin-bottom:2rem;
+}
+.currency-title{
+  font-size:0.62rem;font-weight:500;letter-spacing:0.2em;text-transform:uppercase;
+  color:var(--text3);margin-bottom:1.2rem;display:flex;align-items:center;gap:0.8rem;
+}
+.currency-title::before{content:'';width:1.5rem;height:1px;background:var(--gold);}
+.currency-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--border);}
+.currency-cell{background:var(--white);padding:1rem 1.2rem;text-align:center;}
+.currency-code{font-size:0.55rem;font-weight:500;letter-spacing:0.2em;text-transform:uppercase;color:var(--text3);margin-bottom:0.3rem;}
+.currency-val{font-family:var(--serif);font-size:1.1rem;font-weight:300;color:var(--text);}
+.currency-cell.loading .currency-val{color:var(--text3);font-size:0.75rem;font-family:var(--sans);}
+.currency-note{font-size:0.6rem;color:var(--text3);margin-top:0.8rem;line-height:1.6;}
+
+/* ROI CALCULATOR */
+.roi-section{
+  background:var(--off-white);border:1px solid var(--border);
+  padding:1.8rem;margin-bottom:2rem;
+}
+.roi-title{
+  font-family:var(--serif);font-size:1.3rem;font-weight:300;color:var(--text);
+  margin-bottom:0.3rem;
+}
+.roi-title em{font-style:italic;color:var(--gold);}
+.roi-sub{font-size:0.75rem;color:var(--text3);margin-bottom:1.5rem;line-height:1.6;}
+.roi-inputs{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-bottom:1.5rem;}
+.roi-inp-group{display:flex;flex-direction:column;gap:0.4rem;}
+.roi-lbl{font-size:0.52rem;font-weight:500;letter-spacing:0.22em;text-transform:uppercase;color:var(--text3);}
+.roi-inp{background:var(--white);border:1px solid var(--border);color:var(--text);font-family:var(--sans);font-size:0.85rem;font-weight:300;padding:0.65rem 0.9rem;outline:none;width:100%;transition:border-color 0.2s;}
+.roi-inp:focus{border-color:rgba(184,134,11,0.4);}
+.roi-btn{font-size:0.62rem;font-weight:500;letter-spacing:0.18em;text-transform:uppercase;color:var(--black);background:var(--gold2);border:none;padding:0.75rem 2rem;cursor:pointer;transition:background 0.2s;}
+.roi-btn:hover{background:var(--gold3);}
+.roi-results{display:none;margin-top:1.5rem;display:grid;grid-template-columns:repeat(2,1fr);gap:1px;background:var(--border);}
+.roi-result-cell{background:var(--white);padding:1.2rem;text-align:center;}
+.roi-result-label{font-size:0.52rem;font-weight:500;letter-spacing:0.18em;text-transform:uppercase;color:var(--text3);margin-bottom:0.4rem;}
+.roi-result-val{font-family:var(--serif);font-size:1.2rem;font-weight:300;color:var(--text);}
+.roi-result-val.positive{color:#2D6A4F;}
+.roi-disclaimer{font-size:0.62rem;color:var(--text3);margin-top:1rem;line-height:1.6;font-style:italic;}
+
 /* LOADING */
 .loading-wrap{min-height:60vh;display:flex;align-items:center;justify-content:center;font-size:0.8rem;color:var(--text3);letter-spacing:0.1em;}
 
@@ -207,11 +491,64 @@ footer{background:var(--black);border-top:1px solid rgba(255,255,255,0.06);paddi
     <div class="p-section-title">About This Property</div>
     <p class="p-desc" id="pDesc"></p>
 
+    <!-- CURRENCY CONVERTER -->
+    <div id="pCurrency" class="currency-section" style="display:none">
+      <div class="currency-title">Price in Other Currencies</div>
+      <div class="currency-grid">
+        <div class="currency-cell"><div class="currency-code">USD</div><div class="currency-val" id="cUSD">—</div></div>
+        <div class="currency-cell"><div class="currency-code">GBP</div><div class="currency-val" id="cGBP">—</div></div>
+        <div class="currency-cell"><div class="currency-code">AED</div><div class="currency-val" id="cAED">—</div></div>
+        <div class="currency-cell"><div class="currency-code">NGN</div><div class="currency-val" id="cNGN">—</div></div>
+        <div class="currency-cell"><div class="currency-code">QAR</div><div class="currency-val" id="cQAR">—</div></div>
+        <div class="currency-cell"><div class="currency-code">ZAR</div><div class="currency-val" id="cZAR">—</div></div>
+      </div>
+      <div class="currency-note">Indicative exchange rates. For exact figures at time of transaction contact our team.</div>
+    </div>
+
+    <!-- ROI CALCULATOR -->
+    <div id="pROI" class="roi-section" style="display:none">
+      <div class="roi-title">ROI <em>Calculator</em></div>
+      <div class="roi-sub">Estimate your potential returns from this property.</div>
+      <div class="roi-inputs">
+        <div class="roi-inp-group">
+          <label class="roi-lbl">Investment Amount (<span id="roiSym">₦</span>)</label>
+          <input class="roi-inp" id="roiPrice" type="number" placeholder="Property price">
+        </div>
+        <div class="roi-inp-group">
+          <label class="roi-lbl">Expected Annual Rental Yield (%)</label>
+          <input class="roi-inp" id="roiYield" type="number" placeholder="e.g. 7" value="7">
+        </div>
+        <div class="roi-inp-group">
+          <label class="roi-lbl">Expected Annual Capital Growth (%)</label>
+          <input class="roi-inp" id="roiGrowth" type="number" placeholder="e.g. 12" value="12">
+        </div>
+        <div class="roi-inp-group">
+          <label class="roi-lbl">Investment Horizon (years)</label>
+          <input class="roi-inp" id="roiYears" type="number" placeholder="e.g. 5" value="5">
+        </div>
+      </div>
+      <button class="roi-btn" onclick="calcROI()">Calculate Returns</button>
+      <div id="roiResults" style="display:none;margin-top:1.5rem;">
+        <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:1px;background:var(--border);margin-bottom:1rem;">
+          <div class="roi-result-cell"><div class="roi-result-label">Total Rental Income</div><div class="roi-result-val positive" id="roiRental">—</div></div>
+          <div class="roi-result-cell"><div class="roi-result-label">Capital Gain</div><div class="roi-result-val positive" id="roiCapGain">—</div></div>
+          <div class="roi-result-cell"><div class="roi-result-label">Property Value at Exit</div><div class="roi-result-val" id="roiExitVal">—</div></div>
+          <div class="roi-result-cell"><div class="roi-result-label">Total Return</div><div class="roi-result-val positive" id="roiTotal">—</div></div>
+        </div>
+        <div class="roi-disclaimer">Illustrative projections only. Actual returns depend on market conditions, occupancy rates, and management costs. This does not constitute financial advice.</div>
+      </div>
+    </div>
+
+    <div class="p-section-title" id="projSectionTitle" style="display:none">Asset Growth Projections</div>
+    <div class="proj-section" id="projSection" style="display:none">
+      <div id="pProjections"></div>
+    </div>
+
     <div class="p-section-title">Due Diligence & Verification</div>
     <div class="p-verify-grid" id="pVerify"></div>
 
     <div class="p-section-title">Location & Directions</div>
-    <div class="p-map" id="pMap"></div>
+    <div id="locationSection"></div>
   </div>
 
   <div class="property-sidebar">
@@ -367,6 +704,52 @@ function renderProperty(l){
   // DESCRIPTION
   document.getElementById('pDesc').textContent=l.desc||'Contact us for full property details.';
 
+  // PROJECTIONS
+  const projEl = document.getElementById('pProjections');
+  if(projEl){
+    const hasProj = l.proj1yr||l.proj3yr||l.proj5yr||l.proj10yr;
+    if(hasProj){
+      const rows = [
+        {dur:'1 Year',  val:l.proj1yr,  pct:l.proj1yrPct},
+        {dur:'3 Years', val:l.proj3yr,  pct:l.proj3yrPct},
+        {dur:'5 Years', val:l.proj5yr,  pct:l.proj5yrPct},
+        {dur:'10 Years',val:l.proj10yr, pct:l.proj10yrPct},
+      ].filter(r=>r.val);
+
+      projEl.innerHTML=`
+        <div class="proj-disclaimer">
+          <strong>Important Notice:</strong> The projected values below are indicative estimates based on historical market data, comparable sales, and infrastructure pipeline analysis. They are not guaranteed returns. Real estate investment involves risk and actual values may differ materially. Projections are prepared by Orvane Atlas for informational purposes only and do not constitute financial advice.
+          ${l.projBasis ? `<br><br><em>Basis: ${l.projBasis}</em>` : ''}
+        </div>
+        <table class="proj-table">
+          <thead>
+            <tr>
+              <th>Duration</th>
+              <th>Projected Value</th>
+              <th>Estimated Growth</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="proj-dur">Current Price</td>
+              <td class="proj-val"><span style="color:var(--gold);font-style:italic;">${l.currency||''} </span>${l.price||''}</td>
+              <td>—</td>
+            </tr>
+            ${rows.map(r=>`
+              <tr>
+                <td class="proj-dur">${r.dur}</td>
+                <td class="proj-val"><span style="color:var(--gold);font-style:italic;">${l.currency||''} </span>${r.val}</td>
+                <td><span class="proj-pct">${r.pct||'—'}</span></td>
+              </tr>
+            `).join('')}
+          </tbody>
+        </table>
+      `;
+      document.getElementById('projSection').style.display='block';
+      document.getElementById('projSectionTitle').style.display='flex';
+    }
+  }
+
   // VERIFICATION
   const verifications=[
     {key:'vTitle',label:'Title / Title Deed Verified'},
@@ -380,29 +763,178 @@ function renderProperty(l){
     <div class="p-vbadge ${l[v.key]?'pv-ok':'pv-pend'}">${v.label}</div>
   `).join('');
 
-  // MAP
-  const mapEl=document.getElementById('pMap');
-  if(l.lat&&l.lng){
-    const mapsUrl=`https://www.google.com/maps?q=${l.lat},${l.lng}&output=embed`;
-    const directionsUrl=`https://www.google.com/maps/dir/?api=1&destination=${l.lat},${l.lng}`;
-    mapEl.innerHTML=`
-      <iframe src="${mapsUrl}" allowfullscreen loading="lazy"></iframe>
-      <a href="${directionsUrl}" target="_blank" class="p-directions-btn" style="position:absolute;bottom:1rem;right:1rem;">Get Directions ↗</a>
-    `;
-  } else if(l.address){
-    const encodedAddress=encodeURIComponent(l.address);
-    const mapsUrl=`https://www.google.com/maps?q=${encodedAddress}&output=embed`;
-    const directionsUrl=`https://www.google.com/maps/dir/?api=1&destination=${encodedAddress}`;
-    mapEl.innerHTML=`
-      <iframe src="${mapsUrl}" allowfullscreen loading="lazy"></iframe>
-      <a href="${directionsUrl}" target="_blank" class="p-directions-btn" style="position:absolute;bottom:1rem;right:1rem;">Get Directions ↗</a>
-    `;
+  // ── GOOGLE EARTH & MAPS INTEGRATION ──
+  const locSection = document.getElementById('locationSection');
+  const hasCoords  = l.lat && l.lng;
+  const hasAddress = l.address && l.address.trim();
+
+  if(!hasCoords && !hasAddress){
+    locSection.innerHTML=`
+      <div class="map-frame" style="height:200px;">
+        <div class="map-no-loc">
+          <svg viewBox="0 0 24 24" width="36" height="36" fill="none" stroke="var(--gold)" stroke-width="1.2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          <h4>Location Not Set</h4>
+          <p>The property address or coordinates have not been added yet. Contact our team for location details.</p>
+        </div>
+      </div>`;
   } else {
-    mapEl.innerHTML=`
-      <div class="p-map-placeholder">
-        <p>Map will appear once location coordinates are added in the admin dashboard.</p>
+
+    // Build all URL variants
+    const coordQ   = hasCoords  ? \`\${l.lat},\${l.lng}\`          : '';
+    const addressQ = hasAddress ? encodeURIComponent(l.address) : '';
+    const q        = coordQ || addressQ;
+    const zoom     = hasCoords ? 17 : 15;
+
+    // Google Maps embed URLs
+    const mapUrl       = \`https://maps.google.com/maps?q=\${q}&t=m&z=\${zoom}&output=embed\`;
+    const satelliteUrl = \`https://maps.google.com/maps?q=\${q}&t=k&z=\${zoom}&output=embed\`;
+
+    // Street view — only works reliably with coordinates
+    const streetUrl = hasCoords
+      ? \`https://www.google.com/maps/embed/v1/streetview?key=AIzaSyBabiC-cCurh-l39EREVGdkRWp15YiwHd4&location=\${l.lat},\${l.lng}&heading=0&pitch=0&fov=90\`
+      : \`https://maps.google.com/maps?q=\${q}&t=m&z=\${zoom}&layer=c&output=embed\`;
+
+    // External links
+    const directionsUrl = hasCoords
+      ? \`https://www.google.com/maps/dir/?api=1&destination=\${coordQ}&travelmode=driving\`
+      : \`https://www.google.com/maps/dir/?api=1&destination=\${addressQ}&travelmode=driving\`;
+
+    const earthUrl = hasCoords
+      ? \`https://earth.google.com/web/@\${l.lat},\${l.lng},0a,500d,35y,0h,45t,0r/\`
+      : \`https://earth.google.com/web/search/\${addressQ}\`;
+
+    const mapsSearchUrl = hasCoords
+      ? \`https://www.google.com/maps/search/?api=1&query=\${coordQ}\`
+      : \`https://www.google.com/maps/search/?api=1&query=\${addressQ}\`;
+
+    const addressDisplay = l.address || \`\${l.location||l.city||''}, \${l.country||''}\`;
+
+    locSection.innerHTML=\`
+      <div class="map-view-tabs">
+        <button class="mvt active" onclick="switchMapView('map',this)">
+          <svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/></svg>
+          Map
+        </button>
+        <button class="mvt" onclick="switchMapView('satellite',this)">
+          <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15 15 0 010 20"/></svg>
+          Satellite
+        </button>
+        <button class="mvt" onclick="switchMapView('street',this)">
+          <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M16 8v5a3 3 0 006 0v-1a10 10 0 10-3.92 7.94"/></svg>
+          Street View
+        </button>
       </div>
-    `;
+      <div class="map-frame" id="mapFrame">
+        <div class="map-frame-loading" id="mapLoading">
+          <div class="map-spinner"></div>
+          <p>Loading map...</p>
+        </div>
+        <iframe
+          id="mapIframe"
+          src="\${mapUrl}"
+          allowfullscreen
+          loading="lazy"
+          onload="document.getElementById('mapLoading').classList.add('hidden')"
+        ></iframe>
+      </div>
+      <div class="map-address-bar">
+        <svg class="map-address-icon" viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+        <span class="map-address-text">\${addressDisplay}</span>
+      </div>
+      <div class="map-actions-row">
+        <a href="\${directionsUrl}" target="_blank" class="map-btn map-btn-primary">
+          <svg viewBox="0 0 24 24"><polygon points="3 11 22 2 13 21 11 13 3 11"/></svg>
+          Get Directions
+        </a>
+        <a href="\${earthUrl}" target="_blank" class="map-btn map-btn-earth">
+          <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 010 20M12 2a15.3 15.3 0 000 20"/></svg>
+          Open in Google Earth
+        </a>
+        <a href="\${mapsSearchUrl}" target="_blank" class="map-btn map-btn-ghost">
+          <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
+          View on Google Maps
+        </a>
+      </div>
+    \`;
+
+    // Store URLs for tab switching
+    window._mapUrls = { map: mapUrl, satellite: satelliteUrl, street: streetUrl };
+
+    window.switchMapView = function(type, btn){
+      document.querySelectorAll('.mvt').forEach(t=>t.classList.remove('active'));
+      btn.classList.add('active');
+      const iframe = document.getElementById('mapIframe');
+      const loading = document.getElementById('mapLoading');
+      if(iframe && loading){
+        loading.classList.remove('hidden');
+        iframe.src = window._mapUrls[type];
+        iframe.onload = () => loading.classList.add('hidden');
+      }
+    };
+  }
+
+  // SAVE TO PORTAL BUTTON
+  const actionsRow = document.getElementById('pActions');
+  if(actionsRow){
+    const saveBtn = document.createElement('button');
+    saveBtn.className='save-prop-btn';
+    saveBtn.id='saveBtn';
+    saveBtn.innerHTML=`<svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"></path></svg> Save Property`;
+    saveBtn.onclick = () => saveProperty(l.id);
+    actionsRow.appendChild(saveBtn);
+
+    // WhatsApp button — uses agent's number, falls back to main number
+    const agentWaNum = (l.agentWhatsApp||'').replace(/[^0-9]/g,'') || '2348165978998';
+    const waMsg = encodeURIComponent('Hi, I am interested in: ' + (l.title||'Property') + (l.ref?' (Ref: '+l.ref+')':'') + '. Please send me more details.');
+    const waBtn = document.createElement('a');
+    waBtn.className='whatsapp-btn';
+    waBtn.href='https://wa.me/'+agentWaNum+'?text='+waMsg;
+    waBtn.target='_blank';
+    waBtn.rel='noopener';
+    waBtn.innerHTML=`<svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg> WhatsApp Agent`;
+    actionsRow.appendChild(waBtn);
+  }
+
+  // CURRENCY CONVERTER
+  const currencyEl = document.getElementById('pCurrency');
+  if(currencyEl && l.price && l.currency){
+    const rawPrice = parseFloat((l.price||'').toString().replace(/[^0-9.]/g,''));
+    if(rawPrice){
+      currencyEl.style.display='block';
+      const rates = {
+        'NGN': 1, 'NGN_symbol': '₦',
+        'USD': 0.00062, 'USD_symbol': '$',
+        'GBP': 0.00049, 'GBP_symbol': '£',
+        'AED': 0.0023, 'AED_symbol': 'AED ',
+        'QAR': 0.0023, 'QAR_symbol': 'QAR ',
+        'ZAR': 0.011, 'ZAR_symbol': 'R',
+      };
+      // Detect base currency
+      const sym = l.currency||'₦';
+      let baseUSD = rawPrice;
+      if(sym==='₦'||sym==='NGN') baseUSD = rawPrice * 0.00062;
+      else if(sym==='AED') baseUSD = rawPrice * 0.27;
+      else if(sym==='£'||sym==='GBP') baseUSD = rawPrice * 1.26;
+      else if(sym==='QAR') baseUSD = rawPrice * 0.27;
+      else if(sym==='$'||sym==='USD') baseUSD = rawPrice;
+
+      const fmt = (n,s) => s + new Intl.NumberFormat('en-US',{maximumFractionDigits:0}).format(n);
+      document.getElementById('cUSD').textContent = fmt(baseUSD,'$');
+      document.getElementById('cGBP').textContent = fmt(baseUSD*0.79,'£');
+      document.getElementById('cAED').textContent = fmt(baseUSD*3.67,'AED ');
+      document.getElementById('cNGN').textContent = fmt(baseUSD*1610,'₦');
+      document.getElementById('cQAR').textContent = fmt(baseUSD*3.64,'QAR ');
+      document.getElementById('cZAR').textContent = fmt(baseUSD*18.5,'R');
+    }
+  }
+
+  // ROI CALCULATOR
+  const roiEl = document.getElementById('pROI');
+  if(roiEl && l.price){
+    roiEl.style.display='block';
+    const rawPrice2 = parseFloat((l.price||'').toString().replace(/[^0-9.]/g,''));
+    document.getElementById('roiPrice').value = rawPrice2 || '';
+    document.getElementById('roiSym').textContent = l.currency||'₦';
   }
 
   // AGENT CONTACTS
@@ -431,6 +963,50 @@ window.sendEnquiry = function(){
 };
 
 loadProperty();
+
+window.calcROI = function(){
+  const price  = parseFloat(document.getElementById('roiPrice').value)||0;
+  const yld    = parseFloat(document.getElementById('roiYield').value)||7;
+  const growth = parseFloat(document.getElementById('roiGrowth').value)||12;
+  const years  = parseFloat(document.getElementById('roiYears').value)||5;
+  if(!price){ alert('Please enter a property price.'); return; }
+  const annualRent = price * (yld/100);
+  const totalRent  = annualRent * years;
+  const exitVal    = price * Math.pow(1+(growth/100), years);
+  const capGain    = exitVal - price;
+  const total      = totalRent + capGain;
+  const fmt = n => new Intl.NumberFormat('en-US',{maximumFractionDigits:0}).format(n);
+  document.getElementById('roiRental').textContent  = fmt(totalRent);
+  document.getElementById('roiCapGain').textContent = fmt(capGain);
+  document.getElementById('roiExitVal').textContent = fmt(exitVal);
+  document.getElementById('roiTotal').textContent   = fmt(total);
+  document.getElementById('roiResults').style.display='block';
+};
+
+window.saveProperty = async function(listingId){
+  try{
+    const { getAuth } = await import("https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js");
+    const { getFirestore, doc, getDoc, updateDoc, arrayUnion } = await import("https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js");
+    const { initializeApp, getApps } = await import("https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js");
+    const FB = {apiKey:"AIzaSyBabiC-cCurh-l39EREVGdkRWp15YiwHd4",authDomain:"orvane-atlas.firebaseapp.com",projectId:"orvane-atlas",storageBucket:"orvane-atlas.firebasestorage.app",messagingSenderId:"780736586362",appId:"1:780736586362:web:87b2c9ce5d3bac47f2d1c3"};
+    const app = getApps().length ? getApps()[0] : initializeApp(FB);
+    const auth = getAuth(app);
+    const user = auth.currentUser;
+    if(!user){
+      if(confirm('Sign in to save properties. Go to Investor Portal?')){
+        window.location.href='investor-portal.html';
+      }
+      return;
+    }
+    const db = getFirestore(app);
+    await updateDoc(doc(db,'investors',user.uid),{ savedProperties: arrayUnion(listingId) });
+    const btn = document.getElementById('saveBtn');
+    if(btn){ btn.classList.add('saved'); btn.innerHTML='<svg viewBox="0 0 24 24" style="fill:currentColor;stroke:currentColor;width:14px;height:14px;stroke-width:1.5"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"></path></svg> Saved'; }
+  }catch(e){
+    alert('Please sign in to the Investor Portal to save properties.');
+    window.location.href='investor-portal.html';
+  }
+};
 </script>
 </body>
 </html>
