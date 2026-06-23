@@ -1,0 +1,454 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Investor Portal — Orvane Atlas</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
+:root{--black:#000;--white:#fff;--off-white:#F8F6F2;--warm:#F2EDE6;--gold:#B8860B;--gold2:#D4A017;--gold3:#E8C97A;--text:#1A1A1A;--text2:#666;--text3:#999;--border:#E5DDD4;--green2:#52B788;--red2:#EF4444;--serif:'Cormorant Garamond',Georgia,serif;--sans:'Inter',system-ui,sans-serif;}
+html{scroll-behavior:smooth;}
+body{background:var(--white);color:var(--text);font-family:var(--sans);font-weight:300;line-height:1.6;-webkit-font-smoothing:antialiased;}
+::-webkit-scrollbar{width:2px;}::-webkit-scrollbar-thumb{background:var(--gold);}
+nav{position:fixed;top:0;left:0;right:0;z-index:999;display:flex;align-items:center;justify-content:space-between;padding:1.2rem 5vw;background:#000;border-bottom:1px solid rgba(255,255,255,0.06);backdrop-filter:blur(20px);}
+.nav-logo img{height:44px;width:auto;display:block;}
+.nav-links{position:absolute;left:50%;transform:translateX(-50%);display:flex;gap:1.8rem;list-style:none;white-space:nowrap;}
+.nav-links a{font-size:0.65rem;font-weight:400;letter-spacing:0.1em;text-transform:uppercase;color:rgba(255,255,255,0.55);text-decoration:none;transition:color 0.2s;}
+.nav-links a:hover,.nav-links a.active{color:var(--gold3);}
+.nav-cta{font-size:0.65rem;font-weight:500;letter-spacing:0.18em;text-transform:uppercase;color:var(--black);background:var(--gold2);padding:0.75rem 2rem;text-decoration:none;transition:background 0.25s;}
+.nav-cta:hover{background:var(--white);color:var(--black);}
+.auth-wrap{min-height:100vh;display:flex;align-items:center;justify-content:center;background:var(--black);padding:5rem 2rem;}
+.auth-box{width:100%;max-width:440px;}
+.auth-logo{text-align:center;margin-bottom:3rem;}
+.auth-logo img{height:60px;width:auto;}
+.auth-tagline{font-family:var(--serif);font-size:0.88rem;font-style:italic;color:rgba(255,255,255,0.3);margin-top:0.8rem;}
+.auth-card{background:var(--black);border:1px solid rgba(255,255,255,0.08);padding:3rem;}
+.auth-title{font-family:var(--serif);font-size:1.8rem;font-weight:300;color:var(--white);margin-bottom:0.4rem;}
+.auth-sub{font-size:0.78rem;color:rgba(255,255,255,0.35);margin-bottom:2rem;line-height:1.7;}
+.auth-tabs{display:flex;border-bottom:1px solid rgba(255,255,255,0.08);margin-bottom:2rem;}
+.auth-tab{font-size:0.65rem;font-weight:500;letter-spacing:0.15em;text-transform:uppercase;padding:0.8rem 1.5rem;border:none;background:none;color:rgba(255,255,255,0.3);cursor:pointer;border-bottom:2px solid transparent;margin-bottom:-1px;transition:all 0.2s;}
+.auth-tab.active{color:var(--gold3);border-bottom-color:var(--gold3);}
+.fg{display:flex;flex-direction:column;gap:0.4rem;margin-bottom:1rem;}
+.flbl{font-size:0.52rem;font-weight:500;letter-spacing:0.25em;text-transform:uppercase;color:rgba(255,255,255,0.3);}
+.fi{background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.1);color:var(--white);font-family:var(--sans);font-size:0.82rem;font-weight:300;padding:0.8rem 1rem;outline:none;width:100%;transition:border-color 0.2s;appearance:none;}
+.fi:focus{border-color:rgba(196,151,58,0.4);}
+.fi::placeholder{color:rgba(255,255,255,0.2);}
+.fi option{background:#111;}
+.auth-btn{width:100%;font-size:0.68rem;font-weight:500;letter-spacing:0.2em;text-transform:uppercase;color:var(--black);background:var(--gold2);border:none;padding:1rem;cursor:pointer;transition:background 0.2s;margin-top:0.5rem;}
+.auth-btn:hover{background:var(--gold3);}
+.auth-err{font-size:0.72rem;color:var(--red2);margin-top:0.5rem;display:none;padding:0.6rem;background:rgba(239,68,68,0.08);border:1px solid rgba(239,68,68,0.2);line-height:1.6;}
+.reg-grid{display:grid;grid-template-columns:1fr 1fr;gap:1rem;}
+.portal{display:none;min-height:100vh;background:var(--off-white);padding-top:62px;}
+.portal.show{display:block;}
+.portal-hero{background:var(--black);padding:4rem 5vw 3rem;display:flex;align-items:flex-end;justify-content:space-between;flex-wrap:wrap;gap:2rem;}
+.portal-greeting{font-family:var(--serif);font-size:clamp(1.8rem,3vw,2.8rem);font-weight:300;color:var(--white);line-height:1.1;}
+.portal-greeting em{font-style:italic;color:var(--gold3);display:block;}
+.portal-greeting span{font-size:0.88rem;color:rgba(255,255,255,0.3);font-family:var(--sans);font-weight:300;display:block;margin-top:0.4rem;}
+.portal-right{display:flex;align-items:center;gap:2rem;}
+.portal-stats{display:flex;gap:2.5rem;}
+.ps{text-align:right;}
+.ps-n{font-family:var(--serif);font-size:1.8rem;font-weight:300;color:var(--white);line-height:1;}
+.ps-n em{color:var(--gold3);font-style:italic;font-size:1rem;}
+.ps-l{font-size:0.52rem;font-weight:400;letter-spacing:0.18em;text-transform:uppercase;color:rgba(255,255,255,0.3);margin-top:0.3rem;}
+.signout-btn{font-size:0.6rem;font-weight:400;letter-spacing:0.15em;text-transform:uppercase;color:rgba(255,255,255,0.4);background:none;border:1px solid rgba(255,255,255,0.1);padding:0.5rem 1rem;cursor:pointer;transition:all 0.2s;}
+.signout-btn:hover{color:var(--red2);border-color:var(--red2);}
+.portal-tabs{background:var(--white);border-bottom:1px solid var(--border);display:flex;overflow-x:auto;}
+.portal-tabs::-webkit-scrollbar{display:none;}
+.ptab{font-size:0.65rem;font-weight:400;letter-spacing:0.12em;text-transform:uppercase;padding:1.1rem 2rem;border:none;background:none;color:var(--text3);cursor:pointer;white-space:nowrap;border-bottom:2px solid transparent;margin-bottom:-1px;transition:all 0.2s;}
+.ptab.active{color:var(--gold);border-bottom-color:var(--gold);font-weight:500;}
+.ptab:hover{color:var(--text);}
+.portal-body{padding:3rem 5vw;}
+.pview{display:none;}
+.pview.active{display:block;}
+.section-hd{display:flex;align-items:center;justify-content:space-between;margin-bottom:2rem;flex-wrap:wrap;gap:1rem;}
+.section-hd-title{font-family:var(--serif);font-size:1.5rem;font-weight:300;color:var(--text);}
+.section-hd-sub{font-size:0.78rem;color:var(--text3);margin-top:0.2rem;}
+.prop-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2px;}
+.prop-card{background:var(--white);border:1px solid var(--border);transition:box-shadow 0.3s;}
+.prop-card:hover{box-shadow:0 8px 24px rgba(0,0,0,0.08);}
+.pc-photo{height:180px;overflow:hidden;position:relative;}
+.pc-photo img{width:100%;height:100%;object-fit:cover;filter:brightness(0.88);transition:transform 0.5s;}
+.prop-card:hover .pc-photo img{transform:scale(1.04);}
+.pc-photo-ph{width:100%;height:100%;background:var(--warm);display:flex;align-items:center;justify-content:center;font-size:0.6rem;color:var(--text3);letter-spacing:0.15em;text-transform:uppercase;}
+.pc-badge{position:absolute;top:0.7rem;left:0.7rem;font-size:0.48rem;font-weight:600;letter-spacing:0.2em;text-transform:uppercase;padding:0.25rem 0.7rem;}
+.b-ready{color:var(--green2);background:rgba(255,255,255,0.92);border:1px solid rgba(82,183,136,0.3);}
+.b-new{color:var(--white);background:rgba(0,0,0,0.75);border:1px solid rgba(255,255,255,0.2);}
+.b-offplan{color:var(--gold);background:rgba(255,255,255,0.92);border:1px solid rgba(184,134,11,0.3);}
+.b-resale{color:var(--text2);background:rgba(255,255,255,0.92);border:1px solid var(--border);}
+.pc-remove{position:absolute;top:0.7rem;right:0.7rem;background:rgba(255,255,255,0.9);border:none;width:30px;height:30px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:background 0.2s;}
+.pc-remove:hover{background:var(--red2);}
+.pc-remove svg{width:14px;height:14px;fill:none;stroke:var(--red2);stroke-width:2;transition:stroke 0.2s;}
+.pc-remove:hover svg{stroke:var(--white);}
+.pc-body{padding:1.2rem 1.5rem 1rem;}
+.pc-loc{font-size:0.58rem;font-weight:400;letter-spacing:0.18em;text-transform:uppercase;color:var(--gold);margin-bottom:0.4rem;}
+.pc-name{font-family:var(--serif);font-size:1.1rem;font-weight:400;line-height:1.2;color:var(--text);margin-bottom:0.6rem;}
+.pc-price{font-family:var(--serif);font-size:1.2rem;font-weight:300;color:var(--text);}
+.pc-curr{color:var(--gold);font-style:italic;font-size:0.9rem;}
+.pc-footer{padding:0.7rem 1.5rem;border-top:1px solid var(--border);display:flex;gap:0.5rem;}
+.pc-btn{font-size:0.58rem;font-weight:500;letter-spacing:0.15em;text-transform:uppercase;padding:0.5rem 1rem;border:1px solid var(--border);background:none;color:var(--text2);cursor:pointer;text-decoration:none;display:inline-block;transition:all 0.2s;}
+.pc-btn:hover{border-color:var(--gold);color:var(--gold);}
+.pc-btn.primary{background:var(--black);color:var(--white);border-color:var(--black);}
+.pc-btn.primary:hover{background:var(--gold);border-color:var(--gold);}
+.enq-list,.alert-list{display:flex;flex-direction:column;gap:2px;}
+.enq-item,.alert-item{background:var(--white);border:1px solid var(--border);padding:1.5rem 2rem;}
+.enq-item{display:grid;grid-template-columns:1fr auto;gap:2rem;align-items:center;}
+.enq-prop{font-family:var(--serif);font-size:1.1rem;font-weight:400;color:var(--text);margin-bottom:0.3rem;}
+.enq-meta{font-size:0.72rem;color:var(--text3);}
+.enq-badge{font-size:0.52rem;font-weight:600;letter-spacing:0.2em;text-transform:uppercase;padding:0.3rem 0.8rem;}
+.eb-new{color:var(--gold);background:rgba(184,134,11,0.08);border:1px solid rgba(184,134,11,0.25);}
+.eb-contacted{color:#60A5FA;background:rgba(96,165,250,0.08);border:1px solid rgba(96,165,250,0.25);}
+.eb-qualified{color:var(--green2);background:rgba(82,183,136,0.08);border:1px solid rgba(82,183,136,0.25);}
+.alert-item{display:flex;align-items:center;gap:1.5rem;}
+.alert-dot{width:8px;height:8px;border-radius:50%;background:var(--gold);flex-shrink:0;}
+.alert-dot.read{background:var(--text3);}
+.alert-body{flex:1;}
+.alert-title{font-size:0.85rem;font-weight:400;color:var(--text);margin-bottom:0.2rem;}
+.alert-sub{font-size:0.7rem;color:var(--text3);}
+.criteria-card{background:var(--white);border:1px solid var(--border);padding:2.5rem;max-width:700px;}
+.crit-grid{display:grid;grid-template-columns:1fr 1fr;gap:1.2rem;}
+.crit-full{grid-column:span 2;}
+.flbl-l{font-size:0.52rem;font-weight:500;letter-spacing:0.22em;text-transform:uppercase;color:var(--text3);margin-bottom:0.4rem;display:block;}
+.fi-l{background:var(--off-white);border:1px solid var(--border);color:var(--text);font-family:var(--sans);font-size:0.8rem;font-weight:300;padding:0.7rem 0.9rem;outline:none;width:100%;appearance:none;transition:border-color 0.2s;}
+.fi-l:focus{border-color:rgba(184,134,11,0.4);}
+.fi-l::placeholder{color:var(--text3);}
+.fi-l option{background:var(--white);}
+.save-btn{font-size:0.65rem;font-weight:500;letter-spacing:0.2em;text-transform:uppercase;color:var(--black);background:var(--gold2);border:none;padding:0.9rem 2.5rem;cursor:pointer;transition:background 0.2s;margin-top:1.5rem;}
+.save-btn:hover{background:var(--gold3);}
+.no-data{padding:4rem 2rem;text-align:center;}
+.no-data h3{font-family:var(--serif);font-size:1.5rem;font-weight:300;color:var(--text2);margin-bottom:0.8rem;}
+.no-data p{font-size:0.8rem;color:var(--text3);line-height:1.8;}
+.no-data a{color:var(--gold);text-decoration:none;}
+.act-btn{font-size:0.62rem;font-weight:500;letter-spacing:0.18em;text-transform:uppercase;color:var(--white);background:var(--black);border:none;padding:0.7rem 1.8rem;cursor:pointer;text-decoration:none;display:inline-block;transition:background 0.2s;}
+.act-btn:hover{background:var(--gold);}
+.toast{position:fixed;bottom:2rem;right:2rem;background:var(--white);border:1px solid var(--border);border-left:3px solid var(--gold);padding:1rem 1.5rem;font-size:0.75rem;color:var(--text);z-index:9999;transform:translateY(100px);opacity:0;transition:all 0.3s;pointer-events:none;box-shadow:0 8px 24px rgba(0,0,0,0.1);}
+.toast.show{transform:translateY(0);opacity:1;}
+.toast.success{border-left-color:var(--green2);}
+.toast.error{border-left-color:var(--red2);}
+@media(max-width:1024px){nav{padding:1rem 5vw;}.nav-links{display:none;}.prop-grid{grid-template-columns:1fr 1fr;}.crit-grid{grid-template-columns:1fr;}.crit-full{grid-column:span 1;}.portal-stats{display:none;}}
+@media(max-width:640px){.prop-grid{grid-template-columns:1fr;}.reg-grid{grid-template-columns:1fr;}}
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="nav-logo"><img src="data:image/jpeg;base64,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" alt="Orvane Atlas"></a>
+  <ul class="nav-links">
+    <li><a href="opportunities.html">Properties</a></li>
+    <li><a href="fractional.html">Fractional</a></li>
+    <li><a href="sell.html">Sell</a></li>
+    <li><a href="market-insights.html">Market Insights</a></li>
+    <li><a href="investor-portal.html" class="active">My Portal</a></li>
+  </ul>
+  <a href="index.html#contact" class="nav-cta">Private Enquiry</a>
+</nav>
+
+<!-- AUTH SCREEN -->
+<div class="auth-wrap" id="authWrap">
+  <div class="auth-box">
+    <div class="auth-logo">
+      <img src="data:image/jpeg;base64,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" alt="Orvane Atlas">
+      <div class="auth-tagline">Real Assets. Real Returns.</div>
+    </div>
+    <div class="auth-card">
+      <div class="auth-title">Investor Portal</div>
+      <div class="auth-sub">Your private dashboard — saved properties, enquiries, and investment alerts.</div>
+      <div class="auth-tabs">
+        <button class="auth-tab active" onclick="switchAuthTab('login')">Sign In</button>
+        <button class="auth-tab" onclick="switchAuthTab('register')">Create Account</button>
+      </div>
+      <div id="loginForm">
+        <div class="fg"><label class="flbl">Email</label><input class="fi" id="loginEmail" type="email" placeholder="your@email.com"></div>
+        <div class="fg"><label class="flbl">Password</label><input class="fi" id="loginPass" type="password" placeholder="Your password" onkeydown="if(event.key==='Enter')doLogin()"></div>
+        <div class="auth-err" id="loginErr"></div>
+        <button class="auth-btn" onclick="doLogin()">Sign In to Portal</button>
+      </div>
+      <div id="registerForm" style="display:none">
+        <div class="reg-grid">
+          <div class="fg"><label class="flbl">First Name</label><input class="fi" id="regFirst" placeholder="First name"></div>
+          <div class="fg"><label class="flbl">Last Name</label><input class="fi" id="regLast" placeholder="Last name"></div>
+        </div>
+        <div class="fg"><label class="flbl">Email</label><input class="fi" id="regEmail" type="email" placeholder="your@email.com"></div>
+        <div class="fg"><label class="flbl">Phone</label><input class="fi" id="regPhone" placeholder="+234 or international"></div>
+        <div class="fg">
+          <label class="flbl">Country of Residence</label>
+          <select class="fi" id="regCountry">
+            <option value="">Select country</option>
+            <option>Nigeria</option><option>United Kingdom</option><option>UAE</option>
+            <option>Qatar</option><option>USA</option><option>Canada</option>
+            <option>South Africa</option><option>Germany</option><option>Other</option>
+          </select>
+        </div>
+        <div class="fg"><label class="flbl">Password</label><input class="fi" id="regPass" type="password" placeholder="Choose a password"></div>
+        <div class="auth-err" id="regErr"></div>
+        <button class="auth-btn" onclick="doRegister()">Create Account</button>
+        <p style="font-size:0.65rem;color:rgba(255,255,255,0.2);margin-top:1rem;line-height:1.7;text-align:center;">By registering you agree to receive property alerts from Orvane Atlas.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- PORTAL DASHBOARD -->
+<div class="portal" id="portal">
+  <div class="portal-hero">
+    <div class="portal-greeting">
+      Welcome back,
+      <em id="portalName">Investor</em>
+      <span id="portalEmail"></span>
+    </div>
+    <div class="portal-right">
+      <div class="portal-stats">
+        <div class="ps"><div class="ps-n" id="savedCount">0</div><div class="ps-l">Saved Properties</div></div>
+        <div class="ps"><div class="ps-n" id="enqCount">0</div><div class="ps-l">Enquiries</div></div>
+      </div>
+      <button class="signout-btn" onclick="doSignOut()">Sign Out</button>
+    </div>
+  </div>
+
+  <div class="portal-tabs">
+    <button class="ptab active" onclick="switchPortalTab(this,'saved')">Saved Properties</button>
+    <button class="ptab" onclick="switchPortalTab(this,'enquiries')">My Enquiries</button>
+    <button class="ptab" onclick="switchPortalTab(this,'alerts')">Property Alerts</button>
+    <button class="ptab" onclick="switchPortalTab(this,'criteria')">Investment Criteria</button>
+  </div>
+
+  <div class="portal-body">
+
+    <div class="pview active" id="pview-saved">
+      <div class="section-hd">
+        <div><div class="section-hd-title">Saved Properties</div><div class="section-hd-sub">Properties you have bookmarked for review</div></div>
+        <a href="opportunities.html" class="act-btn">Browse Properties</a>
+      </div>
+      <div class="prop-grid" id="savedGrid">
+        <div class="no-data" style="grid-column:1/-1">
+          <h3>No Saved Properties Yet</h3>
+          <p>Browse our listings and click the heart icon to save properties here.<br><br><a href="opportunities.html">View All Properties &rarr;</a></p>
+        </div>
+      </div>
+    </div>
+
+    <div class="pview" id="pview-enquiries">
+      <div class="section-hd"><div><div class="section-hd-title">My Enquiries</div><div class="section-hd-sub">Track the status of your property enquiries</div></div></div>
+      <div class="enq-list" id="enqList">
+        <div class="no-data"><h3>No Enquiries Yet</h3><p>Submit an enquiry on a property and track its status here.<br><br><a href="opportunities.html">Browse Properties &rarr;</a></p></div>
+      </div>
+    </div>
+
+    <div class="pview" id="pview-alerts">
+      <div class="section-hd"><div><div class="section-hd-title">Property Alerts</div><div class="section-hd-sub">New listings matching your investment criteria</div></div></div>
+      <div class="alert-list" id="alertList">
+        <div class="no-data"><h3>No Alerts Yet</h3><p>Set your investment criteria and we will alert you when a matching property is listed.</p></div>
+      </div>
+    </div>
+
+    <div class="pview" id="pview-criteria">
+      <div class="section-hd"><div><div class="section-hd-title">Investment Criteria</div><div class="section-hd-sub">Tell us what you are looking for</div></div></div>
+      <div class="criteria-card">
+        <div class="crit-grid">
+          <div><label class="flbl-l">Minimum Budget</label><input class="fi-l" id="critMin" placeholder="e.g. 50,000,000"></div>
+          <div><label class="flbl-l">Maximum Budget</label><input class="fi-l" id="critMax" placeholder="e.g. 500,000,000"></div>
+          <div><label class="flbl-l">Currency</label><select class="fi-l" id="critCurr"><option value="NGN">Nigerian Naira (NGN)</option><option value="AED">UAE Dirham (AED)</option><option value="GBP">British Pound (GBP)</option><option value="USD">US Dollar (USD)</option><option value="QAR">Qatari Riyal (QAR)</option></select></div>
+          <div><label class="flbl-l">Property Type</label><select class="fi-l" id="critType"><option value="">Any Type</option><option>Residential</option><option>Commercial</option><option>Land</option><option>Mixed Use</option></select></div>
+          <div><label class="flbl-l">Country</label><select class="fi-l" id="critCountry"><option value="">Any Country</option><option>Nigeria</option><option>UAE</option><option>UK</option><option>Qatar</option><option>South Africa</option></select></div>
+          <div><label class="flbl-l">City</label><input class="fi-l" id="critCity" placeholder="e.g. Lagos, Dubai, London"></div>
+          <div><label class="flbl-l">Investment Purpose</label><select class="fi-l" id="critPurpose"><option value="">Any Purpose</option><option>Capital Growth</option><option>Rental Income</option><option>Both</option><option>Personal Use</option></select></div>
+          <div><label class="flbl-l">Timeline</label><select class="fi-l" id="critTimeline"><option value="">Select timeline</option><option>Immediately</option><option>Within 3 months</option><option>Within 6 months</option><option>Within 1 year</option><option>Just exploring</option></select></div>
+          <div class="crit-full"><label class="flbl-l">Additional Requirements</label><textarea class="fi-l" id="critNotes" placeholder="Specific requirements — bedrooms, floor level, new build only, etc..." style="resize:vertical;min-height:80px;"></textarea></div>
+        </div>
+        <button class="save-btn" onclick="saveCriteria()">Save Investment Criteria</button>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+import { getFirestore, doc, setDoc, getDoc, updateDoc, collection, getDocs, query, where, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, onAuthStateChanged, updateProfile } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
+
+const FB = {apiKey:"AIzaSyBabiC-cCurh-l39EREVGdkRWp15YiwHd4",authDomain:"orvane-atlas.firebaseapp.com",projectId:"orvane-atlas",storageBucket:"orvane-atlas.firebasestorage.app",messagingSenderId:"780736586362",appId:"1:780736586362:web:87b2c9ce5d3bac47f2d1c3"};
+const app  = initializeApp(FB);
+const db   = getFirestore(app);
+const auth = getAuth(app);
+
+onAuthStateChanged(auth, async user => {
+  if(user){
+    document.getElementById('authWrap').style.display='none';
+    document.getElementById('portal').classList.add('show');
+    document.getElementById('portalName').textContent = user.displayName || user.email.split('@')[0];
+    document.getElementById('portalEmail').textContent = user.email;
+    loadPortal(user);
+  } else {
+    document.getElementById('authWrap').style.display='flex';
+    document.getElementById('portal').classList.remove('show');
+  }
+});
+
+window.switchAuthTab = t => {
+  document.querySelectorAll('.auth-tab').forEach((el,i)=>el.classList.toggle('active',i===(t==='login'?0:1)));
+  document.getElementById('loginForm').style.display = t==='login'?'block':'none';
+  document.getElementById('registerForm').style.display = t==='register'?'block':'none';
+};
+
+window.doLogin = async () => {
+  const email=document.getElementById('loginEmail').value.trim();
+  const pass=document.getElementById('loginPass').value;
+  const err=document.getElementById('loginErr');
+  err.style.display='none';
+  if(!email||!pass){err.textContent='Please enter email and password.';err.style.display='block';return;}
+  try{await signInWithEmailAndPassword(auth,email,pass);}
+  catch(e){err.textContent='Invalid email or password.';err.style.display='block';}
+};
+
+window.doRegister = async () => {
+  const first=document.getElementById('regFirst').value.trim();
+  const last=document.getElementById('regLast').value.trim();
+  const email=document.getElementById('regEmail').value.trim();
+  const phone=document.getElementById('regPhone').value.trim();
+  const country=document.getElementById('regCountry').value;
+  const pass=document.getElementById('regPass').value;
+  const err=document.getElementById('regErr');
+  err.style.display='none';
+  if(!first||!last||!email||!pass){err.textContent='Please fill in all required fields.';err.style.display='block';return;}
+  try{
+    const cred = await createUserWithEmailAndPassword(auth,email,pass);
+    await updateProfile(cred.user,{displayName:first+' '+last});
+    await setDoc(doc(db,'investors',cred.user.uid),{name:first+' '+last,email,phone,country,savedProperties:[],createdAt:serverTimestamp()});
+    toast('Welcome to Orvane Atlas, '+first+'!','success');
+  }catch(e){
+    err.textContent = e.code==='auth/email-already-in-use'?'Account exists. Please sign in instead.':'Error: '+e.message;
+    err.style.display='block';
+  }
+};
+
+window.doSignOut = async () => {await signOut(auth);toast('Signed out.','');};
+
+window.switchPortalTab = (btn,view) => {
+  document.querySelectorAll('.ptab').forEach(t=>t.classList.remove('active'));
+  btn.classList.add('active');
+  document.querySelectorAll('.pview').forEach(v=>v.classList.remove('active'));
+  document.getElementById('pview-'+view).classList.add('active');
+};
+
+async function loadPortal(user){
+  try{
+    const snap = await getDoc(doc(db,'investors',user.uid));
+    const data = snap.exists() ? snap.data() : {};
+    const savedIds = data.savedProperties||[];
+    document.getElementById('savedCount').textContent=savedIds.length;
+
+    if(savedIds.length){
+      const grid=document.getElementById('savedGrid');
+      grid.innerHTML='';
+      for(const id of savedIds){
+        try{
+          const ls=await getDoc(doc(db,'listings',id));
+          if(ls.exists()){
+            const l={id:ls.id,...ls.data()};
+            const photo=l.photos&&l.photos[0]?`<img src="${l.photos[0]}" alt="${l.title}">`:`<div class="pc-photo-ph">${l.city||''} &middot; ${l.type||''}</div>`;
+            const bm={new:'b-new',ready:'b-ready',offplan:'b-offplan',resale:'b-resale'};
+            const bl={new:'New Dev',ready:'Ready',offplan:'Off Plan',resale:'Resale'};
+            grid.innerHTML+=`<div class="prop-card">
+              <div class="pc-photo">${photo}<span class="pc-badge ${bm[l.listingStatus]||'b-ready'}">${bl[l.listingStatus]||''}</span>
+              <button class="pc-remove" onclick="unsave('${l.id}','${user.uid}')" title="Remove"><svg viewBox="0 0 24 24"><path d="M18 6L6 18M6 6l12 12"/></svg></button></div>
+              <div class="pc-body"><div class="pc-loc">${l.location||l.city||''}, ${l.country||''}</div><div class="pc-name">${l.title||''}</div><div class="pc-price"><span class="pc-curr">${l.currency||''} </span>${l.price||''}</div></div>
+              <div class="pc-footer"><a href="property.html?id=${l.id}" class="pc-btn primary">View Property</a><a href="index.html#contact" class="pc-btn">Enquire</a></div>
+            </div>`;
+          }
+        }catch(e){}
+      }
+    }
+
+    // Enquiries
+    try{
+      const eq=await getDocs(query(collection(db,'leads'),where('investorId','==',user.uid)));
+      const enqs=[];
+      eq.forEach(d=>enqs.push({id:d.id,...d.data()}));
+      document.getElementById('enqCount').textContent=enqs.length;
+      if(enqs.length){
+        const bm={new:'eb-new',contacted:'eb-contacted',qualified:'eb-qualified'};
+        const bl={new:'New',contacted:'In Discussion',qualified:'Qualified'};
+        document.getElementById('enqList').innerHTML=enqs.map(e=>`
+          <div class="enq-item">
+            <div><div class="enq-prop">${e.listingTitle||'Property Enquiry'}</div><div class="enq-meta">Submitted recently &middot; ${e.phone||''}</div></div>
+            <span class="enq-badge ${bm[e.status]||'eb-new'}">${bl[e.status]||'New'}</span>
+          </div>`).join('');
+      }
+    }catch(e){}
+
+    // Alerts — match listings to criteria
+    if(data.criteria){
+      try{
+        const c=data.criteria;
+        const lSnap=await getDocs(collection(db,'listings'));
+        const matches=[];
+        lSnap.forEach(d=>{
+          const l={id:d.id,...d.data()};
+          if(l.status!=='published') return;
+          if(c.country&&l.country!==c.country) return;
+          if(c.type&&l.type!==c.type) return;
+          matches.push(l);
+        });
+        if(matches.length){
+          document.getElementById('alertList').innerHTML=matches.slice(0,5).map(l=>`
+            <div class="alert-item">
+              <div class="alert-dot"></div>
+              <div class="alert-body"><div class="alert-title">${l.title}</div><div class="alert-sub">${l.location||l.city||''}, ${l.country||''} &middot; ${l.currency||''}${l.price||''}</div></div>
+              <a href="property.html?id=${l.id}" class="act-btn" style="font-size:0.55rem;padding:0.5rem 1rem;">View</a>
+            </div>`).join('');
+        }
+        // Load criteria into form
+        const map={critMin:'minBudget',critMax:'maxBudget',critCurr:'currency',critType:'type',critCountry:'country',critCity:'city',critPurpose:'purpose',critTimeline:'timeline',critNotes:'notes'};
+        Object.entries(map).forEach(([id,key])=>{const el=document.getElementById(id);if(el&&c[key])el.value=c[key];});
+      }catch(e){}
+    }
+
+  }catch(e){console.error('Portal error:',e);}
+}
+
+window.unsave = async (listingId,uid) => {
+  try{
+    const ref=doc(db,'investors',uid);
+    const snap=await getDoc(ref);
+    const saved=(snap.data()?.savedProperties||[]).filter(id=>id!==listingId);
+    await updateDoc(ref,{savedProperties:saved});
+    document.getElementById('savedCount').textContent=saved.length;
+    toast('Removed from saved properties','');
+    setTimeout(()=>window.location.reload(),1000);
+  }catch(e){toast('Error: '+e.message,'error');}
+};
+
+window.saveCriteria = async () => {
+  const user=auth.currentUser;
+  if(!user){toast('Please sign in first','error');return;}
+  const criteria={
+    minBudget:document.getElementById('critMin').value,
+    maxBudget:document.getElementById('critMax').value,
+    currency:document.getElementById('critCurr').value,
+    type:document.getElementById('critType').value,
+    country:document.getElementById('critCountry').value,
+    city:document.getElementById('critCity').value,
+    purpose:document.getElementById('critPurpose').value,
+    timeline:document.getElementById('critTimeline').value,
+    notes:document.getElementById('critNotes').value,
+  };
+  try{
+    const ref=doc(db,'investors',user.uid);
+    const snap=await getDoc(ref);
+    if(snap.exists()){await updateDoc(ref,{criteria,criteriaUpdatedAt:serverTimestamp()});}
+    else{await setDoc(ref,{criteria,criteriaUpdatedAt:serverTimestamp(),savedProperties:[]});}
+    toast('Investment criteria saved. You will be alerted when matching properties are listed.','success');
+  }catch(e){toast('Error: '+e.message,'error');}
+};
+
+function toast(msg,type){
+  const t=document.getElementById('toast');
+  t.textContent=msg;t.className='toast show'+(type?' '+type:'');
+  setTimeout(()=>t.className='toast',3500);
+}
+</script>
+</body>
+</html>
