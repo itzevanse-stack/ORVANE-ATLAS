@@ -725,14 +725,14 @@ async function loadListings(){
   track.innerHTML=lSlides.map(l=>{
     const [cls,lbl]=slStatus(l.listingStatus);
     const photo=l.photos&&l.photos[0]?`<img src="${l.photos[0]}" alt="${l.title}">`:`<div class="ls-photo-placeholder">${l.city||''} · ${l.type||''}</div>`;
-    return `<div class="listing-slide" onclick="window.location='property.html?id=${l.id}'">
+    return `<div class="listing-slide" onclick="window.location='/property.html?id=${l.id}'">
       <div class="ls-photo">${photo}<span class="ls-status ${cls}">${lbl}</span></div>
       <div class="ls-body">
         <div class="ls-loc">${l.location||l.city||''}, ${l.country||''}</div>
         <div class="ls-name">${l.title||''}</div>
         <div class="ls-price-row"><div class="ls-price"><span class="ls-curr">${l.currency||''} </span>${l.price||''}</div><span class="ls-type">${l.type||''}</span></div>
       </div>
-      <div class="ls-footer"><a href="property.html?id=${l.id}" class="ls-view-btn">View Details →</a></div>
+      <div class="ls-footer"><a href="/property.html?id=${l.id}" class="ls-view-btn">View Details →</a></div>
     </div>`;
   }).join('');
   if(lSlides.length>lVis)nav.style.display='flex';
