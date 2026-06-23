@@ -33,8 +33,8 @@ nav{position:fixed;top:0;left:0;right:0;z-index:999;display:flex;align-items:cen
 .nav-cta:hover{background:var(--white);color:var(--black);}
 
 /* GALLERY */
-.gallery{margin-top:62px;position:relative;height:70vh;min-height:500px;background:var(--off-white);overflow:hidden;}
-.gallery-main{width:100%;height:100%;object-fit:cover;display:block;filter:brightness(0.9);}
+.gallery{margin-top:62px;position:relative;height:75vh;min-height:520px;background:#1a1a1a;overflow:hidden;}
+.gallery-main{width:100%;height:100%;object-fit:contain;object-position:center center;display:block;background:#1a1a1a;}
 .gallery-placeholder{width:100%;height:100%;display:flex;align-items:center;justify-content:center;font-size:0.8rem;color:var(--text3);letter-spacing:0.2em;text-transform:uppercase;}
 .gallery-thumbs{position:absolute;bottom:1.5rem;left:50%;transform:translateX(-50%);display:flex;gap:0.5rem;}
 .gallery-thumb{width:60px;height:40px;object-fit:cover;cursor:pointer;opacity:0.6;border:2px solid transparent;transition:all 0.2s;}
@@ -681,7 +681,14 @@ function renderProperty(l){
 
   // PRICE
   document.getElementById('pCurr').textContent=(l.currency||'')+' ';
-  document.getElementById('pPrice').textContent=l.price||'';
+  // Format price with commas
+  const fmtPrice = p => {
+    if(!p) return '';
+    const n = parseFloat(p.toString().replace(/[^0-9.]/g,''));
+    if(isNaN(n)) return p;
+    return new Intl.NumberFormat('en-US').format(n);
+  };
+  document.getElementById('pPrice').textContent=fmtPrice(l.price);
   document.getElementById('pType').textContent=l.type||'';
   document.getElementById('sCurr').textContent=(l.currency||'')+' ';
   document.getElementById('sPrice').textContent=l.price||'';
@@ -732,13 +739,13 @@ function renderProperty(l){
           <tbody>
             <tr>
               <td class="proj-dur">Current Price</td>
-              <td class="proj-val"><span style="color:var(--gold);font-style:italic;">${l.currency||''} </span>${l.price||''}</td>
+              <td class="proj-val"><span style="color:var(--gold);font-style:italic;">${l.currency||''} </span>${fmtPrice(l.price)}</td>
               <td>—</td>
             </tr>
             ${rows.map(r=>`
               <tr>
                 <td class="proj-dur">${r.dur}</td>
-                <td class="proj-val"><span style="color:var(--gold);font-style:italic;">${l.currency||''} </span>${r.val}</td>
+                <td class="proj-val"><span style="color:var(--gold);font-style:italic;">${l.currency||''} </span>${fmtPrice(r.val)}</td>
                 <td><span class="proj-pct">${r.pct||'—'}</span></td>
               </tr>
             `).join('')}
@@ -895,9 +902,9 @@ function renderProperty(l){
     actionsRow.appendChild(waBtn);
   }
 
-  // CURRENCY CONVERTER
+  // CURRENCY CONVERTER — always show if price exists
   const currencyEl = document.getElementById('pCurrency');
-  if(currencyEl && l.price && l.currency){
+  if(currencyEl && l.price){
     const rawPrice = parseFloat((l.price||'').toString().replace(/[^0-9.]/g,''));
     if(rawPrice){
       currencyEl.style.display='block';
@@ -910,13 +917,15 @@ function renderProperty(l){
         'ZAR': 0.011, 'ZAR_symbol': 'R',
       };
       // Detect base currency
-      const sym = l.currency||'₦';
+      const sym = (l.currency||'₦').toUpperCase().replace(/[^A-Z₦$£]/g,'');
       let baseUSD = rawPrice;
-      if(sym==='₦'||sym==='NGN') baseUSD = rawPrice * 0.00062;
+      // Handle all naira variants: ₦, N, NGN, NAIRA
+      if(['₦','N','NGN','NAIRA',''].includes(sym)||sym==='') baseUSD = rawPrice * 0.00062;
       else if(sym==='AED') baseUSD = rawPrice * 0.27;
-      else if(sym==='£'||sym==='GBP') baseUSD = rawPrice * 1.26;
-      else if(sym==='QAR') baseUSD = rawPrice * 0.27;
-      else if(sym==='$'||sym==='USD') baseUSD = rawPrice;
+      else if(['£','GBP'].includes(sym)) baseUSD = rawPrice * 1.26;
+      else if(['QAR'].includes(sym)) baseUSD = rawPrice * 0.27;
+      else if(['$','USD'].includes(sym)) baseUSD = rawPrice;
+      else baseUSD = rawPrice * 0.00062; // default to naira
 
       const fmt = (n,s) => s + new Intl.NumberFormat('en-US',{maximumFractionDigits:0}).format(n);
       document.getElementById('cUSD').textContent = fmt(baseUSD,'$');
@@ -930,7 +939,7 @@ function renderProperty(l){
 
   // ROI CALCULATOR
   const roiEl = document.getElementById('pROI');
-  if(roiEl && l.price){
+  if(roiEl){
     roiEl.style.display='block';
     const rawPrice2 = parseFloat((l.price||'').toString().replace(/[^0-9.]/g,''));
     document.getElementById('roiPrice').value = rawPrice2 || '';
