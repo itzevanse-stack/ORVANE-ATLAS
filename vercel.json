@@ -6,6 +6,10 @@
     { "source": "/property", "destination": "/property.html" },
     { "source": "/admin", "destination": "/admin.html" },
     { "source": "/market-insights", "destination": "/market-insights.html" },
-    { "source": "/", "destination": "/index.html" }
+    { "source": "/investor-portal", "destination": "/investor-portal.html" },
+    { "source": "/fractional", "destination": "/fractional.html" },
+    { "source": "/sell", "destination": "/sell.html" },
+    { "source": "/developers", "destination": "/developers.html" },
+    { "source": "/(.*)", "destination": "/index.html" }
   ]
 }
