@@ -4,19 +4,19 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Investor Portal — Orvane Atlas</title>
-<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
 *,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
-:root{--black:#000;--white:#fff;--off-white:#F8F6F2;--warm:#F2EDE6;--gold:#B8860B;--gold2:#D4A017;--gold3:#E8C97A;--text:#1A1A1A;--text2:#666;--text3:#999;--border:#E5DDD4;--green2:#52B788;--red2:#EF4444;--serif:'Plus Jakarta Sans',system-ui,sans-serif;--sans:'Plus Jakarta Sans',system-ui,sans-serif;}
+:root{--black:#000;--white:#fff;--off-white:#F8F6F2;--warm:#F2EDE6;--gold:#B8860B;--gold2:#D4A017;--gold3:#E8C97A;--text:#1A1A1A;--text2:#666;--text3:#999;--border:#E5DDD4;--green2:#52B788;--red2:#EF4444;--serif:'Cormorant Garamond',Georgia,serif;--sans:'Inter',system-ui,sans-serif;}
 html{scroll-behavior:smooth;}
 body{background:var(--white);color:var(--text);font-weight:300;line-height:1.7;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;}
 ::-webkit-scrollbar{width:2px;}::-webkit-scrollbar-thumb{background:var(--gold);}
-nav{position:fixed;top:0;left:0;right:0;z-index:999;display:flex;align-items:center;justify-content:space-between;padding:1.2rem 5vw;background:#000;border-bottom:1px solid rgba(255,255,255,0.06);backdrop-filter:blur(20px);}
+nav{position:fixed;top:0;left:0;right:0;z-index:999;display:flex;align-items:center;justify-content:space-between;padding:1rem 3vw;background:#000000;border-bottom:1px solid rgba(255,255,255,0.06);backdrop-filter:blur(20px);transition:padding 0.4s;}
 .nav-logo img{height:44px;width:auto;display:block;}
-.nav-links{position:absolute;left:50%;transform:translateX(-50%);display:flex;gap:1rem;list-style:none;white-space:nowrap;}
-.nav-links a{font-size:0.58rem;font-weight:400;letter-spacing:0.06em;text-transform:uppercase;color:rgba(255,255,255,0.55);text-decoration:none;transition:color 0.2s;white-space:nowrap;}
+.nav-links{position:absolute;left:50%;transform:translateX(-50%);display:flex;gap:0.2rem;list-style:none;white-space:nowrap;}
+.nav-links a{font-size:0.68rem;font-weight:400;letter-spacing:0.06em;text-transform:uppercase;color:rgba(255,255,255,0.7);text-decoration:none;transition:color 0.2s;padding:0.3rem 0.6rem;}
 .nav-links a:hover,.nav-links a.active{color:var(--gold3);}
-.nav-cta{font-size:0.65rem;font-weight:500;letter-spacing:0.15em;text-transform:uppercase;color:var(--black);background:var(--gold2);padding:0.65rem 1.4rem;text-decoration:none;transition:background 0.25s;}
+.nav-cta{font-size:0.58rem;font-weight:500;letter-spacing:0.08em;text-transform:uppercase;color:var(--black);background:var(--gold2);padding:0.6rem 1rem;text-decoration:none;transition:background 0.25s;white-space:nowrap;flex-shrink:0;}
 .nav-cta:hover{background:var(--white);color:var(--black);}
 .auth-wrap{min-height:100vh;display:flex;align-items:center;justify-content:center;background:var(--black);padding:5rem 2rem;}
 .auth-box{width:100%;max-width:440px;}
@@ -24,7 +24,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:999;display:flex;align-items:cen
 .auth-logo img{height:60px;width:auto;}
 .auth-tagline{font-size:0.88rem;font-style:italic;color:rgba(255,255,255,0.3);margin-top:0.8rem;}
 .auth-card{background:var(--black);border:1px solid rgba(255,255,255,0.08);padding:3rem;}
-.auth-title{font-size:1.8rem;font-weight:300;color:var(--white);margin-bottom:0.4rem;}
+.auth-title{font-family:var(--serif);font-size:1.8rem;font-weight:300;color:var(--white);margin-bottom:0.4rem;}
 .auth-sub{font-size:0.78rem;color:rgba(255,255,255,0.35);margin-bottom:2rem;line-height:1.7;}
 .auth-tabs{display:flex;border-bottom:1px solid rgba(255,255,255,0.08);margin-bottom:2rem;}
 .auth-tab{font-size:0.65rem;font-weight:500;letter-spacing:0.15em;text-transform:uppercase;padding:0.8rem 1.5rem;border:none;background:none;color:rgba(255,255,255,0.3);cursor:pointer;border-bottom:2px solid transparent;margin-bottom:-1px;transition:all 0.2s;}
@@ -42,13 +42,13 @@ nav{position:fixed;top:0;left:0;right:0;z-index:999;display:flex;align-items:cen
 .portal{display:none;min-height:100vh;background:var(--off-white);padding-top:62px;}
 .portal.show{display:block;}
 .portal-hero{background:var(--black);padding:4rem 5vw 3rem;display:flex;align-items:flex-end;justify-content:space-between;flex-wrap:wrap;gap:2rem;}
-.portal-greeting{font-size:clamp(1.8rem,3vw,2.8rem);font-weight:300;color:var(--white);line-height:1.1;}
+.portal-greeting{font-family:var(--serif);font-size:clamp(1.8rem,3vw,2.8rem);font-weight:300;color:var(--white);line-height:1.1;}
 .portal-greeting em{color:inherit;font-style:normal;font-weight:inherit;}
 .portal-greeting span{font-size:0.88rem;color:rgba(255,255,255,0.3);font-weight:300;display:block;margin-top:0.4rem;}
 .portal-right{display:flex;align-items:center;gap:2rem;}
 .portal-stats{display:flex;gap:2.5rem;}
 .ps{text-align:right;}
-.ps-n{font-size:1.8rem;font-weight:300;color:var(--white);line-height:1;}
+.ps-n{font-family:var(--serif);font-size:1.8rem;font-weight:300;color:var(--white);line-height:1;}
 .ps-n em{color:var(--gold3);font-style:italic;font-size:1rem;}
 .ps-l{font-size:0.52rem;font-weight:400;letter-spacing:0.18em;text-transform:uppercase;color:rgba(255,255,255,0.3);margin-top:0.3rem;}
 .signout-btn{font-size:0.6rem;font-weight:400;letter-spacing:0.15em;text-transform:uppercase;color:rgba(255,255,255,0.4);background:none;border:1px solid rgba(255,255,255,0.1);padding:0.5rem 1rem;cursor:pointer;transition:all 0.2s;}
@@ -62,7 +62,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:999;display:flex;align-items:cen
 .pview{display:none;}
 .pview.active{display:block;}
 .section-hd{display:flex;align-items:center;justify-content:space-between;margin-bottom:2rem;flex-wrap:wrap;gap:1rem;}
-.section-hd-title{font-size:1.5rem;font-weight:300;color:var(--text);}
+.section-hd-title{font-family:var(--serif);font-size:1.5rem;font-weight:300;color:var(--text);}
 .section-hd-sub{font-size:0.78rem;color:var(--text3);margin-top:0.2rem;}
 .prop-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2px;}
 .prop-card{background:var(--white);border:1px solid var(--border);transition:box-shadow 0.3s;}
@@ -82,7 +82,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:999;display:flex;align-items:cen
 .pc-remove:hover svg{stroke:var(--white);}
 .pc-body{padding:1.2rem 1.5rem 1rem;}
 .pc-loc{font-size:0.58rem;font-weight:400;letter-spacing:0.18em;text-transform:uppercase;color:var(--gold);margin-bottom:0.4rem;}
-.pc-name{font-size:1.1rem;font-weight:400;line-height:1.2;color:var(--text);margin-bottom:0.6rem;}
+.pc-name{font-family:var(--serif);font-size:1.1rem;font-weight:400;line-height:1.2;color:var(--text);margin-bottom:0.6rem;}
 .pc-price{font-size:1.2rem;font-weight:300;color:var(--text);}
 .pc-curr{color:var(--gold);font-style:italic;font-size:0.9rem;}
 .pc-footer{padding:0.7rem 1.5rem;border-top:1px solid var(--border);display:flex;gap:0.5rem;}
@@ -93,7 +93,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:999;display:flex;align-items:cen
 .enq-list,.alert-list{display:flex;flex-direction:column;gap:2px;}
 .enq-item,.alert-item{background:var(--white);border:1px solid var(--border);padding:1.5rem 2rem;}
 .enq-item{display:grid;grid-template-columns:1fr auto;gap:2rem;align-items:center;}
-.enq-prop{font-size:1.1rem;font-weight:400;color:var(--text);margin-bottom:0.3rem;}
+.enq-prop{font-family:var(--serif);font-size:1.1rem;font-weight:400;color:var(--text);margin-bottom:0.3rem;}
 .enq-meta{font-size:0.72rem;color:var(--text3);}
 .enq-badge{font-size:0.52rem;font-weight:600;letter-spacing:0.2em;text-transform:uppercase;padding:0.3rem 0.8rem;}
 .eb-new{color:var(--gold);background:rgba(184,134,11,0.08);border:1px solid rgba(184,134,11,0.25);}
@@ -103,7 +103,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:999;display:flex;align-items:cen
 .alert-dot{width:8px;height:8px;border-radius:50%;background:var(--gold);flex-shrink:0;}
 .alert-dot.read{background:var(--text3);}
 .alert-body{flex:1;}
-.alert-title{font-size:0.85rem;font-weight:400;color:var(--text);margin-bottom:0.2rem;}
+.alert-title{font-family:var(--serif);font-size:0.85rem;font-weight:400;color:var(--text);margin-bottom:0.2rem;}
 .alert-sub{font-size:0.7rem;color:var(--text3);}
 .criteria-card{background:var(--white);border:1px solid var(--border);padding:2.5rem;max-width:700px;}
 .crit-grid{display:grid;grid-template-columns:1fr 1fr;gap:1.2rem;}
@@ -125,7 +125,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:999;display:flex;align-items:cen
 .toast.show{transform:translateY(0);opacity:1;}
 .toast.success{border-left-color:var(--green2);}
 .toast.error{border-left-color:var(--red2);}
-@media(max-width:1024px){nav{padding:1rem 5vw;}.nav-links{display:none;}.prop-grid{grid-template-columns:1fr 1fr;}.crit-grid{grid-template-columns:1fr;}.crit-full{grid-column:span 1;}.portal-stats{display:none;}}
+@media(max-width:1024px){nav{padding:1rem 5vw;}.nav-links{position:absolute;left:50%;transform:translateX(-50%);display:flex;gap:0.2rem;list-style:none;white-space:nowrap;}.prop-grid{grid-template-columns:1fr 1fr;}.crit-grid{grid-template-columns:1fr;}.crit-full{grid-column:span 1;}.portal-stats{display:none;}}
 @media(max-width:640px){.prop-grid{grid-template-columns:1fr;}.reg-grid{grid-template-columns:1fr;}}
 </style>
 </head>
@@ -137,8 +137,12 @@ nav{position:fixed;top:0;left:0;right:0;z-index:999;display:flex;align-items:cen
     <li><a href="opportunities.html">Properties</a></li>
     <li><a href="fractional.html">Fractional</a></li>
     <li><a href="sell.html">Sell</a></li>
-    <li><a href="market-insights.html">Market Insights</a></li>
-    <li><a href="investor-portal.html" class="active">My Portal</a></li>
+    <li><a href="developers.html">Developers</a></li>
+    <li><a href="investor-portal.html" class="active">Portal</a></li>
+    <li><a href="market-insights.html">Insights</a></li>
+    <li><a href="index.html#services">Services</a></li>
+    <li><a href="index.html#markets">Markets</a></li>
+    <li><a href="index.html#about">About</a></li>
   </ul>
   <a href="index.html#contact" class="nav-cta">Private Enquiry</a>
 </nav>
