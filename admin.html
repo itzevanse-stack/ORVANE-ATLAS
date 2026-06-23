@@ -271,6 +271,16 @@ body{background:var(--bg);color:var(--text);font-family:var(--sans);font-weight:
         Leads
         <span class="nav-badge" id="leadsNavBadge">0</span>
       </button>
+      <button class="nav-item" onclick="nav(this,'mandates')">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+        Sell Mandates
+        <span class="nav-badge" id="mandatesBadge">0</span>
+      </button>
+      <button class="nav-item" onclick="nav(this,'developers')">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+        Developer Applications
+        <span class="nav-badge" id="devsBadge">0</span>
+      </button>
     </div>
     <div class="sb-section">
       <div class="sb-label">Filter by Country</div>
@@ -402,6 +412,7 @@ body{background:var(--bg);color:var(--text);font-family:var(--sans);font-weight:
             <label class="flbl">Currency</label>
             <select class="fsel" id="fCurrency">
               <option value="₦">₦ Nigerian Naira</option>
+              <option value="$">$ US Dollar</option>
               <option value="AED">AED UAE Dirham</option>
               <option value="£">£ British Pound</option>
               <option value="QAR">QAR Qatari Riyal</option>
@@ -791,11 +802,15 @@ function populate(l){
 
 window.editListing = function(id){
   const l=listings.find(x=>x.id===id);
-  if(!l)return;
+  if(!l){
+    toast('Could not load listing. Please refresh the page.','error');
+    return;
+  }
   editId=id;
   populate(l);
   document.getElementById('fvTitle').textContent='Edit Listing';
   nav(null,'form',true);
+  window.scrollTo({top:0,behavior:'smooth'});
 };
 
 window.saveListing = async function(status){
@@ -1015,7 +1030,7 @@ Use the same currency as the current price (${currency}). Format numbers with co
 };
 
 // ── MANDATES ──
-async function loadMandates(){
+window.loadMandates = async function(){
   try{
     const snap = await getDocs(collection(db,'mandates'));
     const items = [];
@@ -1038,7 +1053,7 @@ async function loadMandates(){
 }
 
 // ── DEVELOPER APPLICATIONS ──
-async function loadDevelopers(){
+window.loadDevelopers = async function(){
   try{
     const snap = await getDocs(collection(db,'developer_applications'));
     const items = [];
@@ -1246,5 +1261,25 @@ window.toast = function(msg,type){
 };
 
 </script>
+
+  <div class="view" id="view-mandates" style="display:none">
+    <div style="padding:2rem;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;">
+      <div>
+        <div style="font-family:var(--serif);font-size:1.5rem;font-weight:300;color:var(--white);">Sell Mandates</div>
+        <div style="font-size:0.72rem;color:var(--text3);margin-top:0.3rem;">Property owners who submitted via the Sell page</div>
+      </div>
+    </div>
+    <div id="mandatesList" style="padding:1rem;display:flex;flex-direction:column;gap:2px;"></div>
+  </div>
+
+  <div class="view" id="view-developers" style="display:none">
+    <div style="padding:2rem;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;">
+      <div>
+        <div style="font-family:var(--serif);font-size:1.5rem;font-weight:300;color:var(--white);">Developer Applications</div>
+        <div style="font-size:0.72rem;color:var(--text3);margin-top:0.3rem;">Developers who applied for partnership</div>
+      </div>
+    </div>
+    <div id="developersList" style="padding:1rem;display:flex;flex-direction:column;gap:2px;"></div>
+  </div>
 </body>
 </html>
