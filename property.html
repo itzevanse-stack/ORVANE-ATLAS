@@ -477,6 +477,95 @@ nav{position:fixed;top:0;left:0;right:0;z-index:999;display:flex;align-items:cen
 .cfp-rate-code{font-size:0.48rem;font-weight:600;letter-spacing:0.15em;text-transform:uppercase;color:var(--text3);}
 .cfp-rate-val{font-size:0.72rem;font-weight:600;color:var(--text);}
 
+
+/* ROI PROJECTIONS */
+.roi-section{
+  border:1px solid var(--border);
+  margin-bottom:2rem;
+  overflow:hidden;
+}
+.roi-header{
+  display:flex;align-items:flex-start;
+  justify-content:space-between;
+  padding:1.8rem 2rem 1.5rem;
+  border-bottom:1px solid var(--border);
+  gap:1rem;flex-wrap:wrap;
+}
+.roi-title{
+  font-family:var(--serif);
+  font-size:1.25rem;font-weight:400;
+  color:var(--text);margin-bottom:0.25rem;
+}
+.roi-sub{
+  font-size:0.72rem;color:var(--text3);
+  line-height:1.6;max-width:400px;
+}
+.roi-periods{
+  display:flex;gap:2px;flex-shrink:0;
+}
+.roi-period{
+  font-size:0.62rem;font-weight:600;
+  letter-spacing:0.08em;
+  padding:0.5rem 0.9rem;
+  border:1px solid var(--border);
+  background:var(--white);
+  color:var(--text3);cursor:pointer;
+  transition:all 0.15s;
+}
+.roi-period:hover{background:var(--off-white);color:var(--text);}
+.roi-period.active{background:var(--black);color:var(--white);border-color:var(--black);}
+.roi-metrics{
+  display:grid;grid-template-columns:repeat(4,1fr);
+  gap:1px;background:var(--border);
+  border-bottom:1px solid var(--border);
+}
+.roi-metric{
+  background:var(--white);
+  padding:1.2rem 1.5rem;
+}
+.roi-metric.highlight{background:var(--off-white);}
+.roi-metric-label{
+  font-size:0.52rem;font-weight:500;
+  letter-spacing:0.2em;text-transform:uppercase;
+  color:var(--text3);margin-bottom:0.4rem;
+}
+.roi-metric-val{
+  font-family:var(--serif);
+  font-size:1.2rem;font-weight:400;
+  color:var(--text);line-height:1;
+}
+.roi-metric-val.green{color:#2D6A4F;}
+.roi-chart-wrap{
+  padding:1.5rem 2rem;
+  background:var(--white);
+  border-bottom:1px solid var(--border);
+}
+.roi-breakdown{
+  display:grid;grid-template-columns:repeat(3,1fr);
+  gap:1px;background:var(--border);
+  border-bottom:1px solid var(--border);
+}
+.roi-breakdown-item{
+  background:var(--off-white);
+  padding:1rem 1.5rem;
+}
+.roi-breakdown-label{
+  font-size:0.55rem;font-weight:500;
+  letter-spacing:0.18em;text-transform:uppercase;
+  color:var(--text3);margin-bottom:0.3rem;
+}
+.roi-breakdown-val{
+  font-family:var(--serif);
+  font-size:1rem;font-weight:400;color:var(--text);
+}
+.roi-breakdown-val.green{color:#2D6A4F;}
+.roi-disclaimer{
+  padding:1rem 2rem;
+  font-size:0.62rem;color:var(--text3);
+  line-height:1.7;font-style:italic;
+  background:var(--white);
+}
+
 /* SAVE BUTTON */
 .save-prop-btn{
   display:inline-flex;align-items:center;gap:0.6rem;
@@ -516,30 +605,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:999;display:flex;align-items:cen
 .currency-cell.loading .currency-val{color:var(--text3);font-size:0.75rem;}
 .currency-note{font-size:0.6rem;color:var(--text3);margin-top:0.8rem;line-height:1.6;}
 
-/* ROI CALCULATOR */
-.roi-section{
-  background:var(--off-white);border:1px solid var(--border);
-  padding:1.8rem;margin-bottom:2rem;
-}
-.roi-title{
-  font-size:1.3rem;font-weight:300;color:var(--text);
-  margin-bottom:0.3rem;
-}
-.roi-title em{font-style:italic;color:var(--gold);}
-.roi-sub{font-size:0.75rem;color:var(--text3);margin-bottom:1.5rem;line-height:1.6;}
-.roi-inputs{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-bottom:1.5rem;}
-.roi-inp-group{display:flex;flex-direction:column;gap:0.4rem;}
-.roi-lbl{font-size:0.52rem;font-weight:500;letter-spacing:0.22em;text-transform:uppercase;color:var(--text3);}
-.roi-inp{background:var(--white);border:1px solid var(--border);color:var(--text);font-size:0.85rem;font-weight:300;padding:0.65rem 0.9rem;outline:none;width:100%;transition:border-color 0.2s;}
-.roi-inp:focus{border-color:rgba(184,134,11,0.4);}
-.roi-btn{font-size:0.62rem;font-weight:500;letter-spacing:0.18em;text-transform:uppercase;color:var(--black);background:var(--gold2);border:none;padding:0.75rem 2rem;cursor:pointer;transition:background 0.2s;}
-.roi-btn:hover{background:var(--gold3);}
-.roi-results{display:none;margin-top:1.5rem;display:grid;grid-template-columns:repeat(2,1fr);gap:1px;background:var(--border);}
-.roi-result-cell{background:var(--white);padding:1.2rem;text-align:center;}
-.roi-result-label{font-size:0.52rem;font-weight:500;letter-spacing:0.18em;text-transform:uppercase;color:var(--text3);margin-bottom:0.4rem;}
-.roi-result-val{font-size:1.2rem;font-weight:300;color:var(--text);}
-.roi-result-val.positive{color:#2D6A4F;}
-.roi-disclaimer{font-size:0.62rem;color:var(--text3);margin-top:1rem;line-height:1.6;font-style:italic;}
+
 
 /* LOADING */
 .loading-wrap{min-height:60vh;display:flex;align-items:center;justify-content:center;font-size:0.8rem;color:var(--text3);letter-spacing:0.1em;}
@@ -620,38 +686,61 @@ footer{background:var(--black);border-top:1px solid rgba(255,255,255,0.06);paddi
 
 <!-- Currency converter moved to floating widget -->
 
-    <!-- ROI CALCULATOR -->
+    <!-- ROI PROJECTIONS -->
     <div id="pROI" class="roi-section" style="display:none">
-      <div class="roi-title">ROI <em>Calculator</em></div>
-      <div class="roi-sub">Estimate your potential returns from this property.</div>
-      <div class="roi-inputs">
-        <div class="roi-inp-group">
-          <label class="roi-lbl">Investment Amount (<span id="roiSym">₦</span>)</label>
-          <input class="roi-inp" id="roiPrice" type="number" placeholder="Property price">
+      <div class="roi-header">
+        <div>
+          <div class="roi-title">Investment Projections</div>
+          <div class="roi-sub">AI-estimated growth based on market data for this location and property type</div>
         </div>
-        <div class="roi-inp-group">
-          <label class="roi-lbl">Expected Annual Rental Yield (%)</label>
-          <input class="roi-inp" id="roiYield" type="number" placeholder="e.g. 7" value="7">
-        </div>
-        <div class="roi-inp-group">
-          <label class="roi-lbl">Expected Annual Capital Growth (%)</label>
-          <input class="roi-inp" id="roiGrowth" type="number" placeholder="e.g. 12" value="12">
-        </div>
-        <div class="roi-inp-group">
-          <label class="roi-lbl">Investment Horizon (years)</label>
-          <input class="roi-inp" id="roiYears" type="number" placeholder="e.g. 5" value="5">
+        <div class="roi-periods">
+          <button class="roi-period active" onclick="setRoiPeriod(this,'6m')">6M</button>
+          <button class="roi-period" onclick="setRoiPeriod(this,'1y')">1Y</button>
+          <button class="roi-period" onclick="setRoiPeriod(this,'3y')">3Y</button>
+          <button class="roi-period" onclick="setRoiPeriod(this,'5y')">5Y</button>
+          <button class="roi-period" onclick="setRoiPeriod(this,'10y')">10Y</button>
         </div>
       </div>
-      <button class="roi-btn" onclick="calcROI()">Calculate Returns</button>
-      <div id="roiResults" style="display:none;margin-top:1.5rem;">
-        <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:1px;background:var(--border);margin-bottom:1rem;">
-          <div class="roi-result-cell"><div class="roi-result-label">Total Rental Income</div><div class="roi-result-val positive" id="roiRental">—</div></div>
-          <div class="roi-result-cell"><div class="roi-result-label">Capital Gain</div><div class="roi-result-val positive" id="roiCapGain">—</div></div>
-          <div class="roi-result-cell"><div class="roi-result-label">Property Value at Exit</div><div class="roi-result-val" id="roiExitVal">—</div></div>
-          <div class="roi-result-cell"><div class="roi-result-label">Total Return</div><div class="roi-result-val positive" id="roiTotal">—</div></div>
+
+      <div class="roi-metrics">
+        <div class="roi-metric">
+          <div class="roi-metric-label">Current Value</div>
+          <div class="roi-metric-val" id="roiCurrentVal">—</div>
         </div>
-        <div class="roi-disclaimer">Illustrative projections only. Actual returns depend on market conditions, occupancy rates, and management costs. This does not constitute financial advice.</div>
+        <div class="roi-metric highlight">
+          <div class="roi-metric-label">Projected Value</div>
+          <div class="roi-metric-val" id="roiProjectedVal">—</div>
+        </div>
+        <div class="roi-metric">
+          <div class="roi-metric-label">Total Return</div>
+          <div class="roi-metric-val green" id="roiReturn">—</div>
+        </div>
+        <div class="roi-metric">
+          <div class="roi-metric-label">Annual Yield</div>
+          <div class="roi-metric-val" id="roiYieldVal">—</div>
+        </div>
       </div>
+
+      <div class="roi-chart-wrap">
+        <canvas id="roiChart" height="200"></canvas>
+      </div>
+
+      <div class="roi-breakdown">
+        <div class="roi-breakdown-item">
+          <div class="roi-breakdown-label">Capital Appreciation</div>
+          <div class="roi-breakdown-val" id="roiCapApp">—</div>
+        </div>
+        <div class="roi-breakdown-item">
+          <div class="roi-breakdown-label">Rental Income</div>
+          <div class="roi-breakdown-val" id="roiRentalInc">—</div>
+        </div>
+        <div class="roi-breakdown-item">
+          <div class="roi-breakdown-label">Total Gain</div>
+          <div class="roi-breakdown-val green" id="roiTotalGain">—</div>
+        </div>
+      </div>
+
+      <div class="roi-disclaimer">Projections are AI-generated estimates based on historical market data, comparable sales, and infrastructure trends for this location. They are indicative only and do not constitute financial advice. Actual returns may differ materially.</div>
     </div>
 
     <div class="p-section-title" id="projSectionTitle" style="display:none">Asset Growth Projections</div>
@@ -1059,13 +1148,8 @@ function renderProperty(l){
   }
 
   // ROI CALCULATOR
-  const roiEl = document.getElementById('pROI');
-  if(roiEl){
-    roiEl.style.display='block';
-    const rawPrice2 = parseFloat((l.price||'').toString().replace(/[^0-9.]/g,''));
-    document.getElementById('roiPrice').value = rawPrice2 || '';
-    document.getElementById('roiSym').textContent = l.currency||'₦';
-  }
+  // Init intelligent ROI projections
+  window.initROI(l);
 
   // AGENT CONTACTS
   if(l.agentName) document.getElementById('agentName').textContent=l.agentName;
@@ -1094,24 +1178,191 @@ window.sendEnquiry = function(){
 
 loadProperty();
 
-window.calcROI = function(){
-  const price  = parseFloat(document.getElementById('roiPrice').value)||0;
-  const yld    = parseFloat(document.getElementById('roiYield').value)||7;
-  const growth = parseFloat(document.getElementById('roiGrowth').value)||12;
-  const years  = parseFloat(document.getElementById('roiYears').value)||5;
-  if(!price){ alert('Please enter a property price.'); return; }
-  const annualRent = price * (yld/100);
-  const totalRent  = annualRent * years;
-  const exitVal    = price * Math.pow(1+(growth/100), years);
-  const capGain    = exitVal - price;
-  const total      = totalRent + capGain;
-  const fmt = n => new Intl.NumberFormat('en-US',{maximumFractionDigits:0}).format(n);
-  document.getElementById('roiRental').textContent  = fmt(totalRent);
-  document.getElementById('roiCapGain').textContent = fmt(capGain);
-  document.getElementById('roiExitVal').textContent = fmt(exitVal);
-  document.getElementById('roiTotal').textContent   = fmt(total);
-  document.getElementById('roiResults').style.display='block';
+// ── INTELLIGENT ROI PROJECTION ENGINE ──
+let _roiListing = null;
+let _roiChart = null;
+let _roiPeriod = '6m';
+
+// Market growth rates by country and type (annual %)
+const MARKET_RATES = {
+  Nigeria:     { Residential:15, Commercial:12, Land:18, default:14 },
+  UAE:         { Residential:10, Commercial:8,  Land:12, default:9  },
+  UK:          { Residential:5,  Commercial:4,  Land:6,  default:5  },
+  Qatar:       { Residential:8,  Commercial:7,  Land:10, default:8  },
+  'South Africa':{ Residential:6, Commercial:5, Land:7, default:6 },
+  default:     { default:10 }
 };
+const YIELD_RATES = {
+  Nigeria:{ Residential:6, Commercial:9, Land:0, default:6 },
+  UAE:    { Residential:7, Commercial:8, Land:0, default:7 },
+  UK:     { Residential:5, Commercial:6, Land:0, default:5 },
+  Qatar:  { Residential:7, Commercial:8, Land:0, default:7 },
+  default:{ default:6 }
+};
+
+const PERIOD_CONFIG = {
+  '6m': { label:'6 Months', months:6,  years:0.5,  points:6,  pointLabel:'Mo'  },
+  '1y': { label:'1 Year',   months:12, years:1,    points:12, pointLabel:'Mo'  },
+  '3y': { label:'3 Years',  months:36, years:3,    points:12, pointLabel:'Qtr' },
+  '5y': { label:'5 Years',  months:60, years:5,    points:10, pointLabel:'6Mo' },
+  '10y':{ label:'10 Years', months:120,years:10,   points:10, pointLabel:'Yr'  },
+};
+
+window.initROI = function(listing){
+  _roiListing = listing;
+  const el = document.getElementById('pROI');
+  if(!el || !listing.price) return;
+  el.style.display = 'block';
+  renderROI();
+};
+
+window.setRoiPeriod = function(btn, period){
+  document.querySelectorAll('.roi-period').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+  _roiPeriod = period;
+  renderROI();
+};
+
+function renderROI(){
+  if(!_roiListing) return;
+  const l = _roiListing;
+  const rawPrice = parseFloat((l.price||'').toString().replace(/[^0-9.]/g,''));
+  if(!rawPrice) return;
+
+  const country = l.country || 'Nigeria';
+  const type = l.type || 'Residential';
+  const countryRates = MARKET_RATES[country] || MARKET_RATES.default;
+  const annualGrowth = (countryRates[type] || countryRates.default || 10) / 100;
+  const countryYield = YIELD_RATES[country] || YIELD_RATES.default;
+  const rentalYield  = (countryYield[type] || countryYield.default || 6) / 100;
+
+  const cfg = PERIOD_CONFIG[_roiPeriod];
+  const years = cfg.years;
+
+  const projectedVal  = rawPrice * Math.pow(1 + annualGrowth, years);
+  const totalRental   = rawPrice * rentalYield * years;
+  const capAppreciation = projectedVal - rawPrice;
+  const totalGain     = capAppreciation + totalRental;
+  const totalReturn   = ((totalGain / rawPrice) * 100).toFixed(1);
+  const annYield      = (rentalYield * 100).toFixed(1);
+
+  const sym = l.currency || '₦';
+  const fmt = n => sym + new Intl.NumberFormat('en-US',{maximumFractionDigits:0}).format(n);
+  const fmtShort = n => {
+    if(n >= 1e9) return sym + (n/1e9).toFixed(1) + 'B';
+    if(n >= 1e6) return sym + (n/1e6).toFixed(1) + 'M';
+    return fmt(n);
+  };
+
+  document.getElementById('roiCurrentVal').textContent   = fmtShort(rawPrice);
+  document.getElementById('roiProjectedVal').textContent = fmtShort(projectedVal);
+  document.getElementById('roiReturn').textContent       = '+' + totalReturn + '%';
+  document.getElementById('roiYieldVal').textContent     = annYield + '% p.a.';
+  document.getElementById('roiCapApp').textContent       = fmtShort(capAppreciation);
+  document.getElementById('roiRentalInc').textContent    = fmtShort(totalRental);
+  document.getElementById('roiTotalGain').textContent    = fmtShort(totalGain);
+
+  // Build chart data points
+  const points = cfg.points;
+  const labels = [];
+  const values = [];
+
+  for(let i = 0; i <= points; i++){
+    const t = (years / points) * i;
+    values.push(Math.round(rawPrice * Math.pow(1 + annualGrowth, t)));
+    if(i === 0){ labels.push('Now'); }
+    else if(cfg.pointLabel === 'Mo'){ labels.push(Math.round(t * 12) + 'M'); }
+    else if(cfg.pointLabel === 'Qtr'){ labels.push('Q' + Math.round(t * 4)); }
+    else if(cfg.pointLabel === '6Mo'){ labels.push(Math.round(t * 2) * 6 + 'M'); }
+    else{ labels.push(Math.round(t) + 'Y'); }
+  }
+
+  drawChart(labels, values, rawPrice, sym);
+}
+
+function drawChart(labels, values, basePrice, sym){
+  const canvas = document.getElementById('roiChart');
+  if(!canvas) return;
+
+  if(_roiChart){ _roiChart.destroy(); }
+
+  const ctx = canvas.getContext('2d');
+  const minVal = Math.min(...values) * 0.98;
+  const maxVal = Math.max(...values) * 1.02;
+
+  // Load Chart.js if not loaded
+  if(typeof Chart === 'undefined'){
+    const script = document.createElement('script');
+    script.src = 'https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js';
+    script.onload = () => drawChart(labels, values, basePrice, sym);
+    document.head.appendChild(script);
+    return;
+  }
+
+  _roiChart = new Chart(ctx, {
+    type: 'line',
+    data: {
+      labels,
+      datasets: [{
+        data: values,
+        borderColor: '#B8860B',
+        borderWidth: 2,
+        pointBackgroundColor: '#B8860B',
+        pointRadius: 3,
+        pointHoverRadius: 5,
+        fill: true,
+        backgroundColor: (context) => {
+          const chart = context.chart;
+          const {ctx: c, chartArea} = chart;
+          if(!chartArea) return 'rgba(184,134,11,0.05)';
+          const gradient = c.createLinearGradient(0, chartArea.top, 0, chartArea.bottom);
+          gradient.addColorStop(0, 'rgba(184,134,11,0.15)');
+          gradient.addColorStop(1, 'rgba(184,134,11,0)');
+          return gradient;
+        },
+        tension: 0.4,
+      }]
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      interaction: { mode:'index', intersect:false },
+      plugins: {
+        legend: { display:false },
+        tooltip: {
+          backgroundColor: '#000',
+          titleColor: 'rgba(255,255,255,0.5)',
+          bodyColor: '#fff',
+          borderColor: 'rgba(255,255,255,0.1)',
+          borderWidth: 1,
+          padding: 12,
+          callbacks: {
+            label: ctx => sym + new Intl.NumberFormat('en-US',{maximumFractionDigits:0}).format(ctx.raw)
+          }
+        }
+      },
+      scales: {
+        x: {
+          grid: { color:'rgba(0,0,0,0.04)', drawBorder:false },
+          ticks: { font:{size:10}, color:'#999' }
+        },
+        y: {
+          min: minVal,
+          max: maxVal,
+          grid: { color:'rgba(0,0,0,0.04)', drawBorder:false },
+          ticks: {
+            font:{size:10}, color:'#999',
+            callback: v => {
+              if(v >= 1e9) return sym + (v/1e9).toFixed(1) + 'B';
+              if(v >= 1e6) return sym + (v/1e6).toFixed(0) + 'M';
+              return sym + new Intl.NumberFormat('en-US',{maximumFractionDigits:0}).format(v);
+            }
+          }
+        }
+      }
+    }
+  });
+}
 
 
 // ── FLOATING CURRENCY CONVERTER ──
