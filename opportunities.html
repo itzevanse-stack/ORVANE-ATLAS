@@ -554,7 +554,7 @@ function renderListings(){
         <div class="l-name">${l.title||''}</div>
         <div class="l-specs">${specsHtml}</div>
         <div class="l-price-row">
-          <div class="l-price"><span class="l-curr">${l.currency||''} </span>${l.price||''}</div>
+          <div class="l-price"><span class="l-curr">${l.currency||''} </span>${(()=>{const n=parseFloat((l.price||'').toString().replace(/[^0-9.]/g,''));return isNaN(n)?l.price||'':new Intl.NumberFormat('en-US').format(n);})()}</div>
           <span class="l-type-tag">${l.type||''}</span>
         </div>
       </div>
