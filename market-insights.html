@@ -8,7 +8,7 @@
 <meta name="theme-color" content="#000000">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Market Insights — Orvane Atlas</title>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <style>
 *,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
 :root{
@@ -16,11 +16,11 @@
   --gold:#B8860B;--gold2:#D4A017;--gold3:#E8C97A;
   --text:#1A1A1A;--text2:#666;--text3:#999;--border:#E5DDD4;
   --green2:#52B788;
-  --serif:'Cormorant Garamond',Georgia,serif;
-  --sans:'Inter',system-ui,sans-serif;
+  --serif:'Plus Jakarta Sans',system-ui,sans-serif;
+  --sans:'Plus Jakarta Sans',system-ui,sans-serif;
 }
 html{scroll-behavior:smooth;}
-body{background:var(--white);color:var(--text);font-family:var(--sans);font-weight:300;line-height:1.6;overflow-x:hidden;-webkit-font-smoothing:antialiased;}
+body{background:var(--white);color:var(--text);font-weight:300;line-height:1.7;overflow-x:hidden;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;}
 ::-webkit-scrollbar{width:2px;}
 ::-webkit-scrollbar-thumb{background:var(--gold);}
 
@@ -50,8 +50,8 @@ nav{position:fixed;top:0;left:0;right:0;z-index:999;display:flex;align-items:cen
 .page-hero::after{content:'';position:absolute;bottom:0;left:0;right:0;height:1px;background:rgba(232,201,122,0.15);}
 .ph-tag{position:relative;z-index:2;font-size:0.6rem;font-weight:400;letter-spacing:0.4em;text-transform:uppercase;color:var(--gold3);display:flex;align-items:center;gap:1rem;margin-bottom:2rem;}
 .ph-tag::before{content:'';width:2.5rem;height:1px;background:var(--gold3);}
-.ph-title{position:relative;z-index:2;font-family:var(--serif);font-size:clamp(3rem,6vw,5.5rem);font-weight:300;line-height:0.95;letter-spacing:-0.02em;color:var(--white);margin-bottom:1.5rem;}
-.ph-title em{font-style:italic;color:var(--gold3);}
+.ph-title{position:relative;z-index:2;font-size:clamp(3rem,6vw,5.5rem);font-weight:700;line-height:0.95;letter-spacing:-0.02em;color:var(--white);margin-bottom:1.5rem;}
+.ph-title em{color:inherit;font-style:normal;font-weight:inherit;}
 .ph-sub{position:relative;z-index:2;font-size:0.88rem;color:rgba(255,255,255,0.4);max-width:560px;line-height:1.9;}
 
 .filter-bar{
@@ -110,7 +110,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:999;display:flex;align-items:cen
 .nc-source-row{display:flex;align-items:center;justify-content:space-between;margin-bottom:0.6rem;}
 .nc-source{font-size:0.55rem;font-weight:500;letter-spacing:0.18em;text-transform:uppercase;color:var(--gold);}
 .nc-date{font-size:0.58rem;color:var(--text3);}
-.nc-headline{font-family:var(--serif);font-size:1.15rem;font-weight:400;line-height:1.25;color:var(--text);display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden;}
+.nc-headline{font-size:1.15rem;font-weight:400;line-height:1.25;color:var(--text);display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden;}
 .nc-footer{padding:0.8rem 1.8rem;border-top:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;}
 .nc-read{font-size:0.58rem;font-weight:400;letter-spacing:0.15em;text-transform:uppercase;color:var(--text3);transition:color 0.2s;}
 .news-card:hover .nc-read{color:var(--gold);}
