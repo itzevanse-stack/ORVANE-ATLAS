@@ -458,14 +458,15 @@ async function loadListings(){
     const snap = await getDocs(q);
     allListings = snap.docs.map(d => ({id:d.id,...d.data()}));
   } catch(e){
-    // Fallback if index not ready
     try {
       const snap = await getDocs(collection(db,'listings'));
       allListings = snap.docs.map(d => ({id:d.id,...d.data()})).filter(l=>l.status==='published');
     } catch(e2){
-      allListings=[];
+      allListings = [];
     }
   }
+  // Show fallback listings when Firebase is empty
+  if(!allListings.length) allListings = FALLBACK_LISTINGS;
   document.getElementById('loadingState').style.display='none';
   renderListings();
 }
