@@ -796,15 +796,13 @@ function populate(l){
   existingPhotos=l.photos||[];
   photoFiles=[];
   renderPhotoPreview();
-  document.getElementById('proj1yr').value=l.proj1yr||'';
-  document.getElementById('proj1yrPct').value=l.proj1yrPct||'';
-  document.getElementById('proj3yr').value=l.proj3yr||'';
-  document.getElementById('proj3yrPct').value=l.proj3yrPct||'';
-  document.getElementById('proj5yr').value=l.proj5yr||'';
-  document.getElementById('proj5yrPct').value=l.proj5yrPct||'';
-  document.getElementById('proj10yr').value=l.proj10yr||'';
-  document.getElementById('proj10yrPct').value=l.proj10yrPct||'';
-  document.getElementById('fProjBasis').value=l.projBasis||'';
+  // Projection fields - safe set
+  const _sf=(id,v)=>{const el=document.getElementById(id);if(el)el.value=v||'';};
+  _sf('proj1yr',l.proj1yr);_sf('proj1yrPct',l.proj1yrPct);
+  _sf('proj3yr',l.proj3yr);_sf('proj3yrPct',l.proj3yrPct);
+  _sf('proj5yr',l.proj5yr);_sf('proj5yrPct',l.proj5yrPct);
+  _sf('proj10yr',l.proj10yr);_sf('proj10yrPct',l.proj10yrPct);
+  _sf('fProjBasis',l.projBasis);
 }
 
 window.editListing = function(id){
