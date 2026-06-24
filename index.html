@@ -116,8 +116,8 @@ nav.scrolled{padding:1rem 5vw;box-shadow:0 4px 24px rgba(0,0,0,0.3);}
 /* PEOPLE SECTION */
 .people-section{background:var(--off-white);padding:8rem 5vw;}
 .people-top{text-align:center;max-width:700px;margin:0 auto 5rem;}
-.section-tag{font-size:0.65rem;font-weight:500;letter-spacing:0.3em;text-transform:uppercase;color:var(--text3);display:flex;align-items:center;gap:1rem;margin-bottom:1.5rem;}
-.section-tag::before,.section-tag::after{content:'';width:2rem;height:1px;background:var(--text3);}
+.section-tag{font-size:0.65rem;font-weight:500;letter-spacing:0.3em;text-transform:uppercase;color:var(--gold);display:flex;align-items:center;gap:1rem;margin-bottom:1.5rem;}
+.section-tag::before,.section-tag::after{content:'';width:2rem;height:1px;background:var(--gold);flex-shrink:0;}
 .section-title{font-family:var(--serif);font-size:clamp(2rem,3.5vw,3.2rem);font-weight:300;line-height:1.1;letter-spacing:-0.02em;color:var(--text);}
 .section-title em{color:inherit;font-style:italic;font-weight:inherit;background:none;-webkit-text-fill-color:inherit;}
 .section-sub{font-size:1.05rem;font-weight:300;color:var(--text2);line-height:1.9;margin-top:1rem;max-width:540px;}
@@ -145,7 +145,8 @@ nav.scrolled{padding:1rem 5vw;box-shadow:0 4px 24px rgba(0,0,0,0.3);}
 
 /* SERVICES */
 #services{background:var(--off-white);padding:8rem 0;border-top:1px solid var(--border);}
-.svc-head{display:grid;grid-template-columns:1fr 1fr;gap:6rem;align-items:end;padding:0 5vw 5rem;}
+.svc-head{display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:end;padding:0 5vw 5rem;}
+.svc-head-r{padding-left:4rem;}
 .svc-head-r p{font-size:1.05rem;font-weight:300;color:var(--text2);line-height:1.9;max-width:480px;}
 .svc-grid{display:grid;grid-template-columns:repeat(3,1fr);border-top:1px solid var(--border);}
 .svc{padding:4rem 4rem 5rem;border-right:1px solid var(--border);background:var(--off-white);transition:background 0.3s;position:relative;}
@@ -164,6 +165,7 @@ nav.scrolled{padding:1rem 5vw;box-shadow:0 4px 24px rgba(0,0,0,0.3);}
 /* MARKETS */
 #markets{padding:8rem 5vw;background:var(--white);border-top:1px solid var(--border);}
 .mkt-head{display:grid;grid-template-columns:1fr 1fr;gap:6rem;align-items:end;margin-bottom:5rem;}
+.mkt-head-r{padding-left:4rem;}
 .mkt-head-r p{font-size:1.05rem;font-weight:300;color:var(--text2);line-height:1.9;max-width:480px;}
 .city-grid{display:grid;grid-template-columns:repeat(4,1fr);grid-template-rows:300px 200px;gap:3px;}
 .ct{position:relative;overflow:hidden;cursor:default;}
