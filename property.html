@@ -34,7 +34,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:999;display:flex;align-items:cen
 
 /* GALLERY */
 .gallery{margin-top:62px;position:relative;height:78vh;min-height:550px;background:#000;overflow:hidden;}
-.gallery-main{width:100%;height:100%;object-fit:cover;object-position:center center;display:block;cursor:zoom-in;transition:opacity 0.15s ease;}
+.gallery-main{width:100%;height:100%;object-fit:contain;object-position:center center;display:block;background:#111;transition:opacity 0.15s ease;}
 .gallery-placeholder{width:100%;height:100%;display:flex;align-items:center;justify-content:center;font-size:0.8rem;color:var(--text3);letter-spacing:0.2em;text-transform:uppercase;}
 .gallery-thumbs{position:absolute;bottom:1.5rem;left:50%;transform:translateX(-50%);display:flex;gap:0.5rem;}
 .gallery-thumb{width:60px;height:40px;object-fit:cover;cursor:pointer;opacity:0.6;border:2px solid transparent;transition:all 0.2s;}
@@ -618,7 +618,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:999;display:flex;align-items:cen
   flex-shrink:0;transition:all 0.2s;
 }
 .lightbox-thumb.active{opacity:1;border-color:var(--gold);}
-.gallery-main{width:100%;height:100%;object-fit:cover;object-position:center center;display:block;cursor:zoom-in;transition:opacity 0.15s ease;}
+.gallery-main{width:100%;height:100%;object-fit:contain;object-position:center center;display:block;background:#111;transition:opacity 0.15s ease;}
 
 /* SAVE BUTTON */
 .save-prop-btn{
@@ -906,10 +906,7 @@ function renderProperty(l){
         <div class="gallery-counter" id="galleryCounter">1 / ${photos.length}</div>
       `:''}
     `;
-    // Click main image opens lightbox
-    document.getElementById('galleryMain').addEventListener('click', function(){
-      openLightbox(photos, currentPhoto);
-    });
+// lightbox disabled - arrows only
     window.changePhoto = function(dir){
       currentPhoto=(currentPhoto+dir+photos.length)%photos.length;
       window.setPhoto(currentPhoto);
