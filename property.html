@@ -566,6 +566,60 @@ nav{position:fixed;top:0;left:0;right:0;z-index:999;display:flex;align-items:cen
   background:var(--white);
 }
 
+
+/* LIGHTBOX */
+.lightbox{
+  position:fixed;inset:0;z-index:9999;
+  background:rgba(0,0,0,0.96);
+  display:none;align-items:center;justify-content:center;
+  flex-direction:column;
+}
+.lightbox.open{display:flex;}
+.lightbox-img{
+  max-width:90vw;max-height:82vh;
+  object-fit:contain;
+  user-select:none;
+  transition:opacity 0.2s;
+}
+.lightbox-prev,.lightbox-next{
+  position:absolute;top:50%;transform:translateY(-50%);
+  background:rgba(255,255,255,0.08);
+  border:1px solid rgba(255,255,255,0.15);
+  color:#fff;font-size:2rem;
+  width:52px;height:52px;
+  display:flex;align-items:center;justify-content:center;
+  cursor:pointer;transition:background 0.2s;
+  border-radius:0;
+}
+.lightbox-prev:hover,.lightbox-next:hover{background:rgba(255,255,255,0.18);}
+.lightbox-prev{left:2rem;}
+.lightbox-next{right:2rem;}
+.lightbox-close{
+  position:absolute;top:1.5rem;right:2rem;
+  background:none;border:none;color:rgba(255,255,255,0.6);
+  font-size:2rem;cursor:pointer;line-height:1;
+  transition:color 0.2s;
+}
+.lightbox-close:hover{color:#fff;}
+.lightbox-counter{
+  margin-top:1rem;
+  font-size:0.7rem;font-weight:400;
+  letter-spacing:0.2em;color:rgba(255,255,255,0.4);
+}
+.lightbox-thumbs{
+  display:flex;gap:0.5rem;margin-top:1rem;
+  max-width:90vw;overflow-x:auto;
+  padding-bottom:0.3rem;
+}
+.lightbox-thumb{
+  width:56px;height:38px;object-fit:cover;
+  cursor:pointer;opacity:0.4;
+  border:2px solid transparent;
+  flex-shrink:0;transition:all 0.2s;
+}
+.lightbox-thumb.active{opacity:1;border-color:var(--gold);}
+.gallery-main{cursor:zoom-in;}
+
 /* SAVE BUTTON */
 .save-prop-btn{
   display:inline-flex;align-items:center;gap:0.6rem;
@@ -852,6 +906,10 @@ function renderProperty(l){
         <div class="gallery-counter" id="galleryCounter">1 / ${photos.length}</div>
       `:''}
     `;
+    // Click main image to open lightbox
+    document.getElementById('galleryMain').addEventListener('click', function(){
+      openLightbox(photos, currentPhoto);
+    });
     window.changePhoto = function(dir){
       currentPhoto=(currentPhoto+dir+photos.length)%photos.length;
       window.setPhoto(currentPhoto);
@@ -1365,6 +1423,58 @@ function drawChart(labels, values, basePrice, sym){
 }
 
 
+
+// ── LIGHTBOX ──
+let _lbPhotos = [];
+let _lbIdx = 0;
+
+window.openLightbox = function(photos, startIdx){
+  _lbPhotos = photos;
+  _lbIdx = startIdx || 0;
+  renderLightbox();
+  document.getElementById('lightbox').classList.add('open');
+  document.body.style.overflow = 'hidden';
+  // Keyboard navigation
+  document.addEventListener('keydown', lbKeyHandler);
+};
+
+window.closeLightbox = function(){
+  document.getElementById('lightbox').classList.remove('open');
+  document.body.style.overflow = '';
+  document.removeEventListener('keydown', lbKeyHandler);
+};
+
+function lbKeyHandler(e){
+  if(e.key === 'ArrowLeft') lbNav(-1);
+  if(e.key === 'ArrowRight') lbNav(1);
+  if(e.key === 'Escape') closeLightbox();
+}
+
+window.lbNav = function(dir){
+  _lbIdx = (_lbIdx + dir + _lbPhotos.length) % _lbPhotos.length;
+  renderLightbox();
+};
+
+window.lbGoto = function(idx){
+  _lbIdx = idx;
+  renderLightbox();
+};
+
+function renderLightbox(){
+  const img = document.getElementById('lbImg');
+  img.style.opacity = '0';
+  setTimeout(()=>{ img.src = _lbPhotos[_lbIdx]; img.style.opacity = '1'; }, 100);
+  document.getElementById('lbCounter').textContent = (_lbIdx+1) + ' / ' + _lbPhotos.length;
+  // Thumbnails
+  const thumbs = document.getElementById('lbThumbs');
+  thumbs.innerHTML = _lbPhotos.map((p,i) =>
+    `<img class="lightbox-thumb${i===_lbIdx?' active':''}" src="${p}" onclick="lbGoto(${i})" alt="Photo ${i+1}">`
+  ).join('');
+  // Scroll active thumb into view
+  const active = thumbs.querySelector('.active');
+  if(active) active.scrollIntoView({inline:'center',block:'nearest'});
+}
+
 // ── FLOATING CURRENCY CONVERTER ──
 window._rawPriceUSD = 0;
 
@@ -1459,6 +1569,16 @@ window.saveProperty = async function(listingId){
     <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 8v8M8 12h8"/><path d="M12 2a10 10 0 100 20A10 10 0 0012 2z"/><path d="M8.5 8.5c0-1.93 1.57-3.5 3.5-3.5s3.5 1.57 3.5 3.5c0 3.5-7 3.5-7 7 0 1.93 1.57 3.5 3.5 3.5s3.5-1.57 3.5-3.5"/></svg>
     Convert Currency
   </button>
+</div>
+
+<!-- LIGHTBOX -->
+<div class="lightbox" id="lightbox" onclick="if(event.target===this)closeLightbox()">
+  <button class="lightbox-close" onclick="closeLightbox()">×</button>
+  <button class="lightbox-prev" onclick="lbNav(-1)">‹</button>
+  <img class="lightbox-img" id="lbImg" src="" alt="">
+  <button class="lightbox-next" onclick="lbNav(1)">›</button>
+  <div class="lightbox-counter" id="lbCounter"></div>
+  <div class="lightbox-thumbs" id="lbThumbs"></div>
 </div>
 </body>
 </html>
