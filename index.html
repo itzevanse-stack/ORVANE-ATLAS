@@ -104,6 +104,8 @@ nav.scrolled{padding:1rem 5vw;box-shadow:0 4px 24px rgba(0,0,0,0.3);}
 .stat-n em{font-style:italic;color:var(--gold3);font-size:1.6rem;}
 .stat-l{font-size:0.6rem;font-weight:400;letter-spacing:0.2em;text-transform:uppercase;color:rgba(255,255,255,0.3);margin-top:0.5rem;}
 
+.listing-slide:first-child{margin-left:5vw;}
+.listing-slide:first-child{margin-left:5vw;}
 /* TICKER */
 .ticker{background:var(--black);border-top:1px solid rgba(255,255,255,0.04);padding:1rem 0;overflow:hidden;}
 .ticker-belt{display:flex;gap:5rem;width:max-content;animation:belt 25s linear infinite;}
@@ -184,13 +186,13 @@ nav.scrolled{padding:1rem 5vw;box-shadow:0 4px 24px rgba(0,0,0,0.3);}
 .slider-title em{color:inherit;font-style:normal;font-weight:inherit;}
 .slider-cta-link{font-size:0.65rem;font-weight:500;letter-spacing:0.1em;text-transform:uppercase;color:var(--text2);text-decoration:none;border-bottom:1px solid var(--border);padding-bottom:0.2rem;transition:color 0.2s;white-space:nowrap;flex-shrink:0;}
 .slider-cta-link:hover{color:#E8C97A;border-color:#E8C97A;}
-.slider-track-wrap{position:relative;overflow:hidden;margin:0;}
+.slider-track-wrap{position:relative;overflow:hidden;}
 .slider-track{display:flex;gap:0;transition:transform 0.5s cubic-bezier(0.16,1,0.3,1);will-change:transform;}
-.listing-slide{flex-shrink:0;width:33.333vw;background:#111111;border-right:1px solid rgba(255,255,255,0.06);transition:border-color 0.3s;cursor:pointer;}
+.listing-slide{flex-shrink:0;width:calc(33.333vw - 1.67vw);background:#111111;border-right:1px solid rgba(255,255,255,0.06);transition:border-color 0.3s;cursor:pointer;}
 .listing-slide:hover{border-color:rgba(196,151,58,0.3);}
-.ls-photo{height:220px;overflow:hidden;position:relative;}
-.ls-photo img{width:100%;height:100%;object-fit:cover;filter:brightness(0.85);transition:transform 0.6s ease,filter 0.4s;}
-.listing-slide:hover .ls-photo img{transform:scale(1.04);filter:brightness(1);}
+.ls-photo{height:240px;overflow:hidden;position:relative;background:#000;}
+.ls-photo img{width:100%;height:100%;object-fit:contain;object-position:center;background:#000;display:block;}
+.listing-slide:hover .ls-photo img{width:100%;height:100%;object-fit:contain;object-position:center;background:#000;display:block;}
 .ls-photo-placeholder{width:100%;height:100%;background:rgba(255,255,255,0.03);display:flex;align-items:center;justify-content:center;font-size:0.6rem;color:rgba(255,255,255,0.2);letter-spacing:0.15em;text-transform:uppercase;}
 .ls-status{position:absolute;top:1rem;left:1rem;font-size:0.48rem;font-weight:600;letter-spacing:0.2em;text-transform:uppercase;padding:0.25rem 0.7rem;backdrop-filter:blur(8px);}
 .ls-s-new{color:#fff;background:rgba(0,0,0,0.7);border:1px solid rgba(255,255,255,0.15);}
