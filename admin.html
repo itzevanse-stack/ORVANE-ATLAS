@@ -8,7 +8,7 @@
 <meta name="theme-color" content="#000000">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Orvane Atlas — Admin</title>
-<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300;600&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
 *,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
 :root{
@@ -16,8 +16,8 @@
   --bg:#0A0A0A;--panel:#111;--panel2:#161616;
   --border:#222;--text:#E8E4DF;--text2:#666;--text3:#333;
   --green2:#52B788;--red2:#F87171;
-  --serif:'Plus Jakarta Sans',system-ui,sans-serif;
-  --sans:'Plus Jakarta Sans',system-ui,sans-serif;
+  --serif:'Cormorant Garamond',Georgia,serif;
+  --sans:'Inter',system-ui,sans-serif;
 }
 html,body{height:100%;overflow:hidden;}
 body{background:var(--bg);color:var(--text);font-weight:300;font-size:14px;-webkit-font-smoothing:antialiased;display:flex;flex-direction:column;}
@@ -1200,9 +1200,9 @@ function renderCards(){
         <div class="l-card-price"><em>${l.currency||''}</em> ${l.price||''}</div>
       </div>
       <div class="l-card-footer">
-        <button class="abtn" onclick="editListing('${l.id}')">Edit</button>
-        <button class="abtn" onclick="toggleStatus('${l.id}')">${l.status==='published'?'Unpublish':'Publish'}</button>
-        <button class="abtn red" onclick="deleteListing('${l.id}')">Delete</button>
+        <button class="abtn edit-btn" data-id="${l.id}">Edit</button>
+        <button class="abtn status-btn" data-id="${l.id}">${l.status==='published'?'Unpublish':'Publish'}</button>
+        <button class="abtn red delete-btn" data-id="${l.id}">Delete</button>
       </div>
     </div>
   `).join('');
@@ -1260,6 +1260,18 @@ window.nav = function(btn,view,skipActive){
 };
 
 // ── TOAST ──
+
+// Card button event delegation - fixes edit/delete/status buttons
+document.getElementById('cardsGrid').addEventListener('click', function(e){
+  const btn = e.target.closest('button');
+  if(!btn) return;
+  const id = btn.dataset.id;
+  if(!id) return;
+  if(btn.classList.contains('edit-btn')) window.editListing(id);
+  else if(btn.classList.contains('status-btn')) window.toggleStatus(id);
+  else if(btn.classList.contains('delete-btn')) window.deleteListing(id);
+});
+
 window.toast = function(msg,type){
   const t=document.getElementById('toast');
   t.textContent=msg;
